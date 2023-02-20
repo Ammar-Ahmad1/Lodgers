@@ -96,6 +96,17 @@ export default function Navbar() {
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
 
+              <Link to='/BecomeHost'>
+                <Button
+                disabled={isAuth?true:false}
+                  variant={'outline'}
+                  colorScheme={'teal'}
+                  size={'md'}
+                  mr={4}>
+                  List your property
+                </Button>
+              </Link>
+
               <Link to='/login'>
                 <Button
                 disabled={isAuth?true:false}

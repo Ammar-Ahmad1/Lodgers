@@ -28,8 +28,10 @@ import React from 'react';
 import ImageCarousal from './ImageCarousal';
 import { ImLocation, ImGift} from 'react-icons/im';
 import { HiGift} from 'react-icons/hi';
-import { FaHandHoldingHeart, FaWalking} from 'react-icons/fa';
+import { FaHandHoldingHeart, FaBed,FaWalking} from 'react-icons/fa';
 import { FiArrowUpRight} from 'react-icons/fi';
+
+import RoomCarousal from '../Components/RoomCarousal'
 
 export default function Product({products}){
   let {isAuth, page}=useContext(AuthContext)
@@ -65,7 +67,6 @@ const nearby = ["Margalla Hill view Park", "Shalimar North Housing Society", "Mo
         <ImageCarousal/>
       </Stack>
 
-     
       <Card textAlign='left'>
         <CardHeader>
           <Heading  size='lg'>{products.name}</Heading>
@@ -79,6 +80,7 @@ const nearby = ["Margalla Hill view Park", "Shalimar North Housing Society", "Mo
             </Text>
           </Flex>
         </CardHeader>
+
 
         <CardBody>
           <Stack divider={<StackDivider pt='20px' />} spacing='2'>
@@ -144,6 +146,11 @@ const nearby = ["Margalla Hill view Park", "Shalimar North Housing Society", "Mo
                 ))}
               </Grid>
             </Box>
+
+            <Heading size='md' textTransform='uppercase' mt='20px' opacity='0.8'>
+            <Icon as={FaBed}  mr='7px'/>
+            Available Rooms</Heading>
+            <RoomCarousal />
             <Box>
               <Heading size='xs' textTransform='uppercase'>
                 Analysis

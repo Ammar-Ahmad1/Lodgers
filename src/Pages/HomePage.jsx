@@ -1,5 +1,9 @@
 import React from "react"
 import axios from 'axios'
+import { useContext, useEffect } from "react";
+import { useState } from "react";
+import { SearchContext } from "../Contexts/SearchContextProvider";
+
 import {  
     Button,
     Container,
@@ -13,9 +17,14 @@ import Testimonials from "../Components/Testimonials"
 import SearchPanel from "../Components/SearchPanel"
 import Home from '../Assets/Home.jpg'
 import Discount from '../Assets/discount.jpg'
+
 import MapContainer from "../Components/MapContainer"
+import Carousel from "../Components/Carousel"
+
 
 export default function HomePage() {
+    
+
     const colors = useColorModeValue(
         ['teal.50', 'red.50', 'blue.50'],
         ['teal.900', 'red.900', 'blue.900'],
@@ -29,9 +38,15 @@ export default function HomePage() {
         </Box> 
     </Stack>    
 
+
+
+    <Heading size='lg' mt='50px' marginLeft='270px' fontSize='50px' textAlign='left'  opacity='0.8'>Explore some new hostels !</Heading>
+    <Text mb='20px' fontSize='xl' textAlign='left' marginLeft='270px'>Wanna checout some recent uploads from Lodgers? Here are some of the top picks...... </Text>
+    <Carousel />
+
         <Container maxW="container.lg" mt='50px'>
                 
-            <Heading size='lg' fontSize='50px' textAlign='left'  opacity='0.8'>Top cities to explore...</Heading>
+            <Heading size='lg' fontSize='50px' textAlign='left'  opacity='0.8'>Top cities to explore !</Heading>
             
             <Text mb='20px' fontSize='xl' textAlign='left'>These are some popular destinations that offer a large variety of hostels to match your requirements</Text>
             
