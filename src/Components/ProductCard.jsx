@@ -42,6 +42,7 @@ export default function ProductCard({ product, id }) {
             <Heading size='md'>{product.name}</Heading>
             <Text>⭐⭐⭐⭐</Text>
             <Text py='1' children={<Icon as={ImLocation} />}>{product.city}</Text>
+            
           </CardBody>
           
 
@@ -49,7 +50,7 @@ export default function ProductCard({ product, id }) {
             <Text fontSize='xl'>Price: <b>{product.price}</b>/individual</Text>
             <Link to={`/singleproduct/1`}>
               <Button variant='solid' colorScheme='blue'>
-                Book Now
+                Show Details
               </Button>
             </Link>
           </CardFooter>

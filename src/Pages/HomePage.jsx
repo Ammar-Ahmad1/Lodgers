@@ -13,6 +13,7 @@ import Testimonials from "../Components/Testimonials"
 import SearchPanel from "../Components/SearchPanel"
 import Home from '../Assets/Home.jpg'
 import Discount from '../Assets/discount.jpg'
+import MapContainer from "../Components/MapContainer"
 
 export default function HomePage() {
     const colors = useColorModeValue(
@@ -28,7 +29,6 @@ export default function HomePage() {
         </Box> 
     </Stack>    
 
- 
         <Container maxW="container.lg" mt='50px'>
                 
             <Heading size='lg' fontSize='50px' textAlign='left'  opacity='0.8'>Top cities to explore...</Heading>
@@ -73,7 +73,11 @@ export default function HomePage() {
 
         {/* <Carousel/> */}
         <Image mt='100px' src={Discount} width='100%' height='400px'/>
+
+
+        
         <Testimonials/>
+        
 
         </>
     )

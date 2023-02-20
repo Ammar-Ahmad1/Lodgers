@@ -217,7 +217,7 @@ const nearby = ["Margalla Hill view Park", "Shalimar North Housing Society", "Mo
             if (!isAuth)
             {
               toast(Alert(alertdata));
-              navigate('/login');
+              navigate('/checkout');
          
             }
             else

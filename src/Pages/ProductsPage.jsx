@@ -11,6 +11,7 @@ import { SearchContext } from "../Contexts/SearchContextProvider";
 export default function ProductsPage() {
     const { search } = useContext(SearchContext)
     const [products, setproducts] = useState([])
+    const [hostel, setHostel] = useState([]);
 
     const getHostels = async () => {
         try {
@@ -31,6 +32,7 @@ export default function ProductsPage() {
                 })
                 console.log(res.data.hostels)
                 setproducts(res.data.hostels)
+                
             } catch (error) {
                 console.error(error)
             }
@@ -39,6 +41,11 @@ export default function ProductsPage() {
     }, [search])
 
 
+    // const filterItem = (price) => {
+    //     const updatedItems = products.filter(curElem) => {
+    //         return curElem.price === price;
+    //     });
+    // }
 
     return <Box px={40}>
         
@@ -50,30 +57,51 @@ export default function ProductsPage() {
                     <Container direction='row'><PriceSlider /></Container>
                     <Heading size='md'>Amenities</Heading>
                     <Checkbox size='lg'>
-                        Attached Washroom
-                    </Checkbox>
-                   
-
-                    <Checkbox size='lg'>
-                        Air Conditioned
-                    </Checkbox>
-
-                    <Checkbox size='lg'>
-                        Study Table
-                    </Checkbox>
-                    <Checkbox size='lg'>
                         Wifi
+                    </Checkbox>        
+
+                    <Checkbox size='lg'>
+                        Parking
+                    </Checkbox>
+
+                    <Checkbox size='lg'>
+                        Security
+                    </Checkbox>
+                    <Checkbox size='lg'>
+                        TV
                     </Checkbox>
                     <Checkbox size='lg'>
                         Food and Mess 
                     </Checkbox>
                     <Checkbox size='lg'>
-                        Transport
+                        Laundry
+                    </Checkbox>
+                    <Checkbox size='lg'>
+                        Kitchen
                     </Checkbox>
                     <Divider orientation='horizontal' />
                     <br />
 
-                    
+                    <Heading size='md'>Price</Heading>
+
+                    <Checkbox size='lg' >
+                    5000-6000
+                    </Checkbox>
+                    <Checkbox size='lg'>
+                    6000-7000
+                    </Checkbox>
+                    <Checkbox size='lg'>
+                    7000-8000
+                    </Checkbox>
+                    <Checkbox size='lg'>
+                    8000-9000
+                    </Checkbox>
+                    <Checkbox size='lg'>
+                    9000-10000
+                    </Checkbox>
+
+                    <Divider orientation='horizontal' />
+                    <br />
 
 
                     <Heading size='md'>Rating</Heading>
@@ -96,6 +124,7 @@ export default function ProductsPage() {
                     </Checkbox>
                     <Divider orientation='horizontal' />
                     <br />
+
 
 
                     <Heading size='md'>Room Type</Heading>
@@ -121,7 +150,7 @@ export default function ProductsPage() {
 
 
 {/* Distance */}
-                    <Heading size='md'>Distance</Heading>
+                    {/* <Heading size='md'>Distance</Heading>
                     <Checkbox size='lg'>
                         0-5 km
                     </Checkbox>
@@ -140,7 +169,7 @@ export default function ProductsPage() {
                         0-25 km
                     </Checkbox>
                     <Divider orientation='horizontal' />
-                    <br />
+                    <br /> */}
 
                 </VStack>
                 
@@ -167,6 +196,7 @@ export default function ProductsPage() {
                         {products.map((product) => <ProductCard product={product} key={product.id} id={product.id} />)}
 
                     </VStack>
+                
                 }
         
         </Stack>

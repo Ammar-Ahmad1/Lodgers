@@ -25,7 +25,7 @@ import Alert from '../Components/Alert';
 import EmailContactForm from '../Components/Mail';
 import PinModal from '../Components/PinModal';
 import Product from '../Components/Product';
-import { AuthContext } from '../Contexts/AuthContextProvider';
+import AuthContextProvider, { AuthContext } from '../Contexts/AuthContextProvider';
 import { Link as Linkto} from 'react-router-dom';
 
 
@@ -41,7 +41,7 @@ export default function Login() {
 
  
 
- 
+
 
 //Authenticating the login credentials---------------------  
   const toast = useToast()
@@ -81,6 +81,7 @@ export default function Login() {
                   isClosable: true,
 
                 })
+                // AuthContext.Login()
                 navigate('/')
               }
             })
@@ -114,7 +115,7 @@ export default function Login() {
               <Input type="password" name='password' onChange={(e)=>{setPassword(e.target.value )}} />
             </FormControl>
             <Stack spacing={10}>            
-                <Link textColor={'blue.400'} >Forgot password?</Link>
+                <Linkto  to='/forgetpass' ><Text as='u' color='blue.400'>Forgot password?</Text></Linkto>
               <Button
                 bg={'blue.400'}
                 color={'white'}

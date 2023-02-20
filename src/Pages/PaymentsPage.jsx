@@ -51,37 +51,17 @@ export default function PaymentsPage() {
     }
 
     return <div style={{ 'margin': '5%' }}>
-        <Tabs isFitted variant='solid-rounded' onChange={(index) => setTabIndex(index)} bg={bg} orientation='horizontal' w='80%' margin='auto'>
+        <Tabs isFitted  bg='gray.100' orientation='horizontal' w='80%' margin='auto'>
             <TabList mb='1em' borderBlockEnd='1px' borderBlockEndColor='gray.300'>
-                <Tab>Cash on Delivery</Tab>
-                <Tab>UPI ( GooglePay / PhonePay / BHIM )</Tab>
                 <Tab>Debit/Credit Card</Tab>
             </TabList>
             <TabPanels>
-                <TabPanel>
-                    <Heading size='md'>Pay on delivery (Cash/UPI)</Heading>
-                    <VStack>
-                        <Text>Capcha</Text>
-                        <Text border='1px solid' padding='2%' as='s'>{random}</Text>
-                        <Input placeholder="Enter code shown in above image" w='auto' type='number' onChange={handleChange} />
-                    </VStack>
-                    <VStack>
-                        <Text>You can pay via Cash or UPI enabled app at the time of delivery. Ask your delivery executive for these options.</Text>
-                        <Button bg='red.500' onClick={handleCash}>PLACE ORDER</Button>
-                    </VStack>
-                </TabPanel>
-                <TabPanel marginBottom="180px">
-                    <VStack>
-                        <Heading size='md'>UPI ID</Heading>
-                        <Input placeholder="Enter your UPI ID here" />
-                        <Button bg='red.500' onClick={handlePayment}>PLACE ORDER</Button>
-                    </VStack>
-                </TabPanel>
+
                 <TabPanel>
                     <VStack>
                         <Heading size='md'>CREDIT/DEBIT CARD</Heading>
                         <Text>Please ensure your card can be used for online transactions.</Text>
-                        <VStack w='20em' margin='auto'>
+                        <VStack w='20em'>
                             <Input placeholder="Card Number" type='number' />
                             <Input placeholder="Name on Card" type='text' />
                             <HStack>
@@ -89,7 +69,7 @@ export default function PaymentsPage() {
                                 <Input placeholder="CVV" type='number' />
                             </HStack>
                         </VStack>
-                        <Button bg='red.500' onClick={handlePayment}>PLACE ORDER</Button>
+                        <Button bg='teal.500' onClick={handlePayment}>PLACE ORDER</Button>
                     </VStack>
                 </TabPanel>
             </TabPanels>
