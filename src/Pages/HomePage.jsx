@@ -17,7 +17,10 @@ import Testimonials from "../Components/Testimonials"
 import SearchPanel from "../Components/SearchPanel"
 import Home from '../Assets/Home.jpg'
 import Discount from '../Assets/discount.jpg'
+
+import MapContainer from "../Components/MapContainer"
 import Carousel from "../Components/Carousel"
+
 
 export default function HomePage() {
     
@@ -34,6 +37,8 @@ export default function HomePage() {
             <Box mt='345px'><SearchPanel/></Box>
         </Box> 
     </Stack>    
+
+
 
     <Heading size='lg' mt='50px' marginLeft='270px' fontSize='50px' textAlign='left'  opacity='0.8'>Explore some new hostels !</Heading>
     <Text mb='20px' fontSize='xl' textAlign='left' marginLeft='270px'>Wanna checout some recent uploads from Lodgers? Here are some of the top picks...... </Text>
@@ -83,7 +88,11 @@ export default function HomePage() {
 
         {/* <Carousel/> */}
         <Image mt='100px' src={Discount} width='100%' height='400px'/>
+
+
+        
         <Testimonials/>
+        
 
         </>
     )

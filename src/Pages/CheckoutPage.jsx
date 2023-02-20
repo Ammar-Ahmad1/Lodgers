@@ -32,12 +32,14 @@ export default function CheckoutPage(){
   let bookdata=JSON.parse(localStorage.getItem('booking'))
   let totalprice=bookdata.price*bookdata.travellers;
   let discount=totalprice*(5/100);
-  let couponadd=400;
+  let couponadd=0;
   let payableamount=totalprice-discount-couponadd;
     return<div>
+        
+        <Heading size='lg' mt='50px'>Booking Summary</Heading>
+
         <Stack direction={{base:'column',md:'row'}} w='80%' border='0px solid' margin='auto'marginTop='5%' marginBottom='5%'>
             <VStack border='1px solid grey' w={{base:'100%',md:'60%'}} p={3} spacing={3}>
-                <Text border='0px solid'>Yay! you just saved {discount+couponadd} on this booking!</Text>
                 <Box textAlign='start'>
                     <Heading size='md'>Who's checking in?</Heading>
                     <Text>We will use these details to share your booking information</Text>
@@ -46,14 +48,13 @@ export default function CheckoutPage(){
                         <Input type='email' placeholder="Email" name='email' onChange={handleChange}/>
                     </Stack>
                 </Box>
-                <Button bg='teal.400'onClick={handlebooking}>Complete your booking</Button>
+                <Button bg='teal.400'onClick={handlebooking}>Proceed to Payment</Button>
             </VStack>
     
             <Box border='1px solid grey' w={{base:'100%',md:'40%'}} p={3}>
                <Heading size='md' textAlign='start'>{bookdata.hotel}</Heading>
                <HStack justifyContent='space-between'>
-               <Text>{bookdata.checkin} to {bookdata.checkout}</Text>
-               <Text>{bookdata.rooms} Rooms | {bookdata.travellers} Guests</Text>
+               <Text>{'Double Bed'} Room |  Guests : {'2'}</Text>
                </HStack>
                <Divider />
                <Box>

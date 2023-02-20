@@ -75,7 +75,6 @@ export default function SearchPanel() {
                 size='lg'
                 variant='filled'
                 opacity={'0.6'}
-                
                 />
                 <InputRightElement  
                     />
@@ -83,6 +82,8 @@ export default function SearchPanel() {
                 <Link to='/products'><Button colorScheme='teal' size='lg' onClick={handleSearch}>
                     Search
                 </Button></Link>
+
+                <Link to='/map'>
                 <IconButton
                     variant='outline'
                     colorScheme='whiteAlpha'
@@ -92,9 +93,13 @@ export default function SearchPanel() {
                         marginTop={'8px'}
                         marginRight={'8px'}
                         icon={<ImLocation2 />}
-                        />
 
+
+                />
+                </Link>
         </Stack>
+
+        
 
 
 
