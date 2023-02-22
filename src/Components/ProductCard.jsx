@@ -46,6 +46,7 @@ return (
         </CardBody>
         
 
+
         <CardFooter justifyContent='space-between'>
           <Text fontSize='xl'>Price: <b>{product.price}</b>/individual</Text>
           <Link to={`/singleproduct/1`}>
@@ -55,6 +56,17 @@ return (
           </Link>
         </CardFooter>
       </Stack>
+
+          <CardFooter justifyContent='space-between'>
+            <Text fontSize='xl'>Price: <b>{product.price}</b>/individual</Text>
+            <Link to={`/singleproduct` } state={{hostel: product}}>
+              <Button variant='solid' colorScheme='blue'>
+                Show Details
+              </Button>
+            </Link>
+          </CardFooter>
+        </Stack>
+
 
     </Card>
     <Divider orientation='horizontal' color='grey'/>

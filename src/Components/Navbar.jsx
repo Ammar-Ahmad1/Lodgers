@@ -96,7 +96,7 @@ let user=JSON.parse(localStorage.getItem("user"))
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
 
-              <Link to='/BecomeHost'>
+              <Link to='/owner'>
                 <Button
                 disabled={isAuth?true:false}
                   variant={'outline'}

@@ -11,34 +11,34 @@ import {
   
   const testimonials = [
     {
-      name: 'Brandon P.',
-      role: 'Chief Marketing Officer',
+      name: 'Afra ',
+      role: 'Student',
       content:
-        'It really saves me time and effort. It is exactly what our business has been lacking. BA..e is the most valuable business resource we have EVER purchased. After using BA..e my business skyrocketed!',
+        'Lodgers made booking accomodation to travel so easy, instead of trying to hunt for a place to stay we were easily able to compare prices, reviews, and straightforward to book.',
       avatar:
         'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
     },
     {
-      name: 'Krysta B.',
-      role: 'Entrepreneur',
+      name: 'Saqib',
+      role: 'Student',
       content:
-        "I didn't even need training. We've used BA..e for the last five years. I have gotten at least 50 times the value from BA..e. I made back the purchase price in just 48 hours!",
+        "Lodgers in general is a great website for finding hostels, their new feature for meeting people prior and during the trip with messages is also super. The website is friendly, easy to understand and navigate, and booking is easy. I do recommend using it.",
       avatar:
         'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
     },
     {
-      name: 'Darcy L.',
-      role: 'Movie star',
+      name: 'Taimoor Khan',
+      role: 'Job Professional',
       content:
-        "Thank you for making it painless, pleasant and most of all, hassle free! I'm good to go. No matter where you go, BA..e is the coolest, most happening thing around! I love BA..e!",
+        "Booking reservations went well. I called 2 hostels for information and each person I talked to was pleasant and helpful. I'm staying at 3 different hostels during my planned trip. I'll review again after my stays.",
       avatar:
         'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=334&q=80',
     },
     {
-      name: 'Daniel T.',
-      role: 'Musician',
+      name: 'Muneeb Shafiq',
+      role: 'Job Professional',
       content:
-        'I am so pleased with this product. BA..e is both attractive and highly adaptable. Without BA..e, we would have gone bankrupt by now. Thank you for creating this product!',
+        'So easy! We found lots of property choices and located a hostel right in the area we want to visit! We can’t wait to see it for ourselves! Booking was very easy and terrific price!',
       avatar:
         'https://images.unsplash.com/photo-1606513542745-97629752a13b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
     },

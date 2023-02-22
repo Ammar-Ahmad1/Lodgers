@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { SearchContext } from "../Contexts/SearchContextProvider";
@@ -12,18 +13,21 @@ import {
     Box,
     Text,
     Badge,
-    Button} from "@chakra-ui/react"
+    Button,
+    Stack,
+    CardBody} from "@chakra-ui/react"
 
-import { Link } from "react-router-dom";
+import { StarIcon, } from "@chakra-ui/icons";
+import { MdAddCircleOutline } from "react-icons/md";
 
-function Carousel({id}){
+function Carousel({product,id}){
 
     const { search } = useContext(SearchContext)
     const [products, setproducts] = useState([])
 
-    const getRooms = async () => {
+    const getHostels = async () => {
         try {
-            let res = await axios.get(`http://localhost:5000/get-rooms/${id}`)
+            let res = await axios.get("http://localhost:5000/get-hostels")
             console.log(res)
             setproducts(res.data)
         } catch (error) {
@@ -36,10 +40,10 @@ function Carousel({id}){
             try {
                 let res = await axios({
                     method: 'get',
-                    url: `http://localhost:5000/get-rooms/${id}`,
+                    url: `http://localhost:5000/get-hostels`,
                 })
-                console.log(res.data.room)
-                setproducts(res.data.room)
+                console.log(res.data.hostels)
+                setproducts(res.data.hostels)
             } catch (error) {
                 console.error(error)
             }
@@ -92,16 +96,41 @@ function Carousel({id}){
           }
         ]
       };
-    return <Box width='100%' height='500px' bgColor='gray.100'><div className='Carousel'>
+    return <Box width='100%' height='500px' bgColor='teal.100' mb='100px'><div className='Carousel'>
+
+
+        <Heading 
+            fontWeight={600}
+            fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
+            lineHeight={'200%'}>
+            <Text as={'span'} color={'black'} fontWeight='bold' opacity='0.7'>
+              YOUR HOSTELS
+            </Text>
+            <Stack alignItems='center'>
+              <Button
+                leftIcon={<MdAddCircleOutline/>}
+                loadingText="Submitting"
+                size="lg"
+                width='250px'
+                bg={'blue.400'}
+                color={'white'}
+                _hover={{
+                  bg: 'blue.500',
+                }}>
+                <Link to={'/addhostel'}> Add New Hostel</Link>
+              </Button>
+            </Stack>
+        </Heading>
+
         <Slider {...settings}> 
             {products.map((product) => (   
                 <div className='card'>
-                    <div className='card-top'><img src={product.roomImage} alt={product.roomType}/></div>
+                    <div className='card-top'><img src={product.image} alt={product.name}/></div>
                         
                     <Box p="6">
           <Box display="flex" alignItems="baseline" >
             <Badge rounded="full" px="2" colorScheme="teal">
-            {product.roomStatus}
+              New
             </Badge>
             <Box
               color="gray.500"
@@ -122,22 +151,29 @@ function Carousel({id}){
             lineHeight="tight"
             noOfLines={1}
           >
-            {product.roomType}
+            {product.name}
           </Text>
 
           <Box>
-            {product.roomPrice}
+            {product.price}
             <Box as="span" color="gray.600" fontSize="sm">
               / month
             </Box>
           </Box>
 
-
-          <Link to={`/checkout` }>
-              <Button variant='solid' colorScheme='blue'>
-                Book Room
-              </Button>
-          </Link>
+          <Box display="flex" mt="2" alignItems="center">
+            {Array(5)
+              .fill("")
+              .map((_, i) => (
+                <StarIcon
+                  key={i}
+                  color={i < property.rating ? "teal.500" : "gray.300"}
+                />
+              ))}
+            <Box as="span" ml="2" color="gray.600" fontSize="sm">
+              {property.reviewCount} reviews
+            </Box>
+          </Box>
         </Box>
                 </div>
                 ))}
