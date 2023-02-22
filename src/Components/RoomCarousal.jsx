@@ -12,18 +12,18 @@ import {
     Box,
     Text,
     Badge,
-    CardBody} from "@chakra-ui/react"
+    Button} from "@chakra-ui/react"
 
-import { StarIcon } from "@chakra-ui/icons";
+import { Link } from "react-router-dom";
 
-function Carousel({product,id}){
+function Carousel({id}){
 
     const { search } = useContext(SearchContext)
     const [products, setproducts] = useState([])
 
-    const getHostels = async () => {
+    const getRooms = async () => {
         try {
-            let res = await axios.get("http://localhost:5000/get-hostels")
+            let res = await axios.get(`http://localhost:5000/get-rooms/${id}`)
             console.log(res)
             setproducts(res.data)
         } catch (error) {
@@ -36,10 +36,10 @@ function Carousel({product,id}){
             try {
                 let res = await axios({
                     method: 'get',
-                    url: `http://localhost:5000/get-hostels`,
+                    url: `http://localhost:5000/get-rooms/${id}`,
                 })
-                console.log(res.data.hostels)
-                setproducts(res.data.hostels)
+                console.log(res.data.room)
+                setproducts(res.data.room)
             } catch (error) {
                 console.error(error)
             }
@@ -92,16 +92,16 @@ function Carousel({product,id}){
           }
         ]
       };
-    return <Box width='100%' height='500px' bgColor='#d3d8e0'><div className='Carousel'>
+    return <Box width='100%' height='500px' bgColor='gray.100'><div className='Carousel'>
         <Slider {...settings}> 
             {products.map((product) => (   
                 <div className='card'>
-                    <div className='card-top'><img src={product.image} alt={product.name}/></div>
+                    <div className='card-top'><img src={product.roomImage} alt={product.roomType}/></div>
                         
                     <Box p="6">
           <Box display="flex" alignItems="baseline" >
             <Badge rounded="full" px="2" colorScheme="teal">
-              New
+            {product.roomStatus}
             </Badge>
             <Box
               color="gray.500"
@@ -111,7 +111,7 @@ function Carousel({product,id}){
               textTransform="uppercase"
               ml="2"
             >
-              {property.beds} beds &bull; {property.baths} baths
+              {/* {property.beds} beds &bull; {property.baths} baths */}
             </Box>
           </Box>
 
@@ -122,29 +122,22 @@ function Carousel({product,id}){
             lineHeight="tight"
             noOfLines={1}
           >
-            {property.title}
+            {product.roomType}
           </Text>
 
           <Box>
-            {property.formattedPrice}
+            {product.roomPrice}
             <Box as="span" color="gray.600" fontSize="sm">
-              / wk
+              / month
             </Box>
           </Box>
 
-          <Box display="flex" mt="2" alignItems="center">
-            {Array(5)
-              .fill("")
-              .map((_, i) => (
-                <StarIcon
-                  key={i}
-                  color={i < property.rating ? "teal.500" : "gray.300"}
-                />
-              ))}
-            <Box as="span" ml="2" color="gray.600" fontSize="sm">
-              {property.reviewCount} reviews
-            </Box>
-          </Box>
+
+          <Link to={`/checkout` }>
+              <Button variant='solid' colorScheme='blue'>
+                Book Room
+              </Button>
+          </Link>
         </Box>
                 </div>
                 ))}

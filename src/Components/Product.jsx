@@ -30,12 +30,15 @@ import { ImLocation, ImGift} from 'react-icons/im';
 import { HiGift} from 'react-icons/hi';
 import { FaHandHoldingHeart, FaBed,FaWalking} from 'react-icons/fa';
 import { FiArrowUpRight} from 'react-icons/fi';
+import { AiFillCloseCircle} from 'react-icons/ai';
+
 
 import RoomCarousal from '../Components/RoomCarousal'
 
 export default function Product({products}){
   let {isAuth, page}=useContext(AuthContext)
 const navigate = useNavigate();
+
 //let isAuth = true;
 
 let alertdata={};  
@@ -52,7 +55,7 @@ const { id } = useParams()
 const toast = useToast()
 let bookingdata=JSON.parse(localStorage.getItem('booking'))
 
-const free_amenities = ["Wifi", "Power Backup", "Breakast", "Cupboard", "Fans", "Windows", "Dinner", "Parking"];
+const free_amenities = ["Wifi", "Parking", "Food", "TV", "Kitchen", "Laundry"];
 const extra_amenities = ["Laundary", "Lunch", "Air-Conditioning", "Cupboard", "Tv", "Geyser", "Attach Bath", "Room Service", "Transport", "Study Table", "Sports Room"];
 const nearby = ["Margalla Hill view Park", "Shalimar North Housing Society", "Mohtarma Fatima Jinnah Park", "PIMS General Hospital", "Shah Faisal Grand Mosque","G11/3 Markaz Sports Complex"];
 
@@ -64,19 +67,19 @@ const nearby = ["Margalla Hill view Park", "Shalimar North Housing Society", "Mo
       py={{ base: 18, md: 10 }}>
    
       <Stack>
-        <ImageCarousal/>
+        <ImageCarousal image={products.image}/>
       </Stack>
 
       <Card textAlign='left'>
         <CardHeader>
-          <Heading  size='lg'>{products.name}</Heading>
+          <Heading  size='lg'>{products.name}</Heading> 
           <Flex  mt='10px'>
             <Icon fontSize={'xl'} size='md' as ={ImLocation}></Icon>
             <Text
               color={useColorModeValue('gray.900', 'gray.400')}
               fontWeight={300}
               fontSize={'md'}>
-              {products.place}
+              {products.city}
             </Text>
           </Flex>
         </CardHeader>
@@ -111,12 +114,14 @@ const nearby = ["Margalla Hill view Park", "Shalimar North Housing Society", "Mo
               </Text>
               <Divider />
               <Grid templateColumns="repeat(4, 1fr)" spacing={10} src='https://www.google.com/maps'>
-                {free_amenities.map((amenity) => (
+
+                 {free_amenities.map((amenity) => (
                   <Text variant='outline' mt='20px'>
                     <Icon as={CheckCircleIcon} color='green.500' mr='7px' />
                     {amenity}
                   </Text>
-                ))}
+                ))} 
+              
               </Grid>
               <Text  fontSize='lg' textTransform='uppercase' color='blue'  mt='40px'>
                 <Icon as={FaHandHoldingHeart} color='blue' mr='7px' />
@@ -140,7 +145,7 @@ const nearby = ["Margalla Hill view Park", "Shalimar North Housing Society", "Mo
               <Grid templateColumns="repeat(2, 1fr)" spacing={10} src='https://www.google.com/maps'>
                 {nearby.map((amenity) => (
                   <Text variant='outline' mt='30px'>
-                    <Icon as={FiArrowUpRight} color='black.500' mr='7px' />
+                    <Icon as={AiFillCloseCircle} color='black.500' mr='7px' />
                     {amenity}
                   </Text>
                 ))}
@@ -150,7 +155,7 @@ const nearby = ["Margalla Hill view Park", "Shalimar North Housing Society", "Mo
             <Heading size='md' textTransform='uppercase' mt='20px' opacity='0.8'>
             <Icon as={FaBed}  mr='7px'/>
             Available Rooms</Heading>
-            <RoomCarousal />
+            <RoomCarousal id={products._id} />
             <Box>
               <Heading size='xs' textTransform='uppercase'>
                 Analysis
