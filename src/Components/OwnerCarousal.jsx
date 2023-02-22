@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 import { useContext, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import { SearchContext } from "../Contexts/SearchContextProvider";
 import './Style.css'
@@ -24,10 +25,10 @@ function Carousel({product,id}){
 
     const { search } = useContext(SearchContext)
     const [products, setproducts] = useState([])
-
+    let navigate=useNavigate();
     const getHostels = async () => {
         try {
-            let res = await axios.get("http://localhost:5000/get-hostels")
+            let res = await axios.get(`http://localhost:5000/get-hostels    `)
             console.log(res)
             setproducts(res.data)
         } catch (error) {
@@ -37,16 +38,22 @@ function Carousel({product,id}){
     
     useEffect(() => {
         const FtchData = async () => {
+            let user=JSON.parse(localStorage.getItem("user"))
+            if(user.role==="owner"){
             try {
                 let res = await axios({
                     method: 'get',
-                    url: `http://localhost:5000/get-hostels`,
+                    url: `http://localhost:5000/get-hostels/${user._id}`,
                 })
                 console.log(res.data.hostels)
                 setproducts(res.data.hostels)
             } catch (error) {
                 console.error(error)
             }
+        }
+        else{
+            navigate('/Login')
+        }
         }
         FtchData()
     }, [search])

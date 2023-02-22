@@ -21,14 +21,26 @@ import {
 
   import { MdLocationPin } from "react-icons/md";
 
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
+  };
+
+  
+  function errors(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+  
+
   
   export default function OwnerPortal() {
 
     const [name, setName] = useState({ value: '', error: '' })
     const [description, setDescription] = useState({ value: '', error: '' })
     const [location, setLocation] = useState({ value: '', error: '' })
-    const [longitude, setLongitude] = useState({ value: '', error: '' })
-    const [latitude, setLatitude] = useState({ value: '', error: '' })
+    const [longitude, setLongitude] = useState(null)
+    const [latitude, setLatitude] = useState(null)
 
     const [image, setImage] = useState(null);  
     //hostel features modal
@@ -45,29 +57,80 @@ import {
     const [ac, setAc] = useState(false);
     const [heater, setHeater] = useState(false);
     const [gym, setGym] = useState(false);
+    function success(pos) {
 
+        var crd = pos.coords;
+        console.log("Your current position is:");
+        console.log(`Latitude : ${crd.latitude}`);
+        console.log(`Longitude: ${crd.longitude}`);
+        setLatitude(crd.latitude)
+        setLongitude(crd.longitude)
+        
+      }
+    const handleMaps=()=>{
+        console.log("Ahmad")
+            if (navigator.geolocation) {
+              navigator.permissions
+                .query({ name: "geolocation" })
+                .then(function (result) {
+                  if (result.state === "granted") {
+                    console.log(result.state);
+                    //If granted then you can directly call your function here
+                    navigator.geolocation.getCurrentPosition(success);
+                  } else if (result.state === "prompt") {
+                    navigator.geolocation.getCurrentPosition(success, errors, options);
+                  } else if (result.state === "denied") {
+                    //If denied then you have to show instructions to enable location
+                  }
+                  
+                    
+                    console.log(longitude,latitude)
+                
+                });
+            } else {
+              alert("Sorry Not available!");
+            }
+
+    }
 
     const handleAdd=()=>{
+        let user=JSON.parse(localStorage.getItem("user"))
         const formData = new FormData();
         //    console.log(featuress.wifi)
             formData.append('name', name.value);
             formData.append('description', description.value);
             formData.append('longitude', longitude);
             formData.append('latitude', latitude);
-            // formData.append('owner', owner);
+            formData.append('owner', user._id);
             formData.append('tv', tv);
             formData.append('wifi', wifi);
             formData.append('parking', parking);
             formData.append('security', security);
             formData.append('laundry', laundry);
             formData.append('kitchen', kitchen);
-            // formData.append('city', city);
+            formData.append('city', "islamabad");
         
-            formData.append('image', {
-              uri: image,
-              type: 'image/jpeg',
-              name: 'image.jpg',
-            });
+            formData.append('image', file);
+
+            fetch("http://localhost:5000/add-hostel", {
+        body: formData,
+        method: "post",
+        headers: {
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.errors) {
+            console.log(result.errors)
+          } else {
+            // navigation.navigate('OwnerHome')
+            console.log(result)
+        }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
 
     };
 
@@ -75,6 +138,7 @@ import {
     function handleChange(e) {
         console.log(e.target.files);
         setFile(URL.createObjectURL(e.target.files[0]));
+        setFile(e.target.files[0])
     }
   
 
@@ -97,18 +161,22 @@ return (<>
             </FormControl>         
             <FormControl id="hostel-name">
                 <FormLabel>Hostel Name</FormLabel>
-                <Input type="text" name='name'/>
+                <Input type="text" name='name'
+                onChangeText={(text) => setName({ value: text, error: '' })}
+                />
             </FormControl>
 
             <FormControl id="description">
                 <FormLabel> Short Description</FormLabel>
-                <Input type="text" height='100px' name='description'/>
+                <Input type="text" height='100px' name='description'
+                        onChangeText={(text) => setDescription({ value: text, error: '' })}
+                />
             </FormControl>
 
             <FormControl id="location">
                 <FormLabel>Get Current Location</FormLabel>
                 <Text>
-                    <Button leftIcon={<MdLocationPin/>} color='teal.500' href='#'>
+                    <Button onClick={handleMaps} leftIcon={<MdLocationPin/>} color='teal.500' href='#'>
                         Maps
                     </Button>
                 </Text>
@@ -118,25 +186,36 @@ return (<>
                 <FormLabel> Select Features</FormLabel>
 
                 <Stack ml='20px' spacing={[20]} direction={['column', 'row']}>
-                    <Checkbox size='md' colorScheme='green' defaultChecked>
+                    <Checkbox size='md' colorScheme='green' 
+                    onChange={()=>{setWifi(true)}}
+                    >
                     Wifi
                     </Checkbox>
-                    <Checkbox size='md' colorScheme='green' defaultChecked>
+                    <Checkbox size='md' colorScheme='green' 
+                    onChange={()=>{setParking(true)}}
+                    >
                     Parking
                     </Checkbox>
-                    <Checkbox size='md' colorScheme='green' defaultChecked>
+                    <Checkbox size='md' colorScheme='green' 
+                     onChange={()=>{setSecurity(true)}}
+                    >
                     Security
                     </Checkbox>
                 </Stack>
 
                 <Stack ml='20px' mt='20px' spacing={[14]} direction={['column', 'row']}>
-                    <Checkbox size='md' colorScheme='green' defaultChecked>
+                    <Checkbox size='md' colorScheme='green'
+                     onChange={()=>{setLaundry(true)}} >
                     Laundry
                     </Checkbox>
-                    <Checkbox size='md' colorScheme='green' defaultChecked>
+                    <Checkbox size='md' colorScheme='green'
+                     onChange={()=>{setKitchen(true)}}
+                    >
                     Kicthen
                     </Checkbox>
-                    <Checkbox size='md' colorScheme='green' defaultChecked>
+                    <Checkbox size='md' colorScheme='green'
+                     onChange={()=>{setTv(true)}}
+                    >
                     Tv
                     </Checkbox>
                 </Stack>
