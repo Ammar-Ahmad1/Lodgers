@@ -13,6 +13,7 @@ import {
   Text,
   useColorModeValue,
   Avatar,
+  Image
 } from '@chakra-ui/react';
 
 import { useEffect, useState } from 'react';
@@ -123,7 +124,8 @@ export default function Signup() {
           <Stack spacing={4}>
          
             <FormControl id="image" isRequired>
-              <Avatar
+              {/* <Avatar
+
               borderColor="black"
               borderWidth="2px"
               whileHover="hover"          
@@ -132,7 +134,8 @@ export default function Signup() {
                 shadow: "xl"
               }}
 
-              position="relative" height="100px" width="100px">
+              position="relative" height="100px" width="100px"
+              >
                 <Input
                   type="file"
                   height="100%"
@@ -144,9 +147,25 @@ export default function Signup() {
                   aria-hidden="true"
                   accept="image/*"
                   onChange={(e)=>{setFile(e.target.files[0])}}
+                 />
+             
+              </Avatar> */}
+    {/* <Avatar size='xl' src={file&&file} > */}
+    
+    <Input
+                  type="file"
+                  height="100%"
+                  width="100%"
+                  position="absolute"
+                  top="0"
+                  left="0"
+                  opacity="0"
+                  aria-hidden="true"
+                  accept="image/*"
+                  onChange={(e)=>{setFile(e.target.files[0])}}
+                 />
+             {/* {file?  <Image source={file} />:null} */}
 
-                />
-              </Avatar>
               <Text fontSize="xs" fontWeight="light" color="gray.700">click to upload</Text>
             </FormControl>
             <FormControl id="name" isRequired>

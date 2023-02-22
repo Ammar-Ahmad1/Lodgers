@@ -111,7 +111,7 @@ function Carousel({product,id}){
               textTransform="uppercase"
               ml="2"
             >
-              {property.beds} beds &bull; {property.baths} baths
+              {/* {property.beds} beds &bull; {property.baths} baths */}
             </Box>
           </Box>
 
@@ -122,13 +122,13 @@ function Carousel({product,id}){
             lineHeight="tight"
             noOfLines={1}
           >
-            {property.title}
+            {product.name}
           </Text>
 
           <Box>
-            {property.formattedPrice}
+            {product.price}
             <Box as="span" color="gray.600" fontSize="sm">
-              / wk
+              / month
             </Box>
           </Box>
 

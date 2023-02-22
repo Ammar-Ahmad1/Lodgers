@@ -51,7 +51,7 @@ export default function Navbar() {
  // const { isOpen, onOpen, onClose } = useDisclosure();
  const {isAuth,Logout}=useContext(AuthContext)
  let userdata=JSON.parse(localStorage.getItem('booking'))
-
+let user=JSON.parse(localStorage.getItem("user"))
  const handleLogout=()=>{
   Logout();
   localStorage.clear()
@@ -106,7 +106,7 @@ export default function Navbar() {
                   List your property
                 </Button>
               </Link>
-
+{!user?
               <Link to='/login'>
                 <Button
                 disabled={isAuth?true:false}
@@ -116,8 +116,10 @@ export default function Navbar() {
                   mr={4}>
                   Login
                 </Button>
-              </Link>
 
+              </Link>
+              :null}
+              {!user?
               <Link to='/signup'>
                 <Button
                 disabled={isAuth?true:false}
@@ -128,7 +130,7 @@ export default function Navbar() {
                   Signup
                 </Button>
               </Link>
-
+:null}
               <Menu>
                 <MenuButton
                   as={Button}

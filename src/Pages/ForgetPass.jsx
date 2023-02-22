@@ -49,9 +49,6 @@ import {
           console.log("error")
           return
         }
-  
-
-  
 
   
   
@@ -103,7 +100,7 @@ import {
                     bg: 'blue.500',
                   }}
                   onClick={handleSignup}>
-                  Send OTP
+                  <Link to='/updatepass'>Send OTP</Link>
                 </Button>
               </Stack>
 
