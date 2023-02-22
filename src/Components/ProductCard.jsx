@@ -47,7 +47,7 @@ return (
         
 
 
-        <CardFooter justifyContent='space-between'>
+        {/* <CardFooter justifyContent='space-between'>
           <Text fontSize='xl'>Price: <b>{product.price}</b>/individual</Text>
           <Link to={`/singleproduct/1`}>
             <Button variant='solid' colorScheme='blue'>
@@ -55,7 +55,7 @@ return (
             </Button>
           </Link>
         </CardFooter>
-      </Stack>
+      </Stack> */}
 
           <CardFooter justifyContent='space-between'>
             <Text fontSize='xl'>Price: <b>{product.price}</b>/individual</Text>

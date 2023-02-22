@@ -15,9 +15,6 @@ import SuccessPayment from "../Pages/SuccessPayment"
 import MapContainer from "../Components/MapContainer"
 import Updatepassword from "../Pages/Updatepassword"
 import OwnerPortal from "../Pages/OwnerPortal"
-
-
-import MapContainer from "../Components/MapContainer"
 import AddHostel from "../Components/AddHostel"
 
 export default function Allroutes(){

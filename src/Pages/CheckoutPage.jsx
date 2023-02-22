@@ -30,7 +30,7 @@ export default function CheckoutPage(){
     }
 
   let bookdata=JSON.parse(localStorage.getItem('booking'))
-  let totalprice=bookdata.price*bookdata.travellers;
+  let totalprice=100;
   let discount=totalprice*(5/100);
   let couponadd=0;
   let payableamount=totalprice-discount-couponadd;
@@ -52,7 +52,7 @@ export default function CheckoutPage(){
             </VStack>
     
             <Box border='1px solid grey' w={{base:'100%',md:'40%'}} p={3}>
-               <Heading size='md' textAlign='start'>{bookdata.hotel}</Heading>
+               {/* <Heading size='md' textAlign='start'>{bookdata.hotel}</Heading> */}
                <HStack justifyContent='space-between'>
                <Text>{'Double Bed'} Room |  Guests : {'2'}</Text>
                </HStack>
