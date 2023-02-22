@@ -1,27 +1,52 @@
-import React, { Component } from 'react';
-import { Map, GoogleApiWrapper } from 'google-maps-react';
-import { Box,} from "@chakra-ui/react";
+import React, { Component } from "react";
 
-class MapContainer extends Component {
+var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0,
+};
+function success(pos) {
+  var crd = pos.coords;
+
+  console.log("Your current position is:");
+  console.log(`Latitude : ${crd.latitude}`);
+  console.log(`Longitude: ${crd.longitude}`);
+  console.log(`More or less ${crd.accuracy} meters.`);
+}
+
+function errors(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+export default class GeoLocation extends Component {
+  componentDidMount() {
+    if (navigator.geolocation) {
+      navigator.permissions
+        .query({ name: "geolocation" })
+        .then(function (result) {
+          if (result.state === "granted") {
+            console.log(result.state);
+            //If granted then you can directly call your function here
+            navigator.geolocation.getCurrentPosition(success);
+          } else if (result.state === "prompt") {
+            navigator.geolocation.getCurrentPosition(success, errors, options);
+          } else if (result.state === "denied") {
+            //If denied then you have to show instructions to enable location
+          }
+          result.onchange = function () {
+            console.log(result.state);
+          };
+        });
+    } else {
+      alert("Sorry Not available!");
+    }
+  }
+
   render() {
-    const mapStyles = {
-      width: '100%',
-      height: '100%'
-    };
-
     return (
-
-      <Map
-        google={this.props.google}
-        zoom={14}
-        style={mapStyles}
-        initialCenter={{ lat: 37.7749, lng: -122.4194 }}
-      />
+      <div>
+        <h2>GeoLocation</h2>
+      </div>
     );
   }
 }
-
-export default GoogleApiWrapper({
-  apiKey: 'AIzaSyAP39AcaE7yb2YE5vZQ-40TQyfSVGDvwCM'
-})(MapContainer);
-

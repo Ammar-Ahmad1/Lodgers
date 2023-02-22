@@ -12,13 +12,16 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../Contexts/AuthContextProvider';
 import Product from '../Components/Product'
+import { useLocation } from 'react-router-dom'
 
 
 export default function SingleProduct() {
   let {isAuth, setpage}=useContext(AuthContext)
   const navigate = useNavigate();
   //let isAuth = true;
-
+  const location= useLocation();
+  const {hostel}= location.state
+  console.log(hostel)
 let alertdata={};  
 if(!isAuth){
   alertdata={
@@ -53,7 +56,7 @@ if(!isAuth){
   let bookingdata=JSON.parse(localStorage.getItem('booking'))
   console.log(bookingdata)
 
-  return(<Product products={products}/>)
+  return(<Product products={hostel}/>)
 
   //return (
     // <Container maxW={'7xl'} border='0px solid'>

@@ -48,7 +48,7 @@ export default function ProductCard({ product, id }) {
 
           <CardFooter justifyContent='space-between'>
             <Text fontSize='xl'>Price: <b>{product.price}</b>/individual</Text>
-            <Link to={`/singleproduct/1`}>
+            <Link to={`/singleproduct` } state={{hostel: product}}>
               <Button variant='solid' colorScheme='blue'>
                 Show Details
               </Button>

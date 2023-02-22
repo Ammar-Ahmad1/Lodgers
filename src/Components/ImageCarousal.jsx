@@ -23,7 +23,7 @@ import {
 
 
 
-  export default function ImageCarousal() {
+  export default function ImageCarousal({image}) {
     const arrowStyles = {
       cursor: "pointer",
       pos: "absolute",
@@ -44,7 +44,7 @@ import {
     };
     const slides = [
       {
-        img: "https://q-xx.bstatic.com/xdata/images/hotel/840x460/198458065.jpg?k=7acd0d6474f43c70f1158b94d08a3d99b3eb7d8a03f65efd4c0280fa44954701&o=",
+        img: image,
       },
       {
         img: "https://stonehill-website.s3.amazonaws.com/files/pages/classic-xsml-boland-hall-3-3.jpg",

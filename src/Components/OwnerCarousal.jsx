@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { SearchContext } from "../Contexts/SearchContextProvider";
@@ -12,9 +13,12 @@ import {
     Box,
     Text,
     Badge,
+    Button,
+    Stack,
     CardBody} from "@chakra-ui/react"
 
-import { StarIcon } from "@chakra-ui/icons";
+import { StarIcon, } from "@chakra-ui/icons";
+import { MdAddCircleOutline } from "react-icons/md";
 
 function Carousel({product,id}){
 
@@ -92,7 +96,32 @@ function Carousel({product,id}){
           }
         ]
       };
-    return <Box width='100%' height='500px' bgColor='#d3d8e0'><div className='Carousel'>
+    return <Box width='100%' height='500px' bgColor='teal.100' mb='100px'><div className='Carousel'>
+
+
+        <Heading 
+            fontWeight={600}
+            fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
+            lineHeight={'200%'}>
+            <Text as={'span'} color={'black'} fontWeight='bold' opacity='0.7'>
+              YOUR HOSTELS
+            </Text>
+            <Stack alignItems='center'>
+              <Button
+                leftIcon={<MdAddCircleOutline/>}
+                loadingText="Submitting"
+                size="lg"
+                width='250px'
+                bg={'blue.400'}
+                color={'white'}
+                _hover={{
+                  bg: 'blue.500',
+                }}>
+                <Link to={'/addhostel'}> Add New Hostel</Link>
+              </Button>
+            </Stack>
+        </Heading>
+
         <Slider {...settings}> 
             {products.map((product) => (   
                 <div className='card'>
@@ -111,7 +140,7 @@ function Carousel({product,id}){
               textTransform="uppercase"
               ml="2"
             >
-              {property.beds} beds &bull; {property.baths} baths
+              {/* {property.beds} beds &bull; {property.baths} baths */}
             </Box>
           </Box>
 
@@ -126,9 +155,9 @@ function Carousel({product,id}){
           </Text>
 
           <Box>
-            {property.formattedPrice}
+            {product.price}
             <Box as="span" color="gray.600" fontSize="sm">
-              / wk
+              / month
             </Box>
           </Box>
 
