@@ -12,7 +12,10 @@ import AdminPage from "../Pages/AdminPage"
 import PropertyListing from "../Pages/PropertyListing"
 import LoaderPage from "../Pages/LoaderPage"
 import SuccessPayment from "../Pages/SuccessPayment"
+import MapContainer from "../Components/MapContainer"
+import Updatepassword from "../Pages/Updatepassword"
 import OwnerPortal from "../Pages/OwnerPortal"
+
 
 import MapContainer from "../Components/MapContainer"
 import AddHostel from "../Components/AddHostel"
@@ -24,6 +27,7 @@ export default function Allroutes(){
             <Route path="/signup" element={<Signup/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/forgetpass" element={<ForgetPass/>}/>
+            <Route path="/updatepass" element={<Updatepassword/>}/>
             <Route path='/products' element={<ProductsPage/>}/>
             <Route path='/singleproduct' element={<SingleProduct/>}/>
             <Route path='/checkout' element={<CheckoutPage/>}/>
