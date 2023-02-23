@@ -26,6 +26,17 @@
     cursor: pointer;
   }
   
+  .room-card {
+    margin-top: 55px;
+    border: 1px solid black;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: start;
+    height: 430px;
+    color: black;
+    cursor: pointer;
+  }
   
 
   
