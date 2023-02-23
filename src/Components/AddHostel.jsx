@@ -1,6 +1,7 @@
 
 
-  import OwnerCarousel from '../Components/OwnerCarousal';
+
+import OwnerCarousel from '../Components/OwnerCarousal';
 import React, { useState } from "react";
 import {
     Flex,
@@ -36,8 +37,8 @@ import {
   
   export default function OwnerPortal() {
 
-    const [name, setName] = useState({ value: '', error: '' })
-    const [description, setDescription] = useState({ value: '', error: '' })
+    const [name, setName] = useState('')
+    const [description, setDescription] = useState('')
     const [location, setLocation] = useState({ value: '', error: '' })
     const [longitude, setLongitude] = useState(null)
     const [latitude, setLatitude] = useState(null)
@@ -97,8 +98,8 @@ import {
         let user=JSON.parse(localStorage.getItem("user"))
         const formData = new FormData();
         //    console.log(featuress.wifi)
-            formData.append('name', name.value);
-            formData.append('description', description.value);
+            formData.append('name', name);
+            formData.append('description', description);
             formData.append('longitude', longitude);
             formData.append('latitude', latitude);
             formData.append('owner', user._id);
@@ -162,14 +163,17 @@ return (<>
             <FormControl id="hostel-name">
                 <FormLabel>Hostel Name</FormLabel>
                 <Input type="text" name='name'
-                onChangeText={(text) => setName({ value: text, error: '' })}
+                // onChangeText={(text) => setName({ value: text, error: '' })}
+                onChange={(e)=>{setName(e.target.value)}}
                 />
             </FormControl>
 
             <FormControl id="description">
                 <FormLabel> Short Description</FormLabel>
                 <Input type="text" height='100px' name='description'
-                        onChangeText={(text) => setDescription({ value: text, error: '' })}
+                        // onChangeText={(text) => setDescription({ value: text, error: '' })}
+                        onChange={(e)=>{setDescription(e.target.value)}}
+
                 />
             </FormControl>
 

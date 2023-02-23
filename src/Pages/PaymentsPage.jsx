@@ -4,10 +4,14 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate,Link } from "react-router-dom";
 import Alert from "../Components/Alert";
+import StripeCheckout from "react-stripe-checkout";
 import PinModal from "../Components/PinModal";
 //import PinVerificationModal from '../Components/PinVerificationModal'
 
 export default function PaymentsPage() {
+    const onToken = (token) => {
+        console.log(token);
+    };
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     //console.log(useNavigate)
@@ -50,8 +54,19 @@ export default function PaymentsPage() {
         navigate('/loader')
     }
 
-    return <div style={{ 'margin': '5%' }}>
-        <Tabs isFitted  bg='gray.100' orientation='horizontal' w='80%' margin='auto'>
+    return <div style={{ 'margin': '15%' }}>
+        <div className="Payments" >
+            <StripeCheckout
+                
+                token = {onToken}
+                name = "Payment"
+                stripeKey="pk_test_51MS2v7BDI3aUleMRFJtpjh3Wrlp4b5ojJKZXzWYh5pxw3e0P1w5tdCvFG1gtLJzwOp8ArIeP0rq1hzz3FW97snNa004vBqGzNP"
+                currency="Pkr"
+                amount="900000"
+
+            />
+        </div>
+        {/* <Tabs isFitted  bg='gray.100' orientation='horizontal' w='80%' margin='auto'>
             <TabList mb='1em' borderBlockEnd='1px' borderBlockEndColor='gray.300'>
                 <Tab>Debit/Credit Card</Tab>
             </TabList>
@@ -73,7 +88,7 @@ export default function PaymentsPage() {
                     </VStack>
                 </TabPanel>
             </TabPanels>
-        </Tabs>
+        </Tabs> */}
 
         {/* <Modal isCentered isOpen={isOpen} onClose={onClose}>
             <ModalOverlay
@@ -99,6 +114,8 @@ export default function PaymentsPage() {
                 </ModalFooter>
             </ModalContent>
         </Modal> */}
-        <PinModal handlePin={handlePin} isOpen={isOpen} onClose={onClose} device={'mobile number'}/>
+
+        {/* <PinModal handlePin={handlePin} isOpen={isOpen} onClose={onClose} device={'mobile number'}/> */}
+
     </div>
 }
