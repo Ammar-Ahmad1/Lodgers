@@ -103,7 +103,7 @@ function Carousel({product,id}){
           }
         ]
       };
-    return <Box width='100%' height='500px' bgColor='teal.100' mb='100px'><div className='Carousel'>
+    return <Box width='100%' height='500px' bgColor='teal.100' mb='150px'><div className='Carousel'>
 
 
         <Heading 
@@ -131,7 +131,7 @@ function Carousel({product,id}){
 
         <Slider {...settings}> 
             {products.map((product) => (   
-                <div className='card'>
+                <div className='room-card'>
                     <div className='card-top'><img src={product.image} alt={product.name}/></div>
                         
                     <Box p="6">
@@ -168,7 +168,7 @@ function Carousel({product,id}){
             </Box>
           </Box>
 
-          <Box display="flex" mt="2" alignItems="center">
+          <Box display="flex" alignItems="center">
             {Array(5)
               .fill("")
               .map((_, i) => (
@@ -181,7 +181,19 @@ function Carousel({product,id}){
               {property.reviewCount} reviews
             </Box>
           </Box>
-        </Box>
+            <Button
+                  mt='10px'
+                  leftIcon={<MdAddCircleOutline/>}
+                  loadingText="Submitting"
+                  size="md"
+                  bg={'blue.400'}
+                  color={'white'}
+                  _hover={{
+                    bg: 'blue.400',
+                  }}>
+                  <Link to={'/addroom'}> Add Room</Link>
+                </Button>
+          </Box>
                 </div>
                 ))}
         </Slider>

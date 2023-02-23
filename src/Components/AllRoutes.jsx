@@ -16,6 +16,7 @@ import MapContainer from "../Components/MapContainer"
 import Updatepassword from "../Pages/Updatepassword"
 import OwnerPortal from "../Pages/OwnerPortal"
 import AddHostel from "../Components/AddHostel"
+import Addroom from "../Components/AddRoom"
 
 export default function Allroutes(){
     return(
@@ -33,6 +34,7 @@ export default function Allroutes(){
             <Route path='/map' element={<MapContainer/>}/>
             <Route path='/owner' element={<OwnerPortal/>}/>
             <Route path='/addhostel' element={<AddHostel/>}/>
+            <Route path='/addroom' element={<Addroom/>}/>
             {/* <Route path='/propertylist' element={<PropertyListing/>}/> */}
             <Route path='/loader' element={<LoaderPage/>}/>
             <Route path='/paymentdone' element={<SuccessPayment/>   }/>
