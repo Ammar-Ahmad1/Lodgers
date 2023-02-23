@@ -224,38 +224,12 @@ const nearby = ["Margalla Hill view Park", "Shalimar North Housing Society", "Mo
         </Stack> */}
 
 
-        <Button
-          onClick={() => {
-            if (!isAuth)
-            {
-              toast(Alert(alertdata));
-              navigate('/checkout');
-         
-            }
-            else
-            {                
-              localStorage.setItem('booking',JSON.stringify({...bookingdata,price:products.price,hotel:products.name}))
-              navigate('/checkout')
-            }
-          }}
-          rounded={'none'}
-          w={'full'}
-          mt={8}
-          size={'lg'}
-          py={'7'}
-          bg={useColorModeValue('gray.900', 'gray.50')}
-          color={useColorModeValue('white', 'gray.900')}
-          textTransform={'uppercase'}
-          _hover={{
-            transform: 'translateY(2px)',
-            boxShadow: 'lg',
-          }}>
-         Reserve a room
-        </Button>
+        
+        {/* Random generated people  */}
 
-        <Stack direction="row" alignItems="center" justifyContent={'center'}>
+        {/* <Stack direction="row" alignItems="center" justifyContent={'center'}>
           <Text color='tomato'>{Math.floor(Math.random() * 31) + 30} people booked this place today</Text>
-        </Stack>
+        </Stack> */}
       </Card>
     </SimpleGrid>
   </Container>
