@@ -49,6 +49,34 @@ import {
           console.log("error")
           return
         }
+        else{
+          axios.post('http://localhost:5000/email-send',{email})
+          .then(res=>{
+            console.log(res.data)
+            if(res.data.message==="Email sent successfully!"){
+              toast({
+                title: "Success",
+                description: "OTP sent to your email",
+                status: "success",
+                duration: 1000,
+                isClosable: true,
+              })
+              navigate('/updatepass',{ state: { email }})
+            }
+            else{
+              toast({
+                title: "Error",
+                description: "Email not found",
+                status: "error",
+                duration: 1000,
+                isClosable: true,
+              })
+            }
+          })
+          .catch(err=>{
+            console.log(err)
+          })
+        }
 
   
   
@@ -100,7 +128,7 @@ import {
                     bg: 'blue.500',
                   }}
                   onClick={handleSignup}>
-                  <Link to='/updatepass'>Send OTP</Link>
+                  Send OTP
                 </Button>
               </Stack>
 
