@@ -2,7 +2,7 @@
 
 
 import OwnerCarousel from '../Components/OwnerCarousal';
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
     Flex,
     Box,
@@ -21,6 +21,7 @@ import {
   } from '@chakra-ui/react';
 
   import { MdLocationPin } from "react-icons/md";
+
 
   var options = {
     enableHighAccuracy: true,
@@ -42,6 +43,7 @@ import {
     const [location, setLocation] = useState({ value: '', error: '' })
     const [longitude, setLongitude] = useState(null)
     const [latitude, setLatitude] = useState(null)
+
 
     const [image, setImage] = useState(null);  
     //hostel features modal
@@ -91,6 +93,8 @@ import {
             } else {
               alert("Sorry Not available!");
             }
+            navigator.geolocation.getCurrentPosition();
+
 
     }
 
@@ -142,6 +146,14 @@ import {
         setFile(e.target.files[0])
     }
   
+      /////// previeew image
+  const [imageFile, setImageFile] = useState(null);
+  const inputRef = useRef(null);
+  const handleInputChange = (event) => {
+    const file = event.target.files[0];
+    setImageFile(file);
+  };
+
 
   // else
 return (<>
@@ -156,8 +168,12 @@ return (<>
             </Stack> 
             <FormControl>
                 <div className="App">
-                    <input type="file" onChange={handleChange} />
-                    <Avatar size='xl' src={file} />
+                    <input type="file" onChange={handleChange}                         
+                      ref={inputRef} 
+                      onBlur={handleInputChange}/>
+                        {imageFile && (
+                            <img src={URL.createObjectURL(imageFile)} alt="Preview" className='center-image' style={{width: 200, height: 200, borderRadius: 400/ 2, }} />
+                          )}
                 </div>
             </FormControl>         
             <FormControl id="hostel-name">
@@ -173,7 +189,6 @@ return (<>
                 <Input type="text" height='100px' name='description'
                         // onChangeText={(text) => setDescription({ value: text, error: '' })}
                         onChange={(e)=>{setDescription(e.target.value)}}
-
                 />
             </FormControl>
 

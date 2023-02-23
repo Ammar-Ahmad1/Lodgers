@@ -163,9 +163,9 @@ import {
             color={useColorModeValue('gray.500', 'gray.400')}>
             See why over{' '}
             <chakra.strong color={useColorModeValue('gray.700', 'gray.50')}>
-              35,000+
+              35,00+
             </chakra.strong>{' '}
-            travellers used BA..e for their travelling needs!
+            travellers used Lodgers for their travelling needs!
           </chakra.h2>
         </Box>
         <SimpleGrid

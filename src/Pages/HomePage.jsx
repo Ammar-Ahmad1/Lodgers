@@ -86,8 +86,6 @@ export default function HomePage() {
      
            
 
-        {/* <Carousel/> */}
-        <Image mt='100px' src={Discount} width='100%' height='400px'/>
 
 
         
