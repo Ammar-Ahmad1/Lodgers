@@ -2,3 +2,8 @@
   text-align: center;
   margin:auto;
 }
+
+.center-image{
+  display: flex;
+  justify-content: center;
+}

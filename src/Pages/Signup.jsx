@@ -16,10 +16,11 @@ import {
   Image
 } from '@chakra-ui/react';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef  } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
+
 
 
 export default function Signup() {
@@ -38,6 +39,15 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [signup, setsignup] = useState(initial)
   
+
+  ///////
+  const [imageFile, setImageFile] = useState(null);
+  const inputRef = useRef(null);
+  const handleInputChange = (event) => {
+    const file = event.target.files[0];
+    setImageFile(file);
+  };
+
 
   const toast = useToast()
 
@@ -163,10 +173,19 @@ export default function Signup() {
                   aria-hidden="true"
                   accept="image/*"
                   onChange={(e)=>{setFile(e.target.files[0])}}
+                  ref={inputRef} 
+                  onBlur={handleInputChange}
                  />
+
+
+
              {/* {file?  <Image source={file} />:null} */}
 
-              <Text fontSize="xs" fontWeight="light" color="gray.700">click to upload</Text>
+              <Text fontSize="xs" fontWeight="light" color="gray.700" >click to upload</Text>
+              {imageFile && (
+                <img src={URL.createObjectURL(imageFile)} alt="Preview" className='center-image' style={{width: 200, height: 200, borderRadius: 400/ 2, }} />
+              )}
+
             </FormControl>
             <FormControl id="name" isRequired>
               <FormLabel>Full Name</FormLabel>
