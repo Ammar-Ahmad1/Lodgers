@@ -1,17 +1,18 @@
-import { Box, Button, Center, Divider, Heading, HStack, Input, Stack, Text, useToast, VStack } from "@chakra-ui/react";
+import { Box, Button, Center,InputLeftAddon,InputGroup, Divider, Heading, HStack, Input, Stack, Text, useToast, VStack } from "@chakra-ui/react";
 import { useNavigate,useParams } from "react-router-dom";
 import React from 'react'
 import Alert from "../Components/Alert";
 
 export default function CheckoutPage(){
     let initialdetails={
-        fullname:null,
-        email:null,
+        contactnumber:null,
+        message:null,
+        checkin:null
     }
     const toast = useToast()
     let alertdata={
         title: ' Invalid Input',
-        description: "Please check the input again",
+        description: "Please enter the input fields",
         status: 'warning',
       }
 
@@ -20,7 +21,7 @@ export default function CheckoutPage(){
     const navigate=useNavigate();
 
     const handlebooking=()=>{
-        if(detail.fullname==null||detail.email==null) toast(Alert(alertdata))
+        if(detail.contactnumber==null||detail.message==null||detail.checkin==null) toast(Alert(alertdata))
         else navigate('/payment')
     }
 
@@ -34,6 +35,9 @@ export default function CheckoutPage(){
   let discount=totalprice*(5/100);
   let couponadd=0;
   let payableamount=totalprice-discount-couponadd;
+  
+  
+    
     return<div>
         
         <Heading size='lg' mt='50px'>Booking Summary</Heading>
@@ -43,12 +47,30 @@ export default function CheckoutPage(){
                 <Box textAlign='start'>
                     <Heading size='md'>Who's checking in?</Heading>
                     <Text>We will use these details to share your booking information</Text>
-                    <Stack direction='row'>
-                        <Input type='text' placeholder="Full Name" name='fullname' onChange={handleChange}/>
-                        <Input type='email' placeholder="Email" name='email' onChange={handleChange}/>
+                    <Stack >
+                        <InputGroup>
+                            <InputLeftAddon>Check In</InputLeftAddon>
+                            <Input
+                                onChange={handleChange}
+                                size="md"
+                                type="date"
+                                name="checkin"
+                        
+                            // onChange={handletraveller}
+                            //onFocus={(el) => el.target.type = 'date'}
+                            />
+                        </InputGroup>
+                    </Stack>
+                    <Stack direction='row' marginTop= '30px'>
+                        <Input type='number' placeholder="Contact Number" name='contactnumber' size="md" onChange={handleChange}/>
+                        {/* <Input type='email' placeholder="Email" name='email' onChange={handleChange}/> */}
+                    </Stack>
+                    <Stack  marginTop= '30px'>
+                        <Input type='text' placeholder="Any Message" name='message' size="md" onChange={handleChange}/>
+                        {/* <Input type='email' placeholder="Email" name='email' onChange={handleChange}/> */}
                     </Stack>
                 </Box>
-                <Button bg='teal.400'onClick={handlebooking}>Proceed to Payment</Button>
+                <Button bg='teal.400'onClick={handlebooking} marginTop='30px'>Proceed to Payment</Button>
             </VStack>
     
             <Box border='1px solid grey' w={{base:'100%',md:'40%'}} p={3}>
