@@ -3,6 +3,8 @@
 
 import OwnerCarousel from '../Components/OwnerCarousal';
 import React, { useState } from "react";
+import { Navigate, useNavigate } from 'react-router-dom';
+
 import {
     Flex,
     Box,
@@ -13,6 +15,7 @@ import {
     Checkbox,
     Stack,
     Link,
+    useToast,
     Button,
     Heading,
     Image,
@@ -58,6 +61,12 @@ import {
     const [ac, setAc] = useState(false);
     const [heater, setHeater] = useState(false);
     const [gym, setGym] = useState(false);
+
+        
+        
+    const toast = useToast();
+    const navigate = useNavigate();
+
     function success(pos) {
 
         var crd = pos.coords;
@@ -94,7 +103,8 @@ import {
 
     }
 
-    const handleAdd=()=>{
+    const handleAdd=()=>
+    {
         let user=JSON.parse(localStorage.getItem("user"))
         const formData = new FormData();
         //    console.log(featuress.wifi)
@@ -132,8 +142,40 @@ import {
           console.log(err);
         });
 
+        if(name===""||description===""){
+          toast({
+            title: "Error",
+            description: "Please Provide all the information",
+            status: "error",
+            duration: 1000,
+            isClosable: true,
+          })
+          
+          console.log("error")
+          return
+        }
+  
+        else{
+          
+          toast({
+            title: "Success",
+            description: "Hostel Added Successful",
+            status: "success",
+            duration: 1000,
+            isClosable: true,
+
+          })
+          
+          navigate('/owner')
+        }
+
+      
+
+
 
     };
+
+
 
     const [file, setFile] = useState();
     function handleChange(e) {
@@ -229,7 +271,7 @@ return (<>
             
             <Stack spacing={6}>
                 <Button colorScheme={'blue'} variant={'solid'} onClick={handleAdd}>
-                Add Hostel
+                  Add Hostel
                 </Button>
             </Stack>
         </Stack>

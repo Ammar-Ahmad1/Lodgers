@@ -2,6 +2,7 @@
 
 import OwnerCarousel from '../Components/OwnerCarousal';
 import React, { useState } from "react";
+import { Navigate, useNavigate } from 'react-router-dom';
 import {
     Flex,
     Avatar,
@@ -12,6 +13,7 @@ import {
     Button,
     Heading,
     Image,
+    useToast,
     Divider,
     Select,
     InputGroup,
@@ -33,29 +35,40 @@ import {
   
 
   
-  export default function OwnerPortal() {
+  export default function AddRoom() {
 
-    const [name, setName] = useState({ value: '', error: '' })
-    const [description, setDescription] = useState({ value: '', error: '' })
-    const [price, setPrice] = useState({ value: '', error: '' })
+    
+    const [description, setDescription] = useState('')
+    const [price, setPrice] = useState('')
+    const [oneseater, setOneseater] = useState('');
+    const [twoseater, setTwoseater] = useState('');
+    const [threeseater, setThreeseater] = useState('');
+    const [fourseater, setFourseater] = useState('');
 
 
     const [image, setImage] = useState(null);  
+    const toast = useToast();
+    const navigate = useNavigate();
     //hostel features modal
 
     //hostel features
 
 
-    const handleAdd=()=>{
+    const handleAddRoom=()=>{
         let user=JSON.parse(localStorage.getItem("user"))
         const formData = new FormData();
         //    console.log(featuress.wifi)
-            formData.append('name', name.value);
-            formData.append('description', description.value);
-            formData.append('price', price.value);      
+            
+            formData.append('description', description);
+            formData.append('price', price);      
             formData.append('image', file);
+            formData.append('owner', user._id);
+            formData.append('oneseater', oneseater);
+            formData.append('twoseater', twoseater);
+            formData.append('threeseater', threeseater);
+            formData.append('fourseater', fourseater);
 
-            fetch("http://localhost:5000/add-hostel", {
+            fetch("http://localhost:5000/add-rooms", {
         body: formData,
         method: "post",
         headers: {
@@ -74,6 +87,33 @@ import {
           console.log(err);
         });
 
+        if(description===""||price===""){
+          toast({
+            title: "Error",
+            description: "Please Provide all the information",
+            status: "error",
+            duration: 1000,
+            isClosable: true,
+          })
+          
+          console.log("error")
+          return
+        }
+  
+        else{
+          
+          toast({
+            title: "Success",
+            description: "Room Added Successful",
+            status: "success",
+            duration: 1000,
+            isClosable: true,
+
+          })
+          
+          // navigate('/owner')
+        }
+
 
     };
 
@@ -84,6 +124,7 @@ import {
         setFile(URL.createObjectURL(e.target.files[0]));
         setFile(e.target.files[0])
     }
+    
   
 
   // else
@@ -107,24 +148,24 @@ return (<>
                     <Avatar size='xl' src={file} />
                 </div>
             </FormControl>         
-            <FormControl id="hostel-name">
+            <FormControl id="roomtype">
                 <FormLabel>Room Type</FormLabel>
                 {/* <Input type="text" name='name'
                 onChangeText={(text) => setName({ value: text, error: '' })}
                 /> */}
 
                 <Select placeholder='Select option'>
-                    <option value='option1'>One Seater</option>
-                    <option value='option2'>Two Seater</option>
-                    <option value='option3'>Three Seater</option>
-                    <option value='option3'>Four Seater</option>
+                    <option value='oneseater' onChange={(e)=>{setOneseater(e.target.value)}}>One Seater</option>
+                    <option value='twoseater'onChange={(e)=>{setTwoseater(e.target.value)}}>Two Seater</option>
+                    <option value='threeseater'onChange={(e)=>{setThreeseater(e.target.value)}}>Three Seater</option>
+                    <option value='fourseater'onChange={(e)=>{setFourseater(e.target.value)}}>Four Seater</option>
                 </Select>
             </FormControl>
 
             <FormControl id="description">
                 <FormLabel> Room Description</FormLabel>
                 <Input type="text" height='100px' name='description'
-                        onChangeText={(text) => setDescription({ value: text, error: '' })}
+                        onChange={(e)=>{setDescription(e.target.value)}}
                 />
             </FormControl>
 
@@ -133,14 +174,14 @@ return (<>
                 <InputGroup>
                 <InputRightElement mr='20px' opacity='0.6'>-/month</InputRightElement>
                 <Input type="text" name='price'
-                        onChangeText={(text) => setPrice({ value: text, error: '' })}
+                        onChange={(e)=>{setPrice(e.target.value)}}
                 />
                 </InputGroup>
             </FormControl>
             
             <Stack spacing={6}>
-                <Button colorScheme={'blue'} variant={'solid'} onClick={handleAdd}>
-                Add Room
+                <Button colorScheme={'blue'} variant={'solid'} onClick={handleAddRoom}>
+                  Add Room
                 </Button>
             </Stack>
         </Stack>
