@@ -161,7 +161,7 @@ export default function Signup() {
              
               </Avatar> */}
     {/* <Avatar size='xl' src={file&&file} > */}
-    
+    <FormLabel>Add Image</FormLabel>
     <Input
                   type="file"
                   height="100%"

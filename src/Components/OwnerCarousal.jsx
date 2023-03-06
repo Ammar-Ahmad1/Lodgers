@@ -129,7 +129,7 @@ function Carousel({product,id}){
             </Stack>
         </Heading>
 
-        <Slider {...settings}> 
+        <Slider {...settings} > 
             {products.map((product) => (   
                 <div className='room-card'>
                     <div className='card-top'><img src={product.image} alt={product.name}/></div>
