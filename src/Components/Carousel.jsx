@@ -7,12 +7,17 @@ import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { SearchContext } from "../Contexts/SearchContextProvider";
 import './Style.css'
+import { Link } from 'react-router-dom';
+
 import {  
     Heading,
     Box,
     Text,
     Badge,
+    Button,
     CardBody} from "@chakra-ui/react"
+  
+import { MdAddCircleOutline } from "react-icons/md";
 
 import { StarIcon } from "@chakra-ui/icons";
 
@@ -92,10 +97,10 @@ function Carousel({product,id}){
           }
         ]
       };
-    return <Box width='100%' height='500px' bgColor='#d3d8e0'><div className='Carousel'>
-        <Slider {...settings}> 
+    return <Box width='100%' height='520px' bgColor='#d3d8e0' ><div className='Carousel'>
+        <Slider {...settings} > 
             {products.map((product) => (   
-                <div className='card'>
+                <div className='ownercard'>
                     <div className='card-top'><img src={product.image} alt={product.name}/></div>
                         
                     <Box p="6">
@@ -145,6 +150,20 @@ function Carousel({product,id}){
               {property.reviewCount} reviews
             </Box>
           </Box>
+          <Box as="span" ml="2" color="gray.600" fontSize="sm">
+            <Button
+                      mt='10px'
+                      leftIcon={<MdAddCircleOutline/>}
+                      loadingText="Submitting"
+                      size="md"
+                      bg={'blue.400'}
+                      color={'white'}
+                      _hover={{
+                        bg: 'blue.400',
+                      }}>
+                      <Link to={`/singleproduct` } state={{hostel: product}}>Show Details</Link>
+              </Button>
+            </Box>
         </Box>
                 </div>
                 ))}
