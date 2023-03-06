@@ -47,6 +47,7 @@ export default function ProductsPage() {
     //     });
     // }
 
+    
     return <Box px={40}>
         
         <Stack direction='row' spacing={10} mt='50px'>
@@ -140,11 +141,9 @@ export default function ProductsPage() {
                         3 Bed Room
                     </Checkbox>
                     <Checkbox size='lg'>
-                        Attach Bath
+                        4 Bed Room
                     </Checkbox>
-                    <Checkbox size='lg'>
-                        Air Condition Room
-                    </Checkbox>
+
                     <Divider orientation='horizontal' />
                     <br />
 
