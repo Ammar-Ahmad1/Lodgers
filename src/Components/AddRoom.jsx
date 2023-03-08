@@ -21,6 +21,7 @@ import {
     useColorModeValue,
   } from '@chakra-ui/react';
 
+  import { useLocation } from 'react-router-dom'
 
   var options = {
     enableHighAccuracy: true,
@@ -36,8 +37,9 @@ import {
 
   
   export default function AddRoom() {
+    let location= useLocation();
+    const {hostel}= location.state
 
-    
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
     const [oneseater, setOneseater] = useState('');
@@ -59,14 +61,12 @@ import {
         const formData = new FormData();
         //    console.log(featuress.wifi)
             
-            formData.append('description', description);
-            formData.append('price', price);      
-            formData.append('image', file);
-            formData.append('owner', user._id);
-            formData.append('oneseater', oneseater);
-            formData.append('twoseater', twoseater);
-            formData.append('threeseater', threeseater);
-            formData.append('fourseater', fourseater);
+            formData.append('roomDescription', description);
+            formData.append('roomPrice', price);      
+            formData.append('roomImage', file);
+            formData.append('hostel', hostel);
+            formData.append('roomType', oneseater);
+
 
             fetch("http://localhost:5000/add-rooms", {
         body: formData,
@@ -154,7 +154,9 @@ return (<>
                 onChangeText={(text) => setName({ value: text, error: '' })}
                 /> */}
 
-                <Select placeholder='Select option'>
+                <Select placeholder='Select option'
+                onChange={(e)=>{setOneseater(e.target.value)}}
+                >
                     <option value='oneseater' onChange={(e)=>{setOneseater(e.target.value)}}>One Seater</option>
                     <option value='twoseater'onChange={(e)=>{setTwoseater(e.target.value)}}>Two Seater</option>
                     <option value='threeseater'onChange={(e)=>{setThreeseater(e.target.value)}}>Three Seater</option>
