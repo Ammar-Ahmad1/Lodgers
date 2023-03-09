@@ -12,11 +12,14 @@ import {
   SkeletonText,
   Stack,
   Text,
+  Icon,
   Tooltip,
   VStack,
   HStack,
+  InputGroup, InputLeftElement, InputRightElement, Button,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { ImSearch } from 'react-icons/im';
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import PriceSlider from "../Components/PriceSlider";
@@ -25,9 +28,10 @@ import SearchPanel from "../Components/SearchPanel";
 import { SearchContext } from "../Contexts/SearchContextProvider";
 
 export default function ProductsPage() {
-  const { search } = useContext(SearchContext);
+//   const { search } = useContext(SearchContext);
   const [products, setproducts] = useState([]);
   const [hostels, setHostels] = useState([]);
+  const [search, setSearch] = useState('')
   const [amenities, setAmenities] = useState({
     wifi: false,
     parking: false,
@@ -37,6 +41,21 @@ export default function ProductsPage() {
     laundry: false,
     kitchen: false,
   });
+
+  const [price, setPrice] = useState({
+    price1: false,
+    price2: false,
+    price3: false,
+    price4: false,
+    price5: false,
+});
+
+  const [text, setText] = useState({
+    title: ""
+  });
+
+
+  
 
   const getHostels = async () => {
     try {
@@ -58,6 +77,7 @@ export default function ProductsPage() {
         console.log(res.data.hostels);
         setproducts(res.data.hostels);
         setHostels(res.data.hostels)
+        // console.error(res.data.hostels);
       } catch (error) {
         console.error(error);
       }
@@ -72,6 +92,7 @@ export default function ProductsPage() {
   // }
   
   const toggleAmeneties = (amenity, value) => {
+
     let obj = amenities
     obj[amenity] = value
     setAmenities(obj)
@@ -80,11 +101,55 @@ export default function ProductsPage() {
     setHostels(filterByFeatures(products, amenities)) 
   } 
 
+  const toggleText = (name, value) => {
+    let obj = text
+    obj[name] = value
+    setText(obj)
+    // filterHostelbyAmeneties(amenity)
+    // console.log(filterByFeatures(products, amenities));
+    setHostels(filterByText(products, text)) 
+  } 
+
+  const togglePrice = (pr, value) => {
+    let obj = price
+    obj[pr] = value
+    setPrice(obj)
+    // filterHostelbyAmeneties(amenity)
+    // console.log(filterByFeatures(products, amenities));
+    setHostels(filterByPrice(products, price)) 
+  } 
+
+
+
   function filterByFeatures(arr, features) {
     return arr.filter(item => {
       for (let feature in features) {
         if (features[feature] == true &&  item.features[feature] != features[feature]) {
+      
           return false;
+        }
+      }
+      return true;
+    });
+  }
+
+  function filterByText(arr, features) {
+    return arr.filter(item => {
+      for (let feature in features) {
+        if (features[feature] == item.name &&  item.features[feature] != features[feature] ) {
+          return true;
+        }
+      }
+      return false;
+    });
+  }
+
+  function filterByPrice(arr, features) {
+    return arr.filter(item => {
+      for (let feature in features) {
+        if (features[feature] == true &&  item.features[feature] != features[feature] ) {  
+        
+          return true;
         }
       }
       return true;
@@ -106,7 +171,27 @@ export default function ProductsPage() {
             border="0px solid grey"
             align="flex-start"
           >
-            <SearchPanel />
+           <InputGroup>
+                <InputLeftElement
+                    color='black.400'
+                    fontSize='1.2em'
+                    marginTop={'5px'}
+                    children={<Icon as={ImSearch} />}
+                />              
+                <Input focusBorderColor="white" textColor="white" placeholder="Enter name/location or choose location on map "
+                size='lg'
+                variant='filled'
+                opacity={'0.6'}
+                onChange={(e)=>{toggleText("title",e.target.value)}}
+                
+                
+                />
+                <InputRightElement  
+                    />
+                </InputGroup> 
+                <Button colorScheme='teal' size='lg' >
+                    Search
+                </Button>
 
             <Heading size="md">Amenities</Heading>
             <Checkbox size="lg" onChange={(e)=> toggleAmeneties("wifi", e.target.checked)}>
@@ -125,11 +210,11 @@ export default function ProductsPage() {
 
             <Heading size="md">Price</Heading>
 
-            <Checkbox size="lg">5000-6000</Checkbox>
-            <Checkbox size="lg">6000-7000</Checkbox>
-            <Checkbox size="lg">7000-8000</Checkbox>
-            <Checkbox size="lg">8000-9000</Checkbox>
-            <Checkbox size="lg">9000-10000</Checkbox>
+            <Checkbox size="lg" onChange={(e)=> togglePrice("price1", e.target.checked)}>5000-6000</Checkbox>
+            <Checkbox size="lg" onChange={(e)=> togglePrice("price2", e.target.checked)}>6000-7000</Checkbox>
+            <Checkbox size="lg" onChange={(e)=> togglePrice("price3", e.target.checked)}>7000-8000</Checkbox>
+            <Checkbox size="lg" onChange={(e)=> togglePrice("price4", e.target.checked)}>8000-9000</Checkbox>
+            <Checkbox size="lg" onChange={(e)=> togglePrice("price5", e.target.checked)}>9000-10000</Checkbox>
 
             <Divider orientation="horizontal" />
             <br />

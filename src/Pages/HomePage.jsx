@@ -17,7 +17,7 @@ import Testimonials from "../Components/Testimonials"
 import SearchPanel from "../Components/SearchPanel"
 import Home from '../Assets/Home.jpg'
 import Discount from '../Assets/discount.jpg'
-
+import {Link} from "react-router-dom"
 import MapContainer from "../Components/MapContainer"
 import Carousel from "../Components/Carousel"
 
@@ -57,12 +57,14 @@ export default function HomePage() {
                         src="https://images.unsplash.com/photo-1606511490662-b2c5be7d95a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=825&q=80"
                         alt="image three"
                     />
+                    <Link to="/products">
                     <Image
                         w="100%"
                         h='90%'
                         src='https://images.unsplash.com/photo-1608020932658-d0e19a69580b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
                         alt="image three"
                     />
+                    </Link>
             </Grid>
             <Grid templateColumns="repeat(3, 1fr)" gap={6} >
                     <Image

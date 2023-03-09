@@ -22,6 +22,8 @@ import {
     Heading,
     Image,
     Text,
+    InputGroup,
+    InputRightElement,
     useColorModeValue,
   } from '@chakra-ui/react';
 
@@ -45,9 +47,11 @@ import {
 
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
+    const [price, setPrice] = useState('')
     const [location, setLocation] = useState({ value: '', error: '' })
     const [longitude, setLongitude] = useState(null)
     const [latitude, setLatitude] = useState(null)
+    
 
 
     const [image, setImage] = useState(null);  
@@ -82,7 +86,7 @@ import {
         
       }
     const handleMaps=()=>{
-        console.log("Ahmad")
+        console.log("Ali")
             if (navigator.geolocation) {
               navigator.permissions
                 .query({ name: "geolocation" })
@@ -106,15 +110,27 @@ import {
             }
             navigator.geolocation.getCurrentPosition();
 
+            
+            toast({
+              title: "Error",
+              description: "Current Location recorded succuessfully",
+              status: "error",
+              duration: 1000,
+              isClosable: true,
+            })
+
 
     }
 
+
+    
     const handleAdd=()=>
     {
         let user=JSON.parse(localStorage.getItem("user"))
         const formData = new FormData();
         //    console.log(featuress.wifi)
             formData.append('name', name);
+            formData.append('price', price);
             formData.append('description', description);
             formData.append('longitude', longitude);
             formData.append('latitude', latitude);
@@ -126,9 +142,8 @@ import {
             formData.append('laundry', laundry);
             formData.append('kitchen', kitchen);
             formData.append('city', "islamabad");
-        
             formData.append('image', file);
-
+            
             fetch("http://localhost:5000/add-hostel", {
         body: formData,
         method: "post",
@@ -148,7 +163,7 @@ import {
           console.log(err);
         });
 
-        if(name===""||description===""){
+        if(name===""||description===""||price===""){
           toast({
             title: "Error",
             description: "Please Provide all the information",
@@ -234,6 +249,16 @@ return (<>
                         // onChangeText={(text) => setDescription({ value: text, error: '' })}
                         onChange={(e)=>{setDescription(e.target.value)}}
                 />
+            </FormControl>
+
+            <FormControl id="price">
+                <FormLabel>Price</FormLabel>
+                <InputGroup>
+                <InputRightElement mr='20px' opacity='0.6'>-/month</InputRightElement>
+                <Input type="text" name='price'
+                        onChange={(e)=>{setPrice(e.target.value)}}
+                />
+                </InputGroup>
             </FormControl>
 
             <FormControl id="location">
