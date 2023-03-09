@@ -192,7 +192,7 @@ function Carousel({product,id}){
                   _hover={{
                     bg: 'blue.400',
                   }}>
-                  <Link to={'/addroom'}> Add Room</Link>
+                  <Link to={'/addroom'}state={{hostel: product._id}}> Add Room</Link>
                 </Button>
           </Box>
                 </div>

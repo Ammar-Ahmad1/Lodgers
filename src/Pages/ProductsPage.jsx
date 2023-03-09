@@ -1,63 +1,177 @@
-import { AspectRatio, Box, Checkbox, Container, Divider, Heading, Hide, Input, Link, SkeletonCircle, SkeletonText, Stack, Text, Tooltip, VStack, HStack,
-    Button, Icon, InputGroup, InputLeftElement, InputRightElement, useToast,IconButton
-    } from "@chakra-ui/react";
+import {
+  AspectRatio,
+  Box,
+  Checkbox,
+  Container,
+  Divider,
+  Heading,
+  Hide,
+  Input,
+  Link,
+  SkeletonCircle,
+  SkeletonText,
+  Stack,
+  Text,
+  Icon,
+  Tooltip,
+  VStack,
+  HStack,
+  InputGroup, InputLeftElement, InputRightElement, Button,
+} from "@chakra-ui/react";
 import axios from "axios";
+import { ImSearch } from 'react-icons/im';
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import PriceSlider from "../Components/PriceSlider";
 import ProductCard from "../Components/ProductCard";
 import SearchPanel from "../Components/SearchPanel";
 import { SearchContext } from "../Contexts/SearchContextProvider";
-import { ImSearch,ImLocation2, ImCalendar } from 'react-icons/im';
 
 export default function ProductsPage() {
-    const { search } = useContext(SearchContext)
-    const [products, setproducts] = useState([])
-    const [hostel, setHostel] = useState([]);
-    const [searchValue, setSearchValue] = useState("")
-    const getHostels = async () => {
-        try {
-            let res = await axios.get("http://localhost:5000/get-hostels")
-            console.log(res)
-            setproducts(res.data)
-        } catch (error) {
-            console.error(error)
-        }
-    }
-    
-    useEffect(() => {
-        const FtchData = async () => {
-            try {
-                let res = await axios({
-                    method: 'get',
-                    url: `http://localhost:5000/get-hostels`,
-                })
-                console.log(res.data.hostels)
-                setproducts(res.data.hostels)
-                
-            } catch (error) {
-                console.error(error)
-            }
-        }
-        FtchData()
-    }, [search])
+//   const { search } = useContext(SearchContext);
+  const [products, setproducts] = useState([]);
+  const [hostels, setHostels] = useState([]);
+  const [search, setSearch] = useState('')
+  const [amenities, setAmenities] = useState({
+    wifi: false,
+    parking: false,
+    security: false,
+    tv: false,
+    food: false,
+    laundry: false,
+    kitchen: false,
+  });
 
-    const handleChange = (e)=>{
-        const results = ProductCard.filter()
-    }
-    // const filterItem = (price) => {
-    //     const updatedItems = products.filter(curElem) => {
-    //         return curElem.price === price;
-    //     });
-    // }
+  const [price, setPrice] = useState({
+    price1: false,
+    price2: false,
+    price3: false,
+    price4: false,
+    price5: false,
+});
 
-    
-    return <Box px={40}>
+  const [text, setText] = useState({
+    title: ""
+  });
+
+
+  
+
+  const getHostels = async () => {
+    try {
+      let res = await axios.get("http://localhost:5000/get-hostels");
+      console.log(res);
+      setproducts(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    const FtchData = async () => {
+      try {
+        let res = await axios({
+          method: "get",
+          url: `http://localhost:5000/get-hostels`,
+        });
+        console.log(res.data.hostels);
+        setproducts(res.data.hostels);
+        setHostels(res.data.hostels)
+        // console.error(res.data.hostels);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    FtchData();
+  }, [search]);
+
+  // const filterItem = (price) => {
+  //     const updatedItems = products.filter(curElem) => {
+  //         return curElem.price === price;
+  //     });
+  // }
+  
+  const toggleAmeneties = (amenity, value) => {
+
+    let obj = amenities
+    obj[amenity] = value
+    setAmenities(obj)
+    // filterHostelbyAmeneties(amenity)
+    // console.log(filterByFeatures(products, amenities));
+    setHostels(filterByFeatures(products, amenities)) 
+  } 
+
+  const toggleText = (name, value) => {
+    let obj = text
+    obj[name] = value
+    setText(obj)
+    // filterHostelbyAmeneties(amenity)
+    // console.log(filterByFeatures(products, amenities));
+    setHostels(filterByText(products, text)) 
+  } 
+
+  const togglePrice = (pr, value) => {
+    let obj = price
+    obj[pr] = value
+    setPrice(obj)
+    // filterHostelbyAmeneties(amenity)
+    // console.log(filterByFeatures(products, amenities));
+    setHostels(filterByPrice(products, price)) 
+  } 
+
+
+
+  function filterByFeatures(arr, features) {
+    return arr.filter(item => {
+      for (let feature in features) {
+        if (features[feature] == true &&  item.features[feature] != features[feature]) {
+      
+          return false;
+        }
+      }
+      return true;
+    });
+  }
+
+  function filterByText(arr, features) {
+    return arr.filter(item => {
+      for (let feature in features) {
+        if (features[feature] == item.name &&  item.features[feature] != features[feature] ) {
+          return true;
+        }
+      }
+      return false;
+    });
+  }
+
+  function filterByPrice(arr, features) {
+    return arr.filter(item => {
+      for (let feature in features) {
+        if (features[feature] == true &&  item.features[feature] != features[feature] ) {  
         
-        <Stack direction='row' spacing={10} mt='50px'>
-            <Hide below='md'>
-                <VStack w={{ sm: '0%', md: '30%' }} border='0px solid grey' align='flex-start'>
-                <InputGroup>
+          return true;
+        }
+      }
+      return true;
+    });
+  }
+
+//   const filterHostelbyAmeneties = (amenity) => {
+//     // console.log(products.filter(hostel => hostel.features.wifi == false))
+
+//     setHostels(hostels.filter(hostel => hostel.features[amenity] == true))
+//   }
+
+  return (
+    <Box px={40}>
+      <Stack direction="row" spacing={10} mt="50px">
+        <Hide below="md">
+          <VStack
+            w={{ sm: "0%", md: "30%" }}
+            border="0px solid grey"
+            align="flex-start"
+          >
+           <InputGroup>
                 <InputLeftElement
                     color='black.400'
                     fontSize='1.2em'
@@ -68,112 +182,67 @@ export default function ProductsPage() {
                 size='lg'
                 variant='filled'
                 opacity={'0.6'}
-                value={searchValue}
-                onChange={e => setSearchValue(e.target.value)}
+                onChange={(e)=>{toggleText("title",e.target.value)}}
+                
+                
                 />
                 <InputRightElement  
                     />
                 </InputGroup> 
-                <Link to='/products'><Button colorScheme='teal' size='lg' >
+                <Button colorScheme='teal' size='lg' >
                     Search
-                </Button></Link>
+                </Button>
 
-                    <Heading size='md'>Price</Heading>
-                    <Container direction='row'><PriceSlider /></Container>
-                    <Heading size='md'>Amenities</Heading>
-                    <Checkbox size='lg'>
-                        Wifi
-                    </Checkbox>        
-
-                    <Checkbox size='lg'>
-                        Parking
-                    </Checkbox>
-
-                    <Checkbox size='lg'>
-                        Security
-                    </Checkbox>
-                    <Checkbox size='lg'>
-                        TV
-                    </Checkbox>
-                    <Checkbox size='lg'>
-                        Food and Mess 
-                    </Checkbox>
-                    <Checkbox size='lg'>
-                        Laundry
-                    </Checkbox>
-                    <Checkbox size='lg'>
-                        Kitchen
-                    </Checkbox>
-                    <Divider orientation='horizontal' />
-                    <br />
-
-                    <Heading size='md'>Price</Heading>
-
-                    <Checkbox size='lg' >
-                    5000-6000
-                    </Checkbox>
-                    <Checkbox size='lg'>
-                    6000-7000
-                    </Checkbox>
-                    <Checkbox size='lg'>
-                    7000-8000
-                    </Checkbox>
-                    <Checkbox size='lg'>
-                    8000-9000
-                    </Checkbox>
-                    <Checkbox size='lg'>
-                    9000-10000
-                    </Checkbox>
-
-                    <Divider orientation='horizontal' />
-                    <br />
+            <Heading size="md">Amenities</Heading>
+            <Checkbox size="lg" onChange={(e)=> toggleAmeneties("wifi", e.target.checked)}>
+              Wifi
+            </Checkbox>
 
 
-                    <Heading size='md'>Rating</Heading>
-                    <Checkbox size='lg'>
-                    ⭐
-                    </Checkbox>
+            <Checkbox size="lg" onChange={(e)=> toggleAmeneties("parking", e.target.checked)}>Parking</Checkbox>
+            <Checkbox size="lg" onChange={(e)=> toggleAmeneties("security", e.target.checked)}>Security</Checkbox>
+            <Checkbox size="lg" onChange={(e)=> toggleAmeneties("tv", e.target.checked)}>TV</Checkbox>
+            <Checkbox size="lg" onChange={(e)=> toggleAmeneties("food", e.target.checked)}>Food and Mess</Checkbox>
+            <Checkbox size="lg" onChange={(e)=> toggleAmeneties("laundry", e.target.checked)}>Laundry</Checkbox>
+            <Checkbox size="lg" onChange={(e)=> toggleAmeneties("kitchen", e.target.checked)}>Kitchen</Checkbox>
+            <Divider orientation="horizontal" />
+            <br />
 
-                    <Checkbox size='lg'>
-                    ⭐⭐
-                    </Checkbox>
+            <Heading size="md">Price</Heading>
 
-                    <Checkbox size='lg'>
-                    ⭐⭐⭐
-                    </Checkbox>
-                    <Checkbox size='lg'>
-                    ⭐⭐⭐⭐
-                    </Checkbox>
-                    <Checkbox size='lg'>
-                    ⭐⭐⭐⭐⭐
-                    </Checkbox>
-                    <Divider orientation='horizontal' />
-                    <br />
+            <Checkbox size="lg" onChange={(e)=> togglePrice("price1", e.target.checked)}>5000-6000</Checkbox>
+            <Checkbox size="lg" onChange={(e)=> togglePrice("price2", e.target.checked)}>6000-7000</Checkbox>
+            <Checkbox size="lg" onChange={(e)=> togglePrice("price3", e.target.checked)}>7000-8000</Checkbox>
+            <Checkbox size="lg" onChange={(e)=> togglePrice("price4", e.target.checked)}>8000-9000</Checkbox>
+            <Checkbox size="lg" onChange={(e)=> togglePrice("price5", e.target.checked)}>9000-10000</Checkbox>
 
+            <Divider orientation="horizontal" />
+            <br />
 
+            <Heading size="md">Rating</Heading>
+            <Checkbox size="lg">⭐</Checkbox>
 
-                    <Heading size='md'>Room Type</Heading>
-                    <Checkbox size='lg'>
-                        Single Room
-                    </Checkbox>
+            <Checkbox size="lg">⭐⭐</Checkbox>
 
-                    <Checkbox size='lg'>
-                       2 Bed Room
-                    </Checkbox>
+            <Checkbox size="lg">⭐⭐⭐</Checkbox>
+            <Checkbox size="lg">⭐⭐⭐⭐</Checkbox>
+            <Checkbox size="lg">⭐⭐⭐⭐⭐</Checkbox>
+            <Divider orientation="horizontal" />
+            <br />
 
-                    <Checkbox size='lg'>
-                        3 Bed Room
-                    </Checkbox>
-                    <Checkbox size='lg'>
-                        4 Bed Room
-                    </Checkbox>
+            <Heading size="md">Room Type</Heading>
+            <Checkbox size="lg">Single Room</Checkbox>
 
-                    <Divider orientation='horizontal' />
-                    <br />
+            <Checkbox size="lg">2 Bed Room</Checkbox>
 
+            <Checkbox size="lg">3 Bed Room</Checkbox>
+            <Checkbox size="lg">Attach Bath</Checkbox>
+            <Checkbox size="lg">Air Condition Room</Checkbox>
+            <Divider orientation="horizontal" />
+            <br />
 
-{/* Distance */}
-                    {/* <Heading size='md'>Distance</Heading>
+            {/* Distance */}
+            {/* <Heading size='md'>Distance</Heading>
                     <Checkbox size='lg'>
                         0-5 km
                     </Checkbox>
@@ -193,38 +262,51 @@ export default function ProductsPage() {
                     </Checkbox>
                     <Divider orientation='horizontal' />
                     <br /> */}
+          </VStack>
+        </Hide>
 
-                </VStack>
-                
-            </Hide>
-            
-            
-                {products.length == 0 ? <Box w='100%'><Box padding='6' boxShadow='lg' bg='white'>
-                    <SkeletonCircle size='10' />
-                    <SkeletonText mt='4' noOfLines={4} spacing='4' skeletonHeight='2' />
-                </Box>
-                    <Box padding='6' boxShadow='lg' bg='white'>
-                        <SkeletonCircle size='10' />
-                        <SkeletonText mt='4' noOfLines={4} spacing='4' skeletonHeight='2' />
-                    </Box>
-                    <Box padding='6' boxShadow='lg' bg='white'>
-                        <SkeletonCircle size='10' />
-                        <SkeletonText mt='4' noOfLines={4} spacing='4' skeletonHeight='2' />
-                    </Box>``
-                </Box>
-                    :
-
-                    <VStack w={{ base: '100%', sm: '100%', md: '70%' }} border='0px solid'>
-                        
-                        {products.map((product) => <ProductCard product={product} key={product.id} id={product.id} />)}
-
-                    </VStack>
-                
-                }
-        
-        </Stack>
-
-
+        {products.length == 0 ? (
+          <Box w="100%">
+            <Box padding="6" boxShadow="lg" bg="white">
+              <SkeletonCircle size="10" />
+              <SkeletonText
+                mt="4"
+                noOfLines={4}
+                spacing="4"
+                skeletonHeight="2"
+              />
+            </Box>
+            <Box padding="6" boxShadow="lg" bg="white">
+              <SkeletonCircle size="10" />
+              <SkeletonText
+                mt="4"
+                noOfLines={4}
+                spacing="4"
+                skeletonHeight="2"
+              />
+            </Box>
+            <Box padding="6" boxShadow="lg" bg="white">
+              <SkeletonCircle size="10" />
+              <SkeletonText
+                mt="4"
+                noOfLines={4}
+                spacing="4"
+                skeletonHeight="2"
+              />
+            </Box>
+            ``
+          </Box>
+        ) : (
+          <VStack
+            w={{ base: "100%", sm: "100%", md: "70%" }}
+            border="0px solid"
+          >
+            {hostels.map((product) => (
+              <ProductCard product={product} key={product.id} id={product.id} />
+            ))}
+          </VStack>
+        )}
+      </Stack>
     </Box>
-
+  );
 }
