@@ -26,6 +26,10 @@ function Carousel({product,id}){
     const { search } = useContext(SearchContext)
     const [products, setproducts] = useState([])
 
+    const generateRandomNumber = () => {
+      return Math.floor(Math.random() * (50 - 10 + 1)) + 10; // generates a random number between 10 and 50
+    }
+
     const getHostels = async () => {
         try {
             let res = await axios.get("http://localhost:5000/get-hostels")
@@ -59,8 +63,8 @@ function Carousel({product,id}){
         baths: 2,
         title: "Modern home in city center in the heart of historic Los Angeles",
         formattedPrice: "$1,900.00",
-        reviewCount: 34,
-        rating: 4,
+        reviewCount: Math.floor(Math.random() * (40 - 10 + 1)) + 10,
+        rating: ""
       };
     
     const settings = {
@@ -97,7 +101,7 @@ function Carousel({product,id}){
           }
         ]
       };
-    return <Box width='100%' height='520px' bgColor='#d3d8e0' ><div className='Carousel'>
+    return <Box width='100%' height='520px' bgColor='gray.100' ><div className='Carousel'>
         <Slider {...settings} > 
             {products.map((product) => (   
                 <div className='ownercard'>
@@ -131,28 +135,31 @@ function Carousel({product,id}){
           </Text>
 
           <Box>
+            <Box as="span" color="gray.600" fontSize="sm">Starting from:        </Box>
+            Rs.
             {product.price}
             <Box as="span" color="gray.600" fontSize="sm">
-              / month
+              /month
             </Box>
           </Box>
 
           <Box display="flex" mt="2" alignItems="center">
-            {Array(5)
+            {Array(Math.floor(Math.random() * (5 - 2 + 1)) + 2)
               .fill("")
               .map((_, i) => (
                 <StarIcon
                   key={i}
-                  color={i < property.rating ? "teal.500" : "gray.300"}
+                  color={i+1  ? "teal.500" : "gray.300"}
                 />
               ))}
             <Box as="span" ml="2" color="gray.600" fontSize="sm">
-              {property.reviewCount} reviews
+              {generateRandomNumber()} reviews
             </Box>
           </Box>
           <Box as="span" ml="2" color="gray.600" fontSize="sm">
             <Button
                       mt='10px'
+                      ml='60px'
                       leftIcon={<MdAddCircleOutline/>}
                       loadingText="Submitting"
                       size="md"

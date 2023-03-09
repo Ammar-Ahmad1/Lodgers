@@ -1,4 +1,6 @@
-import { AspectRatio, Box, Checkbox, Container, Divider, Heading, Hide, Input, Link, SkeletonCircle, SkeletonText, Stack, Text, Tooltip, VStack, HStack } from "@chakra-ui/react";
+import { AspectRatio, Box, Checkbox, Container, Divider, Heading, Hide, Input, Link, SkeletonCircle, SkeletonText, Stack, Text, Tooltip, VStack, HStack,
+    Button, Icon, InputGroup, InputLeftElement, InputRightElement, useToast,IconButton
+    } from "@chakra-ui/react";
 import axios from "axios";
 import { useContext, useEffect } from "react";
 import { useState } from "react";
@@ -6,13 +8,13 @@ import PriceSlider from "../Components/PriceSlider";
 import ProductCard from "../Components/ProductCard";
 import SearchPanel from "../Components/SearchPanel";
 import { SearchContext } from "../Contexts/SearchContextProvider";
-
+import { ImSearch,ImLocation2, ImCalendar } from 'react-icons/im';
 
 export default function ProductsPage() {
     const { search } = useContext(SearchContext)
     const [products, setproducts] = useState([])
     const [hostel, setHostel] = useState([]);
-
+    const [searchValue, setSearchValue] = useState("")
     const getHostels = async () => {
         try {
             let res = await axios.get("http://localhost:5000/get-hostels")
@@ -40,7 +42,9 @@ export default function ProductsPage() {
         FtchData()
     }, [search])
 
-
+    const handleChange = (e)=>{
+        const results = ProductCard.filter()
+    }
     // const filterItem = (price) => {
     //     const updatedItems = products.filter(curElem) => {
     //         return curElem.price === price;
@@ -53,7 +57,27 @@ export default function ProductsPage() {
         <Stack direction='row' spacing={10} mt='50px'>
             <Hide below='md'>
                 <VStack w={{ sm: '0%', md: '30%' }} border='0px solid grey' align='flex-start'>
-                    <SearchPanel/>
+                <InputGroup>
+                <InputLeftElement
+                    color='black.400'
+                    fontSize='1.2em'
+                    marginTop={'5px'}
+                    children={<Icon as={ImSearch} />}
+                />              
+                <Input focusBorderColor="white" textColor="white" placeholder="Enter name/location or choose location on map "
+                size='lg'
+                variant='filled'
+                opacity={'0.6'}
+                value={searchValue}
+                onChange={e => setSearchValue(e.target.value)}
+                />
+                <InputRightElement  
+                    />
+                </InputGroup> 
+                <Link to='/products'><Button colorScheme='teal' size='lg' >
+                    Search
+                </Button></Link>
+
                     <Heading size='md'>Price</Heading>
                     <Container direction='row'><PriceSlider /></Container>
                     <Heading size='md'>Amenities</Heading>
@@ -191,7 +215,7 @@ export default function ProductsPage() {
                     :
 
                     <VStack w={{ base: '100%', sm: '100%', md: '70%' }} border='0px solid'>
-
+                        
                         {products.map((product) => <ProductCard product={product} key={product.id} id={product.id} />)}
 
                     </VStack>

@@ -30,6 +30,8 @@ export default function Signup() {
   const [cpassword, setcPassword] = useState('');
   const [isError, setIsError] = useState('');
   const [file, setFile] = useState('');
+  const [role, setRole] = useState("user"); // new state for user/owner selection
+
  const navigate=useNavigate()
   let initial={
     mobile:null,
@@ -77,14 +79,19 @@ export default function Signup() {
         console.log("error")
         return
       }
-
       const formdata=new FormData()
       formdata.append('name',name)
       formdata.append('email',email)
       formdata.append('password',password)
       formdata.append('image',file)
+      formdata.append('role', role)
+
+
+
       console.log(file)
       console.log(formdata)
+      console.log("role", role);
+
       fetch('http://localhost:5000/register-user',{
         method:'POST',
         body:formdata
@@ -185,6 +192,17 @@ export default function Signup() {
               {imageFile && (
                 <img src={URL.createObjectURL(imageFile)} alt="Preview" className='center-image' style={{width: 200, height: 200, borderRadius: 400/ 2, }} />
               )}
+
+            </FormControl>
+              
+                <FormLabel>Select Your Role</FormLabel> 
+                <select value={role} onChange={(e) => setRole(e.target.value)}>
+                  <option value="user">User</option>
+                  <option value="owner">Owner</option>
+                </select>
+            <FormControl id="name" isRequired>
+
+
 
             </FormControl>
             <FormControl id="name" isRequired>

@@ -162,6 +162,7 @@ function Carousel({product,id}){
           </Text>
 
           <Box>
+          <Box as="span" color="gray.600" fontSize="sm">Starting from: </Box>
             {product.price}
             <Box as="span" color="gray.600" fontSize="sm">
               / month

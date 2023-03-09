@@ -59,6 +59,8 @@ export default function Login() {
             })
             .then((res) => res.json())
             .then((data) => {
+              console.log('DATA+++++++++++++++++++')
+              console.log(data)
               if(data.errors){
                 toast({
                   title: "Error",
@@ -82,7 +84,13 @@ export default function Login() {
 
                 })
                 // AuthContext.Login()
-                navigate('/')
+                if (data.userInfo.role=='owner'){
+                  navigate('/owner')
+                }
+                else{
+                  navigate('/')
+                } 
+                                
               }
             })
   }
