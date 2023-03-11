@@ -19,7 +19,6 @@ import { ImSearch,ImLocation} from 'react-icons/im';
 
 export default function ProductCard({ product, id }) {
 //const {id}=useParams();
-//console.log(product)
 return (
   <>
     <Card
@@ -59,7 +58,7 @@ return (
 
           <CardFooter justifyContent='space-between'>
             <Text fontSize='xl'>Price: <b>{product.price}</b>/individual</Text>
-            <Link to={`/singleproduct` } state={{hostel: product}}>
+            <Link to={`/singleproduct` } state={{hostel: product}} >
               <Button variant='solid' colorScheme='blue'>
                 Show Details
               </Button>

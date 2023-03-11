@@ -123,7 +123,7 @@ const nearby = ["Margalla Hill view Park", "Shalimar North Housing Society", "Mo
               <Grid templateColumns="repeat(4, 1fr)" spacing={10} src='https://www.google.com/maps'>
                 {extra_amenities.map((amenity) => (
                   <Text variant='outline' mt='20px'>
-                    <Icon as={CheckCircleIcon} color='green.500' mr='7px' />
+                    <Icon as={AiFillCloseCircle} color='black.500' mr='7px' />
                     {amenity}
                   </Text>
                 ))}
@@ -137,7 +137,7 @@ const nearby = ["Margalla Hill view Park", "Shalimar North Housing Society", "Mo
               <Grid templateColumns="repeat(2, 1fr)" spacing={10} src='https://www.google.com/maps'>
                 {nearby.map((amenity) => (
                   <Text variant='outline' mt='30px'>
-                    <Icon as={AiFillCloseCircle} color='black.500' mr='7px' />
+                    
                     {amenity}
                   </Text>
                 ))}

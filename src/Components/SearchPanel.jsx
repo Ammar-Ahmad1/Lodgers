@@ -83,20 +83,7 @@ export default function SearchPanel() {
                     Search
                 </Button></Link>
 
-                <Link to='/map'>
-                <IconButton
-                    variant='outline'
-                    colorScheme='whiteAlpha'
-                    size='lg'
-                    aria-label='Call Sage'
-                    fontSize='30px'
-                        marginTop={'8px'}
-                        marginRight={'8px'}
-                        icon={<ImLocation2 />}
 
-
-                />
-                </Link>
         </Stack>
 
         
