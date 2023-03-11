@@ -1,37 +1,19 @@
-import {
-  AspectRatio,
-  Box,
-  Checkbox,
-  Container,
-  Divider,
-  Heading,
-  Hide,
-  Input,
-  Link,
-  SkeletonCircle,
-  SkeletonText,
-  Stack,
-  Text,
-  Icon,
-  Tooltip,
-  VStack,
-  HStack,
-  InputGroup, InputLeftElement, InputRightElement, Button,
-} from "@chakra-ui/react";
+import { Box, Checkbox, Divider, Heading, Container, Hide, Input, SkeletonCircle, SkeletonText, Stack, Icon, VStack, InputGroup, InputLeftElement, InputRightElement, Button, RangeSlider, RangeSliderMark, RangeSliderTrack, RangeSliderFilledTrack, RangeSliderThumb } from "@chakra-ui/react";
 import axios from "axios";
-import { ImSearch } from 'react-icons/im';
-import { useContext, useEffect } from "react";
+// import PriceSlider from "../Components/PriceSlider";
+
+import { ImSearch } from "react-icons/im";
+import { useEffect } from "react";
 import { useState } from "react";
-import PriceSlider from "../Components/PriceSlider";
 import ProductCard from "../Components/ProductCard";
-import SearchPanel from "../Components/SearchPanel";
-import { SearchContext } from "../Contexts/SearchContextProvider";
 
 export default function ProductsPage() {
-//   const { search } = useContext(SearchContext);
+  //   const { search } = useContext(SearchContext);
   const [products, setproducts] = useState([]);
   const [hostels, setHostels] = useState([]);
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState("");
+  const [priceMin, setPriceMin] = useState(0);
+  const [priceMax, setPriceMax] = useState(20000);
   const [amenities, setAmenities] = useState({
     wifi: false,
     parking: false,
@@ -42,20 +24,9 @@ export default function ProductsPage() {
     kitchen: false,
   });
 
-  const [price, setPrice] = useState({
-    price1: false,
-    price2: false,
-    price3: false,
-    price4: false,
-    price5: false,
-});
-
   const [text, setText] = useState({
-    title: ""
+    title: "",
   });
-
-
-  
 
   const getHostels = async () => {
     try {
@@ -76,7 +47,7 @@ export default function ProductsPage() {
         });
         console.log(res.data.hostels);
         setproducts(res.data.hostels);
-        setHostels(res.data.hostels)
+        setHostels(res.data.hostels);
         // console.error(res.data.hostels);
       } catch (error) {
         console.error(error);
@@ -90,34 +61,25 @@ export default function ProductsPage() {
   //         return curElem.price === price;
   //     });
   // }
-  
+
   const toggleAmeneties = (amenity, value) => {
+    let obj = amenities;
+    obj[amenity] = value;
+    setAmenities(obj);
+    filterHostels();
+  };
 
-    let obj = amenities
-    obj[amenity] = value
-    setAmenities(obj)
-    // filterHostelbyAmeneties(amenity)
-    // console.log(filterByFeatures(products, amenities));
-    setHostels(filterByFeatures(products, amenities)) 
-  } 
-
-  const toggleText = (name, value) => {
-    let obj = text
-    obj[name] = value
-    setText(obj)
-    // filterHostelbyAmeneties(amenity)
-    // console.log(filterByFeatures(products, amenities));
-    setHostels(filterByText(products, text)) 
-  } 
-
-
-
+  const toggleText = (value) => {
+    let filteredByText = products.filter((hostel) => {
+      return hostel.name.toLowerCase().includes(value);
+    });
+    filterHostels(filteredByText);
+  };
 
   function filterByFeatures(arr, features) {
-    return arr.filter(item => {
+    return arr.filter((item) => {
       for (let feature in features) {
-        if (features[feature] == true &&  item.features[feature] != features[feature]) {
-      
+        if (features[feature] == true && item.features[feature] != features[feature]) {
           return false;
         }
       }
@@ -125,75 +87,127 @@ export default function ProductsPage() {
     });
   }
 
-  function filterByText(arr, features) {
-    return arr.filter(item => {
-      for (let feature in features) {
-        if (features[feature] == item.name &&  item.features[feature] != features[feature] ) {
-          return true;
-        }
-      }
-      return false;
-    });
+  function filterByPrice() {
+    console.log("price se filter");
+    filterHostels();
   }
 
-
-
-//   const filterHostelbyAmeneties = (amenity) => {
-//     // console.log(products.filter(hostel => hostel.features.wifi == false))
-
-//     setHostels(hostels.filter(hostel => hostel.features[amenity] == true))
-//   }
+  function filterHostels(arr = undefined) {
+    let filteredByAmenities;
+    if (arr) {
+      filteredByAmenities = filterByFeatures(arr, amenities);
+    } else {
+      filteredByAmenities = filterByFeatures(products, amenities);
+    }
+    let filteredByPrice = filteredByAmenities.filter((hostel) => hostel.price >= priceMin && hostel.price <= priceMax);
+    setHostels(filteredByPrice);
+  }
 
   return (
     <Box px={40}>
       <Stack direction="row" spacing={10} mt="50px">
         <Hide below="md">
-          <VStack
-            w={{ sm: "0%", md: "30%" }}
-            border="0px solid grey"
-            align="flex-start"
-          >
-           <InputGroup>
-                <InputLeftElement
-                    color='black.400'
-                    fontSize='1.2em'
-                    marginTop={'5px'}
-                    children={<Icon as={ImSearch} />}
-                />              
-                <Input focusBorderColor="white" textColor="white" placeholder="Enter name/location or choose location on map "
-                size='lg'
-                variant='filled'
-                opacity={'0.6'}
-                onChange={(e)=>{toggleText("title",e.target.value)}}
-                
-                
-                />
-                <InputRightElement  
-                    />
-                </InputGroup> 
-                <Button colorScheme='teal' size='lg' >
-                    Search
-                </Button>
+          <VStack w={{ sm: "0%", md: "30%" }} border="0px solid grey" align="flex-start">
+            <InputGroup>
+              <InputLeftElement color="black.400" fontSize="1.2em" marginTop={"5px"} children={<Icon as={ImSearch} />} />
+              <Input
+                focusBorderColor="white"
+                textColor="white"
+                placeholder="Enter name/location or choose location on map "
+                size="lg"
+                variant="filled"
+                opacity={"0.6"}
+                onChange={(e) => {
+                  toggleText(e.target.value);
+                }}
+              />
+              <InputRightElement />
+            </InputGroup>
+            <Button colorScheme="teal" size="lg">
+              Search
+            </Button>
 
             <Heading size="md">Amenities</Heading>
-            <Checkbox size="lg" onChange={(e)=> toggleAmeneties("wifi", e.target.checked)}>
+            <Checkbox size="lg" onChange={(e) => toggleAmeneties("wifi", e.target.checked)}>
               Wifi
             </Checkbox>
 
-
-            <Checkbox size="lg" onChange={(e)=> toggleAmeneties("parking", e.target.checked)}>Parking</Checkbox>
-            <Checkbox size="lg" onChange={(e)=> toggleAmeneties("security", e.target.checked)}>Security</Checkbox>
-            <Checkbox size="lg" onChange={(e)=> toggleAmeneties("tv", e.target.checked)}>TV</Checkbox>
-            <Checkbox size="lg" onChange={(e)=> toggleAmeneties("food", e.target.checked)}>Food and Mess</Checkbox>
-            <Checkbox size="lg" onChange={(e)=> toggleAmeneties("laundry", e.target.checked)}>Laundry</Checkbox>
-            <Checkbox size="lg" onChange={(e)=> toggleAmeneties("kitchen", e.target.checked)}>Kitchen</Checkbox>
-            <Checkbox size="lg" >Prayer Room</Checkbox>
-            <Checkbox size="lg" >Separate Study Room</Checkbox>
-            <Checkbox size="lg" >Refridgerator</Checkbox>
-            
+            <Checkbox size="lg" onChange={(e) => toggleAmeneties("parking", e.target.checked)}>
+              Parking
+            </Checkbox>
+            <Checkbox size="lg" onChange={(e) => toggleAmeneties("security", e.target.checked)}>
+              Security
+            </Checkbox>
+            <Checkbox size="lg" onChange={(e) => toggleAmeneties("tv", e.target.checked)}>
+              TV
+            </Checkbox>
+            <Checkbox size="lg" onChange={(e) => toggleAmeneties("food", e.target.checked)}>
+              Food and Mess
+            </Checkbox>
+            <Checkbox size="lg" onChange={(e) => toggleAmeneties("laundry", e.target.checked)}>
+              Laundry
+            </Checkbox>
+            <Checkbox size="lg" onChange={(e) => toggleAmeneties("kitchen", e.target.checked)}>
+              Kitchen
+            </Checkbox>
             <Divider orientation="horizontal" />
             <br />
 
+            <Heading size="md" pb="40px">
+              Price
+            </Heading>
+
+            <RangeSlider
+              defaultValue={[0, 20000]}
+              min={0}
+              max={20000}
+              step={1000}
+              colorScheme="blue"
+              onChange={([min, max]) => {
+                setPriceMin(min);
+                setPriceMax(max);
+              }}
+              onChangeEnd={() => {
+                filterByPrice();
+              }}
+            >
+              <RangeSliderMark value={priceMin} textAlign="center" bg="blue.500" color="white" mt="-10" ml="-5" w="12">
+                {priceMin}
+              </RangeSliderMark>
+              <RangeSliderMark value={priceMax} textAlign="center" bg="blue.500" color="white" mt="-10" ml="-5" w="12">
+                {priceMax}
+              </RangeSliderMark>
+              <RangeSliderTrack>
+                <RangeSliderFilledTrack />
+              </RangeSliderTrack>
+              <RangeSliderThumb boxSize={4} index={0} />
+              <RangeSliderThumb boxSize={4} index={1} />
+            </RangeSlider>
+
+            <Divider orientation="horizontal" pt="8px" />
+            <br />
+
+            <Heading size="md">Rating</Heading>
+            <Checkbox size="lg">⭐</Checkbox>
+
+            <Checkbox size="lg">⭐⭐</Checkbox>
+
+            <Checkbox size="lg">⭐⭐⭐</Checkbox>
+            <Checkbox size="lg">⭐⭐⭐⭐</Checkbox>
+            <Checkbox size="lg">⭐⭐⭐⭐⭐</Checkbox>
+            <Divider orientation="horizontal" />
+            <br />
+
+            <Heading size="md">Room Type</Heading>
+            <Checkbox size="lg">Single Room</Checkbox>
+
+            <Checkbox size="lg">2 Bed Room</Checkbox>
+
+            <Checkbox size="lg">3 Bed Room</Checkbox>
+            <Checkbox size="lg">Attach Bath</Checkbox>
+            <Checkbox size="lg">Air Condition Room</Checkbox>
+            <Divider orientation="horizontal" />
+            <br />
 
             {/* Distance */}
             {/* <Heading size='md'>Distance</Heading>
@@ -223,40 +237,22 @@ export default function ProductsPage() {
           <Box w="100%">
             <Box padding="6" boxShadow="lg" bg="white">
               <SkeletonCircle size="10" />
-              <SkeletonText
-                mt="4"
-                noOfLines={4}
-                spacing="4"
-                skeletonHeight="2"
-              />
+              <SkeletonText mt="4" noOfLines={4} spacing="4" skeletonHeight="2" />
             </Box>
             <Box padding="6" boxShadow="lg" bg="white">
               <SkeletonCircle size="10" />
-              <SkeletonText
-                mt="4"
-                noOfLines={4}
-                spacing="4"
-                skeletonHeight="2"
-              />
+              <SkeletonText mt="4" noOfLines={4} spacing="4" skeletonHeight="2" />
             </Box>
             <Box padding="6" boxShadow="lg" bg="white">
               <SkeletonCircle size="10" />
-              <SkeletonText
-                mt="4"
-                noOfLines={4}
-                spacing="4"
-                skeletonHeight="2"
-              />
+              <SkeletonText mt="4" noOfLines={4} spacing="4" skeletonHeight="2" />
             </Box>
             ``
           </Box>
         ) : (
-          <VStack
-            w={{ base: "100%", sm: "100%", md: "70%" }}
-            border="0px solid"
-          >
-            {hostels.map((product) => (
-              <ProductCard product={product} key={product.id} id={product.id} />
+          <VStack w={{ base: "100%", sm: "100%", md: "70%" }} border="0px solid">
+            {hostels.map((product, i) => (
+              <ProductCard product={product} key={i} id={product.id} />
             ))}
           </VStack>
         )}
