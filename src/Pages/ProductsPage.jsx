@@ -110,14 +110,6 @@ export default function ProductsPage() {
     setHostels(filterByText(products, text)) 
   } 
 
-  const togglePrice = (pr, value) => {
-    let obj = price
-    obj[pr] = value
-    setPrice(obj)
-    // filterHostelbyAmeneties(amenity)
-    // console.log(filterByFeatures(products, amenities));
-    setHostels(filterByPrice(products, price)) 
-  } 
 
 
 
@@ -144,17 +136,7 @@ export default function ProductsPage() {
     });
   }
 
-  function filterByPrice(arr, features) {
-    return arr.filter(item => {
-      for (let feature in features) {
-        if (features[feature] == true &&  item.features[feature] != features[feature] ) {  
-        
-          return true;
-        }
-      }
-      return true;
-    });
-  }
+
 
 //   const filterHostelbyAmeneties = (amenity) => {
 //     // console.log(products.filter(hostel => hostel.features.wifi == false))
@@ -205,41 +187,13 @@ export default function ProductsPage() {
             <Checkbox size="lg" onChange={(e)=> toggleAmeneties("food", e.target.checked)}>Food and Mess</Checkbox>
             <Checkbox size="lg" onChange={(e)=> toggleAmeneties("laundry", e.target.checked)}>Laundry</Checkbox>
             <Checkbox size="lg" onChange={(e)=> toggleAmeneties("kitchen", e.target.checked)}>Kitchen</Checkbox>
+            <Checkbox size="lg" >Prayer Room</Checkbox>
+            <Checkbox size="lg" >Separate Study Room</Checkbox>
+            <Checkbox size="lg" >Refridgerator</Checkbox>
+            
             <Divider orientation="horizontal" />
             <br />
 
-            <Heading size="md">Price</Heading>
-
-            <Checkbox size="lg" onChange={(e)=> togglePrice("price1", e.target.checked)}>5000-6000</Checkbox>
-            <Checkbox size="lg" onChange={(e)=> togglePrice("price2", e.target.checked)}>6000-7000</Checkbox>
-            <Checkbox size="lg" onChange={(e)=> togglePrice("price3", e.target.checked)}>7000-8000</Checkbox>
-            <Checkbox size="lg" onChange={(e)=> togglePrice("price4", e.target.checked)}>8000-9000</Checkbox>
-            <Checkbox size="lg" onChange={(e)=> togglePrice("price5", e.target.checked)}>9000-10000</Checkbox>
-
-            <Divider orientation="horizontal" />
-            <br />
-
-            <Heading size="md">Rating</Heading>
-            <Checkbox size="lg">⭐</Checkbox>
-
-            <Checkbox size="lg">⭐⭐</Checkbox>
-
-            <Checkbox size="lg">⭐⭐⭐</Checkbox>
-            <Checkbox size="lg">⭐⭐⭐⭐</Checkbox>
-            <Checkbox size="lg">⭐⭐⭐⭐⭐</Checkbox>
-            <Divider orientation="horizontal" />
-            <br />
-
-            <Heading size="md">Room Type</Heading>
-            <Checkbox size="lg">Single Room</Checkbox>
-
-            <Checkbox size="lg">2 Bed Room</Checkbox>
-
-            <Checkbox size="lg">3 Bed Room</Checkbox>
-            <Checkbox size="lg">Attach Bath</Checkbox>
-            <Checkbox size="lg">Air Condition Room</Checkbox>
-            <Divider orientation="horizontal" />
-            <br />
 
             {/* Distance */}
             {/* <Heading size='md'>Distance</Heading>
