@@ -14,7 +14,7 @@ export default function CheckoutPage(){
     const [checkin,setCheckin] = useState('')
     const [message,setMessage] = useState('')
     const [contact,setContact] = useState('')
-
+    const [item,setItem] = useState({})
 
     let {isAuth, setpage}=useContext(AuthContext)
     const { search } = useContext(SearchContext)
@@ -37,24 +37,25 @@ export default function CheckoutPage(){
     const hostelId = sessionStorage.getItem('hostelId');
  
     const userData = localStorage.getItem('user');
-    console.log(userData);
+    const user = JSON.parse(userData);
+    console.log(user);
 
 
-    React.useEffect(() => {
-        const FtchData = async () => {
-          try {
-            let res = await axios({
-              method: 'get',
-              url: `https://real-rose-tortoise-tutu.cyclic.app/products?id=${id}`,
-            })
-            //console.log(res)
-            setproducts(res.data[0])
-          } catch (error) {
-            console.error(error)
-          }
-        }
-        FtchData()
-      }, [])
+    // React.useEffect(() => {
+    //     const FtchData = async () => {
+    //       try {
+    //         let res = await axios({
+    //           method: 'get',
+    //           url: `https://real-rose-tortoise-tutu.cyclic.app/products?id=${id}`,
+    //         })
+    //         // console.log(res)
+    //         setproducts(res.data[0])
+    //       } catch (error) {
+    //         console.error(error)
+    //       }
+    //     }
+    //     FtchData()
+    //   }, [])
 
       useEffect(() => {
         const FtchData = async () => {
@@ -64,7 +65,9 @@ export default function CheckoutPage(){
                     method: 'get',
                     url: `http://localhost:5000/get-hostelsByID?_id=${hostelId}`,
                 })
-                    console.log(res.data);
+                    
+                    setItem(res.data)
+                    console.log(item)
                 //console.log(res.data);
                 //setproducts1(res.data.hostels)
             } 
@@ -94,8 +97,47 @@ export default function CheckoutPage(){
     //console.log(detail)
 
     const handlebooking=()=>{
-        if(detail.contactnumber==null||detail.message==null||detail.checkin==null) toast(Alert(alertdata))
-        else navigate('/payment')
+        if(!contact||!checkin) toast(Alert(alertdata))
+        else{
+            fetch('http://localhost:5000/add-booking',{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                    hostelId:item._id,
+                    userId:user._id,
+                    checkIn:checkin,
+                    contactNo:contact,
+                    customerName:user.name,
+                    price:hostel.roomPrice,
+                    message:message,
+                    ownerId:item.owner,
+                    hostelName:item.name,
+                    roomImage:hostel.roomImage,
+                    roomType:hostel.roomType,
+                    roomId:hostel._id,
+                })
+            }).then(res=>res.json())
+            .then(data=>{
+                if(data.error){
+                    toast(Alert(alertdata))
+                }
+                else{
+                    toast(Alert({
+                        title: 'Booking Successful',
+                        description: "Your booking is confirmed",
+                        status: 'success',
+                      }))
+                    navigate('/payment')
+                }
+            }).catch(err=>{
+                console.log(err)
+            }
+            )
+
+        } 
+        // navigate('/payment')
     }
 
     const handleChange=(el)=>{
