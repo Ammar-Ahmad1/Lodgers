@@ -92,7 +92,15 @@ const nearby = ["Margalla Hill view Park", "Shalimar North Housing Society", "Mo
                 Description
               </Heading>
               <Text pt='2' fontSize='sm'>
-              {products.description}
+                Pak Boys hostel In Islamabad has fully furnished rooms with attached baths, AC, TV in each room, fridge in each room.
+                two time quality food, 8mb Internet, laundry facility 2 time weekly, standby generator, neat and clean environment,
+                pure water to drink, car parking and security guards to secure the hostel and much more. Pak Boys Hostel is the best place
+                for students and job holders studying and working in Islamabad. Please contact us for more information or message us on facebook.<br/><br/>
+                This is the most comfortable hostel for Students and Job holders because of it's amazing facilities that include Three Time Meal,
+                Internet, Cable Connection, Laundry Facility, Geyser etc. Please Contact us for more details or message us on Facebook.
+                Ups, Delicious meal 3 times a day, Neat & clean homely environment, Big & Airy furnished rooms , <br/><br/>Attached up to date washrooms,
+                High speed DSL Wi-Fi internet system, Luxury bedding with mattress, pillow and sheet and much more. It is highly recommended for
+                students in job holders looking for a hostel in islamabad. Do not hesitate to contact us or simply message us on Facebook.
               </Text>
             </Box>
             <Box>
@@ -123,7 +131,7 @@ const nearby = ["Margalla Hill view Park", "Shalimar North Housing Society", "Mo
               <Grid templateColumns="repeat(4, 1fr)" spacing={10} src='https://www.google.com/maps'>
                 {extra_amenities.map((amenity) => (
                   <Text variant='outline' mt='20px'>
-                    <Icon as={AiFillCloseCircle} color='black.500' mr='7px' />
+                    <Icon as={CheckCircleIcon} color='green.500' mr='7px' />
                     {amenity}
                   </Text>
                 ))}
@@ -137,7 +145,7 @@ const nearby = ["Margalla Hill view Park", "Shalimar North Housing Society", "Mo
               <Grid templateColumns="repeat(2, 1fr)" spacing={10} src='https://www.google.com/maps'>
                 {nearby.map((amenity) => (
                   <Text variant='outline' mt='30px'>
-                    
+                    <Icon as={AiFillCloseCircle} color='black.500' mr='7px' />
                     {amenity}
                   </Text>
                 ))}

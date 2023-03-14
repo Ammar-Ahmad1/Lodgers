@@ -15,11 +15,16 @@ import {
     Button} from "@chakra-ui/react"
 
 import { Link } from "react-router-dom";
+import { MdSettingsSuggest } from 'react-icons/md';
 
 function Carousel({id}){
 
     const { search } = useContext(SearchContext)
     const [products, setproducts] = useState([])
+
+  
+    sessionStorage.setItem("hostelId", id);
+    console.log(sessionStorage.getItem("hostelId"))
 
     const getRooms = async () => {
         try {
@@ -95,7 +100,7 @@ function Carousel({id}){
     return <Box width='100%' height='500px' bgColor='gray.100'><div className='Carousel'>
         <Slider {...settings}> 
             {products.map((product) => (   
-                <div className='card' product={product} key={product.id} id={product.id}>
+                <div className='card'>
                     <div className='card-top'><img src={product.roomImage} alt={product.roomType}/></div>
                         
                     <Box p="6">
@@ -133,7 +138,7 @@ function Carousel({id}){
           </Box>
 
 
-          <Link to={`/checkout` } >
+          <Link to={`/checkout` } state={{hostel: product}}>
               <Button variant='solid' colorScheme='blue'>
                 Book Room
               </Button>

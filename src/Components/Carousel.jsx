@@ -159,7 +159,7 @@ function Carousel({product,id}){
           <Box as="span" ml="2" color="gray.600" fontSize="sm">
             <Button
                       mt='10px'
-                      ml='60px'
+                      ml='70px'
                       leftIcon={<MdAddCircleOutline/>}
                       loadingText="Submitting"
                       size="md"
