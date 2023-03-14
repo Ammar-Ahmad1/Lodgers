@@ -73,6 +73,10 @@ export default function Login() {
               }
               else{
                 console.log(data.userInfo)
+                
+                sessionStorage.setItem("userId", data.userInfo._id);
+                 
+
                 localStorage.setItem('token', data.token)
                 localStorage.setItem('user', JSON.stringify(data.userInfo))
                 toast({

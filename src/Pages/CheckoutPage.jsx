@@ -24,17 +24,21 @@ export default function CheckoutPage(){
     const {hostel}= location.state
 
 
-    console.log(hostel.roomPrice)
-    console.log(hostel.hostel)
-    console.log(hostel._id)
-    console.log(hostel.roomType)
+  
 
     const { id } = useParams()
     setpage(id)
     const [products, setproducts] = React.useState([])
+    const [products1, setproducts1] = React.useState([])
     const [room, setRoom] = useState("");
 
     console.log(hostel)
+
+    const hostelId = sessionStorage.getItem('hostelId');
+ 
+    const userData = localStorage.getItem('user');
+    console.log(userData);
+
 
     React.useEffect(() => {
         const FtchData = async () => {
@@ -51,6 +55,25 @@ export default function CheckoutPage(){
         }
         FtchData()
       }, [])
+
+      useEffect(() => {
+        const FtchData = async () => {
+
+            try {
+                let res = await axios({
+                    method: 'get',
+                    url: `http://localhost:5000/get-hostelsByID?_id=${hostelId}`,
+                })
+                    console.log(res.data);
+                //console.log(res.data);
+                //setproducts1(res.data.hostels)
+            } 
+            catch (error) {
+                console.error(error)
+            }
+        }
+        FtchData()
+    }, [search])
 
 
 

@@ -21,7 +21,7 @@ export default function SingleProduct() {
   //let isAuth = true;
   const location= useLocation();
   const {hostel}= location.state
-  console.log(hostel)   
+  console.log(hostel)
 let alertdata={};  
 if(!isAuth){
   alertdata={
