@@ -214,11 +214,9 @@ export default function ProductsPage() {
                     <Checkbox size='lg'>
                         0-5 km
                     </Checkbox>
-
                     <Checkbox size='lg'>
                        0-10 km
                     </Checkbox>
-
                     <Checkbox size='lg'>
                         0-15 km
                     </Checkbox>

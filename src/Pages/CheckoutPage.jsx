@@ -35,6 +35,7 @@ export default function CheckoutPage(){
     console.log(hostel)
 
     const hostelId = sessionStorage.getItem('hostelId');
+    
  
     const userData = localStorage.getItem('user');
     const user = JSON.parse(userData);
@@ -57,6 +58,7 @@ export default function CheckoutPage(){
     //     FtchData()
     //   }, [])
 
+    
       useEffect(() => {
         const FtchData = async () => {
 

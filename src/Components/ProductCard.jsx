@@ -41,7 +41,6 @@ return (
           <Heading size='md'>{product.name}</Heading>
           <Text>⭐⭐⭐⭐</Text>
           <Text py='1' children={<Icon as={ImLocation} />}>{product.city}</Text>
-          
         </CardBody>
         
 
