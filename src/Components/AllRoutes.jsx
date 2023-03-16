@@ -8,6 +8,7 @@ import ProductsPage from "../Pages/ProductsPage"
 import SingleProduct from "../Pages/SingleProduct"
 import PaymentsPage from "../Pages/PaymentsPage"
 import CheckoutPage from "../Pages/CheckoutPage"
+import UserBookings from "../Pages/UserBookings"
 import AdminPage from "../Pages/AdminPage"
 import PropertyListing from "../Pages/PropertyListing"
 import LoaderPage from "../Pages/LoaderPage"
@@ -35,6 +36,7 @@ export default function Allroutes(){
             <Route path='/owner' element={<OwnerPortal/>}/>
             <Route path='/addhostel' element={<AddHostel/>}/>
             <Route path='/addroom' element={<Addroom/>}/>
+            <Route path='/userbookings' element={<UserBookings/>}/>
             {/* <Route path='/propertylist' element={<PropertyListing/>}/> */}
             <Route path='/loader' element={<LoaderPage/>}/>
             <Route path='/paymentdone' element={<SuccessPayment/>   }/>

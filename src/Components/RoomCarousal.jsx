@@ -37,21 +37,20 @@ function Carousel({id}){
     }
     
     useEffect(() => {
-        const FtchData = async () => {
-            try {
-                let res = await axios({
-                    method: 'get',
-                    url: `http://localhost:5000/get-rooms/${id}`,
-                })
-                console.log(res.data.room)
-                setproducts(res.data.room)
-            } catch (error) {
-                console.error(error)
-            }
-        }
-        FtchData()
-    }, [search])
-
+      const FtchData = async () => {
+          try {
+              let res = await axios({
+                  method: 'get',
+                  url: `http://localhost:5000/get-rooms/${id}`,
+              })
+              console.log(res.data.room)
+              setproducts(res.data.room)
+          } catch (error) {
+              console.error(error)
+          }
+      }
+      FtchData()
+  }, [search])
     const property = {
         imageUrl: "https://bit.ly/2Z4KKcF",
         imageAlt: "Rear view of modern home with pool",

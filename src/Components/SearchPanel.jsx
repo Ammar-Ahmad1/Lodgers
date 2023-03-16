@@ -74,7 +74,7 @@ export default function SearchPanel() {
                 <Input focusBorderColor="white" textColor="white" placeholder="Enter name/location or choose location on map "
                 size='lg'
                 variant='filled'
-                opacity={'0.6'}
+                opacity={'0.8'}
                 />
                 <InputRightElement  
                     />

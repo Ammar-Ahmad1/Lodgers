@@ -96,7 +96,7 @@ let user=JSON.parse(localStorage.getItem("user"))
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={4}>
 
-              <Link to='/login'>
+              <Link to='/userbookings'>
                 <Button colorScheme='teal' variant='ghost'>
                   <Icon as={RepeatClockIcon}  paddingRight='4px'/>My Bookings
                 </Button>

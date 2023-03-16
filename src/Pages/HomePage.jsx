@@ -33,8 +33,8 @@ export default function HomePage() {
     const bg = colors[tabIndex]
     return (<>
     <Stack justifyContent='space-evenly' >
-        <Box bottom='0' padding={9} border='0px solid' bgImage={Home} bgSize="100%" backgroundRepeat="no-repeat" h="500px" paddingLeft={'200px'} paddingRight={'200px'}>
-            <Box mt='345px'><SearchPanel/></Box>
+        <Box bottom='0' padding={9} border='0px solid' bgImage={Home} bgSize="100%" backgroundRepeat="no-repeat" h="400px" paddingLeft={'200px'} paddingRight={'200px'}>
+            <Box mt='250px'><SearchPanel/></Box>
         </Box> 
     </Stack>    
 
