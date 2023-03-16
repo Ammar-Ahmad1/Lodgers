@@ -28,6 +28,9 @@ import { Navigate, Link, useNavigate } from 'react-router-dom'
 import { useContext } from 'react';
 import { AuthContext } from '../Contexts/AuthContextProvider';
 
+import React, { useState } from 'react';
+
+
 
 const NavLink = ({ children }: { children: ReactNode }) => (
   <Link
@@ -45,14 +48,40 @@ const NavLink = ({ children }: { children: ReactNode }) => (
 
 
 
+  
+
+ 
+
+
+
+
+
 export default function Navbar() {
   const navigate=useNavigate();
+  const [loginbuttonColor, setLoginButtonColor] = useState('');
+  const [signupButtonColor, setSignupButtonColor] = useState('');
+  
+  const handleClick1 = () => {
+    if (loginbuttonColor === '') {
+      setLoginButtonColor('black');
+      setSignupButtonColor('');
+    }
+  };
+
+  const handleClick2 = () => {
+    if (signupButtonColor === '') {
+      setSignupButtonColor('black');
+      setLoginButtonColor('');
+    }
+  };
   const { colorMode, toggleColorMode } = useColorMode();
  // const { isOpen, onOpen, onClose } = useDisclosure();
  const {isAuth,Logout}=useContext(AuthContext)
  let userdata=JSON.parse(localStorage.getItem('booking'))
 let user=JSON.parse(localStorage.getItem("user"))
  const handleLogout=()=>{
+  setLoginButtonColor('');
+  setSignupButtonColor('');
   Logout();
   localStorage.clear()
   navigate(`/`)
@@ -113,7 +142,8 @@ let user=JSON.parse(localStorage.getItem("user"))
                   variant={'outline'}
                   colorScheme={'teal'}
                   size={'md'}
-                  mr={4}>
+                  mr={4}
+                  style={{ color: loginbuttonColor }} onClick={handleClick1}>
                   Login
                 </Button>
 
@@ -123,10 +153,11 @@ let user=JSON.parse(localStorage.getItem("user"))
               <Link to='/signup'>
                 <Button
                 disabled={isAuth?true:false}
-                  variant={'solid'}
-                  colorScheme={'pink'}
+                  variant={'outline'}
+                  colorScheme={'teal'}
                   size={'md'}
-                  mr={4}>
+                  mr={4}
+                  style={{ color: signupButtonColor }} onClick={handleClick2}>
                   Signup
                 </Button>
               </Link>
