@@ -140,61 +140,7 @@ export default function Signup() {
           p={8}>
           <Stack spacing={4}>
          
-            <FormControl id="image" isRequired>
-              {/* <Avatar
 
-              borderColor="black"
-              borderWidth="2px"
-              whileHover="hover"          
-              transition="all 200ms ease-in-out"
-              _hover={{
-                shadow: "xl"
-              }}
-
-              position="relative" height="100px" width="100px"
-              >
-                <Input
-                  type="file"
-                  height="100%"
-                  width="100%"
-                  position="absolute"
-                  top="0"
-                  left="0"
-                  opacity="0"
-                  aria-hidden="true"
-                  accept="image/*"
-                  onChange={(e)=>{setFile(e.target.files[0])}}
-                 />
-             
-              </Avatar> */}
-    {/* <Avatar size='xl' src={file&&file} > */}
-    <FormLabel>Add Image</FormLabel>
-    <Input
-                  type="file"
-                  height="100%"
-                  width="100%"
-                  position="absolute"
-                  top="0"
-                  left="0"
-                  opacity="0"
-                  aria-hidden="true"
-                  accept="image/*"
-                  onChange={(e)=>{setFile(e.target.files[0])}}
-                  ref={inputRef} 
-                  onBlur={handleInputChange}
-                 />
-
-
-
-             {/* {file?  <Image source={file} />:null} */}
-
-              <Text fontSize="xs" fontWeight="light" color="gray.700" >click to upload</Text>
-              {imageFile && (
-                <img src={URL.createObjectURL(imageFile)} alt="Preview" className='center-image' style={{width: 200, height: 200, borderRadius: 400/ 2, }} />
-              )}
-
-            </FormControl>
-              
                 <FormLabel>Select Your Role</FormLabel> 
                 <select value={role} onChange={(e) => setRole(e.target.value)}>
                   <option value="user">User</option>
@@ -246,6 +192,35 @@ export default function Signup() {
                 </InputRightElement>
               </InputGroup>
             </FormControl>
+
+            <FormControl id="image" isRequired>
+              
+    <FormLabel>Add Image</FormLabel>
+    <Input
+                  type="file"
+                  height="100%"
+                  width="100%"
+                  position="absolute"
+                  top="0"
+                  left="0"
+                  opacity="0"
+                  aria-hidden="true"
+                  accept="image/*"
+                  onChange={(e)=>{setFile(e.target.files[0])}}
+                  ref={inputRef} 
+                  onBlur={handleInputChange}
+                 />
+
+
+
+                    
+              <Text fontSize="xs" fontWeight="light" color="gray.700" >click to upload</Text>
+              {imageFile && (
+                <img src={URL.createObjectURL(imageFile)} alt="Preview" className='center-image' style={{width: 200, height: 200, borderRadius: 400/ 2, }} />
+              )}
+
+            </FormControl>
+              
 
             <Stack spacing={10} pt={2}>
               <Button

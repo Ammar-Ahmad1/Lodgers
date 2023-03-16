@@ -15,11 +15,11 @@ export default function SearchPanel() {
     const { setsearch } = useContext(SearchContext)
     const [location, setlocation] = useState(null)
     const toast = useToast()
-    let alertdata={
-        title: ' Invalid Input',
-        description: "Please check the input again",
-        status: 'warning',
-      }
+    // let alertdata={
+    //     title: ' Invalid Input',
+    //     description: "Please check the input again",
+    //     status: 'warning',
+    //   }
 
     let initialdata = {
         destination: null,
@@ -42,14 +42,14 @@ export default function SearchPanel() {
         {
             if(traveldata[key]==null)
             { 
-                toast(Alert(alertdata)) 
+                //toast(Alert(alertdata)) 
                 flag=false;
                 break;
             }
         }
         if (traveldata.travellers < traveldata.rooms || traveldata.travellers/traveldata.rooms>3)
         { 
-            toast(Alert(alertdata))
+           // toast(Alert(alertdata))
             flag=false;
         }
 
