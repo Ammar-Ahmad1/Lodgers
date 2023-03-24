@@ -101,7 +101,15 @@ import {
                     //If denied then you have to show instructions to enable location
                   }
                   
-                    
+                                
+                  toast({
+                    title: "Success",
+                    description: "Your current location recorded",
+                    status: "success",
+                    duration: 1000,
+                    isClosable: true,
+        
+                  })
                     console.log(longitude,latitude)
                 
                 });
@@ -110,14 +118,7 @@ import {
             }
             navigator.geolocation.getCurrentPosition();
 
-            
-            toast({
-              title: "Error",
-              description: "Current Location recorded succuessfully",
-              status: "error",
-              duration: 1000,
-              isClosable: true,
-            })
+
 
 
     }

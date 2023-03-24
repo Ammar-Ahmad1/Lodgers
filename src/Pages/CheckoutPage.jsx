@@ -189,7 +189,7 @@ export default function CheckoutPage(){
                     </Stack>
 
                     <Stack  marginTop= '30px'>
-                        <Input type='text' placeholder="Any Message" name='message' size="md" onChange={(e)=>{setMessage(e.target.value)}}/>
+                        <Input height='100px' type='text' placeholder="Any Message" name='message' size="md" onChange={(e)=>{setMessage(e.target.value)}}/>
                         {/* <Input type='email' placeholder="Email" name='email' onChange={handleChange}/> */}
                     </Stack>
 
