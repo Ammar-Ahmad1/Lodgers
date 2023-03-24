@@ -18,7 +18,7 @@ import {
     Stack,
     CardBody} from "@chakra-ui/react"
 
-import { StarIcon, } from "@chakra-ui/icons";
+import { StarIcon, DeleteIcon } from "@chakra-ui/icons";
 import { MdAddCircleOutline } from "react-icons/md";
 
 function Carousel({product,id}){
@@ -194,7 +194,25 @@ function Carousel({product,id}){
                   }}>
                   <Link to={'/addroom'}state={{hostel: product._id}}> Add Room</Link>
                 </Button>
+
+                <Button 
+               
+                size="md"
+                mt='11px'
+                ml='110px'
+                bg={'red.400'}
+                
+                >
+                <DeleteIcon/>
+                </Button>
+                
           </Box>
+          <Button 
+                leftIcon={<DeleteIcon/>}
+                size="md"
+                >
+
+                </Button>
                 </div>
                 ))}
         </Slider>

@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 export default function All() {
 
     const { search } = useContext(SearchContext)
-    const [bookings, setBookings] = useState("")
+    const [bookings, setBookings] = useState([])
     const [checkBooking, setCheckBooking] = useState([])
     const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
 
@@ -22,15 +22,14 @@ export default function All() {
    
 
 
-      useEffect(() => {
+    useEffect(() => {
         const FtchData = async () => {
-
             try {
                 let res = await axios({
                     method: 'get',
                     url: `http://localhost:5000/get-bookings-by-users/${id}`,
                 })
-                setBookings(res.data)
+                setBookings(res.data.booking)
                 setCheckBooking(res.data.booking)          
                 console.log(res.data.booking)
                 console.log(bookings)
@@ -41,11 +40,8 @@ export default function All() {
         }
         FtchData()
     }, [search])
-
 return (
-
     <div style={{margin: '100px'}}>
-
     <Heading 
             fontWeight={600}
             fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
@@ -56,8 +52,8 @@ return (
               Your Bookings
             </Text>
     </Heading>
-
-    <Card 
+    {bookings?bookings.map((booking,i)=>(
+        <Card 
         width='100%'
         direction={{ base: 'column', sm: 'row' }}
         overflow='hidden'
@@ -66,28 +62,27 @@ return (
     <Image
         objectFit='cover'
         maxW={{ base: '100%', sm: '200px' }}
-        src='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
+        src={booking.roomImage}
         alt='Caffe Latte'
     />
-
         <VStack ml='135px'>
             <Heading size='md' textAlign='left' mb='25px' >Hostel</Heading>
-            <Text size='md' textAlign='left'>Hostel</Text>
+            <Text size='md' textAlign='left'>{booking.hostelName}</Text>
         </VStack>
 
         <VStack ml='135px'>
             <Heading size='md' textAlign='left' mb='25px'>Room Type</Heading>
-            <Text size='md' textAlign='left'>Room Type</Text>
+            <Text size='md' textAlign='left'>{booking.roomType}</Text>
         </VStack>
 
         <VStack ml='135px'>
             <Heading size='md' textAlign='left' mb='25px'>Check-in</Heading>
-            <Text size='md' textAlign='left' >Check-in</Text>
+            <Text size='md' textAlign='left' >{booking.checkIn}</Text>
         </VStack>
 
         <VStack ml='135px'>
             <Heading size='md' textAlign='left' mb='25px'>Price</Heading>
-            <Text size='md' textAlign='left' >Price</Text>
+            <Text size='md' textAlign='left' >{booking.price}</Text>
         </VStack>
 
         <VStack ml='135px'>
@@ -96,18 +91,16 @@ return (
                 <Text size='md' textAlign='center' >Status</Text>
             </Box>
         </VStack>
-
-
-
-
-
-
-
-            
-
-   
+         
     </Card>
-    </div>
+
+    )):(
+        <Text>No Bookings</Text>
+    )
+
+    }
+
+        </div>
 
     
   

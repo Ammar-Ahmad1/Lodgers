@@ -6,16 +6,18 @@ import React from 'react';
 import Footer from './Components/Footer';
 import Testimonials from './Components/Testimonials';
 import EmailContactForm from './Components/Mail';
-
+import KommunicateChat from './Pages/Chat';
 
 function App() {
   return (
     <div className="App" >
       <Navbar/>
+      <KommunicateChat/>
       <Allroutes/>
       
       {/* <EmailContactForm/> */}
 
+      
       <Footer/>
      
       

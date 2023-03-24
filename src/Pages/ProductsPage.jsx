@@ -112,7 +112,7 @@ export default function ProductsPage() {
               <InputLeftElement color="black.400" fontSize="1.2em" marginTop={"5px"} children={<Icon as={ImSearch} />} />
               <Input
                 focusBorderColor="white"
-                textColor="white"
+                textColor="black"
                 placeholder="Enter name/location or choose location on map "
                 size="lg"
                 variant="filled"

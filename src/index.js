@@ -7,8 +7,10 @@ import {BrowserRouter} from 'react-router-dom'
 import { ChakraProvider } from '@chakra-ui/react';
 import  AuthContextProvider  from './Contexts/AuthContextProvider';
 import SearchContextProvider from './Contexts/SearchContextProvider';
+import Kommunicate from '@kommunicate/kommunicate-chatbot-plugin';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   // <React.StrictMode>
   <SearchContextProvider>
