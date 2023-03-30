@@ -19,6 +19,8 @@ export default function All() {
 
     let user=JSON.parse(localStorage.getItem("user"))
     const id = user._id
+    console.log(id);
+    
    
 
 
@@ -40,6 +42,26 @@ export default function All() {
         }
         FtchData()
     }, [search])
+
+    useEffect(() => {
+        const FtchData = async () => {
+            try {
+                let res = await axios({
+                    method: 'get',
+                    url: `http://localhost:5000/get-bookings-by-owner/${id}`,
+                })
+                setBookings(res.data.booking)
+                setCheckBooking(res.data.booking)          
+                console.log(res.data.booking)
+                console.log(bookings)
+            } 
+            catch (error) {
+                console.error(error)
+            }
+        }
+        FtchData()
+    }, [search])
+
 return (
     <div style={{margin: '100px'}}>
     <Heading 

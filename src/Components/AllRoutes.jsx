@@ -18,6 +18,7 @@ import Updatepassword from "../Pages/Updatepassword"
 import OwnerPortal from "../Pages/OwnerPortal"
 import AddHostel from "../Components/AddHostel"
 import Addroom from "../Components/AddRoom"
+import Help from '../Pages/Help'
 
 export default function Allroutes(){
     return(
@@ -35,6 +36,7 @@ export default function Allroutes(){
             <Route path='/map' element={<MapContainer/>}/>
             <Route path='/owner' element={<OwnerPortal/>}/>
             <Route path='/addhostel' element={<AddHostel/>}/>
+            <Route path='/help' element={<Help/>}/>
             <Route path='/addroom' element={<Addroom/>}/>
             <Route path='/userbookings' element={<UserBookings/>}/>
             {/* <Route path='/propertylist' element={<PropertyListing/>}/> */}

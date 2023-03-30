@@ -18,8 +18,30 @@ import {
   useColorMode,
   Center,
   Icon,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverBody,
+  PopoverFooter,
+  ButtonGroup,
   Image,
+  Card,
+  Divider,
   IconButton,
+  Heading,
+  HStack,
+  VStack,
+  Grid,
+  GridItem,
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  StatArrow,
+  StatGroup,
 } from '@chakra-ui/react';
 import {BellIcon,RepeatClockIcon, InfoIcon, QuestionIcon } from '@chakra-ui/icons'
 
@@ -61,6 +83,8 @@ export default function Navbar() {
   const [loginbuttonColor, setLoginButtonColor] = useState('');
   const [signupButtonColor, setSignupButtonColor] = useState('');
   
+  const { isOpen, onToggle, onClose } = useDisclosure()
+
   const handleClick1 = () => {
     if (loginbuttonColor === '') {
       setLoginButtonColor('black');
@@ -102,11 +126,76 @@ let user=JSON.parse(localStorage.getItem("user"))
                 </Button>
               </Link> 
 
-              <Link to='/login'>
-                <Button colorScheme='teal' variant='ghost'>
-                  <Icon as={BellIcon}  paddingRight='4px'/>Notifications
-                </Button>
-              </Link> 
+
+                <Popover
+                  returnFocusOnClose={false}
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  placement='bottom'
+                  closeOnBlur={false}
+                >
+                  <PopoverTrigger>
+                  <Button colorScheme='teal' variant='ghost' onClick={onToggle}>
+                    <Icon as={BellIcon}  paddingRight='4px'/>Notifications
+                  </Button>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <PopoverHeader fontWeight='semibold'>Booking Requests</PopoverHeader>
+                    <PopoverArrow />
+                    <PopoverCloseButton />
+
+
+                    {/* apply .map on below code  */}
+ 
+
+                    <Divider />
+                    <PopoverBody>
+                      <Grid templateColumns='repeat(2, 1fr)'>
+                          <GridItem>
+                            <Heading size='sm' textAlign='left'>Shaheen Hostel</Heading>
+                            <Text textAlign='start'>Double Seater</Text>
+                            <Text fontSize='xs' textAlign='start'>12-11-2023</Text>
+                          </GridItem>
+                          <GridItem>
+                            <Text textAlign='end' fontSize='sm'>Rs. 12000/mo</Text>
+                            
+                          </GridItem> 
+                      </Grid>
+                    </PopoverBody>
+
+                    <PopoverFooter display='flex' justifyContent='flex-end'>
+                      <ButtonGroup size='sm'>
+                        <Button variant='outline'>Accept</Button>
+                        <Button colorScheme='red'>Reject</Button>
+                      </ButtonGroup>
+                    </PopoverFooter>
+
+    
+                    <PopoverBody>
+                      <Grid templateColumns='repeat(2, 1fr)'>
+                          <GridItem>
+                            <Stat textAlign='left'>
+                              <StatLabel >Ghazali Hostel</StatLabel>
+                              <StatNumber fontSize='lg'>Double Seater</StatNumber>
+                              <StatHelpText>09-30-2023</StatHelpText>
+                            </Stat>
+                          </GridItem>
+                          <GridItem>
+                            <Text textAlign='end' fontSize='sm'>Rs. 12000/mo</Text>
+                            
+                          </GridItem> 
+                      </Grid>
+                    </PopoverBody>
+
+                    <PopoverFooter display='flex' justifyContent='flex-end'>
+                      <ButtonGroup size='sm'>
+                        <Button variant='outline'>Accept</Button>
+                        <Button colorScheme='red'>Reject</Button>
+                      </ButtonGroup>
+                    </PopoverFooter>
+
+                  </PopoverContent>
+                </Popover>
 
               <Link to='/about'>
                 <Button colorScheme='teal' variant='ghost'>
