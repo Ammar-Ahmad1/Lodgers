@@ -1,4 +1,5 @@
-import { ReactNode } from 'react';
+import { ReactNode,useEffect } from 'react';
+import axios from 'axios';
 import Logo from "../Assets/Logo.png"
 import {
   Box,
@@ -82,7 +83,8 @@ export default function Navbar() {
   const navigate=useNavigate();
   const [loginbuttonColor, setLoginButtonColor] = useState('');
   const [signupButtonColor, setSignupButtonColor] = useState('');
-  
+  const [bookings, setBookings] = useState([])
+  const [checkBooking, setCheckBooking] = useState([])
   const { isOpen, onToggle, onClose } = useDisclosure()
 
   const handleClick1 = () => {
@@ -105,11 +107,47 @@ export default function Navbar() {
 let user=JSON.parse(localStorage.getItem("user"))
  const handleLogout=()=>{
   setLoginButtonColor('');
-  setSignupButtonColor('');
+  // setSignupButtonColor('');
   Logout();
   localStorage.clear()
   navigate(`/`)
 }
+useEffect(() => {
+  const FtchData = async () => {
+      try {
+          let res = await axios({
+              method: 'get',
+              url: `http://localhost:5000/get-bookings-by-owner/${user._id}`,
+          })
+          
+          setCheckBooking(res.data.booking)          
+          console.log(res.data.booking)
+          setBookings(res.data.booking)
+          console.log(bookings)
+          //filter out the booking where status is false
+          let filteredBookings=res.data.booking.filter((booking)=>booking.status===false)
+          console.log(filteredBookings)
+          setBookings(filteredBookings)
+
+        } 
+      catch (error) {
+          console.error(error)
+      }
+  }
+  FtchData()
+}, [1])
+const handleAccept=(id)=>{
+  console.log(id)
+  axios.put(`http://localhost:5000/change-booking-status/${id}`)
+  .then(res=>{
+    console.log(res.data)
+    window.location.reload()
+  })
+  .catch(err=>{
+    console.log(err)
+  })
+}
+
 
   return (
     <div style={{ position: 'sticky', top: '0px', zIndex:'1' }}>
@@ -149,50 +187,34 @@ let user=JSON.parse(localStorage.getItem("user"))
  
 
                     <Divider />
-                    <PopoverBody>
-                      <Grid templateColumns='repeat(2, 1fr)'>
+                      {bookings?.map((booking) => {
+                        return (
+                          <PopoverBody>
+                          <Grid templateColumns='repeat(2, 1fr)'>
                           <GridItem>
-                            <Heading size='sm' textAlign='left'>Shaheen Hostel</Heading>
-                            <Text textAlign='start'>Double Seater</Text>
-                            <Text fontSize='xs' textAlign='start'>12-11-2023</Text>
+                            <Heading size='sm' textAlign='left'>{booking.hostelName}</Heading>
+                            <Text textAlign='start'>{booking.roomType}</Text>
+                            <Text fontSize='xs' textAlign='start'>{booking.checkInDate}</Text>
                           </GridItem>
                           <GridItem>
-                            <Text textAlign='end' fontSize='sm'>Rs. 12000/mo</Text>
+                            <Text textAlign='end' fontSize='sm'>Rs. {booking.price}/mo</Text>
                             
-                          </GridItem> 
-                      </Grid>
-                    </PopoverBody>
-
-                    <PopoverFooter display='flex' justifyContent='flex-end'>
-                      <ButtonGroup size='sm'>
-                        <Button variant='outline'>Accept</Button>
-                        <Button colorScheme='red'>Reject</Button>
-                      </ButtonGroup>
-                    </PopoverFooter>
-
-    
-                    <PopoverBody>
-                      <Grid templateColumns='repeat(2, 1fr)'>
-                          <GridItem>
-                            <Stat textAlign='left'>
-                              <StatLabel >Ghazali Hostel</StatLabel>
-                              <StatNumber fontSize='lg'>Double Seater</StatNumber>
-                              <StatHelpText>09-30-2023</StatHelpText>
-                            </Stat>
                           </GridItem>
                           <GridItem>
-                            <Text textAlign='end' fontSize='sm'>Rs. 12000/mo</Text>
-                            
-                          </GridItem> 
-                      </Grid>
-                    </PopoverBody>
-
-                    <PopoverFooter display='flex' justifyContent='flex-end'>
-                      <ButtonGroup size='sm'>
-                        <Button variant='outline'>Accept</Button>
-                        <Button colorScheme='red'>Reject</Button>
-                      </ButtonGroup>
-                    </PopoverFooter>
+                            <ButtonGroup size='sm'>
+                              <Button variant='outline' 
+                              onClick={()=>{handleAccept(booking._id)}}
+                              >Accept</Button>
+                              <Button colorScheme='red' 
+                              // onClick={()=>{handleReject(booking._id)}}
+                              >Reject</Button>
+                            </ButtonGroup>
+                          </GridItem>
+                        </Grid>
+                        </PopoverBody>
+                        )
+                      })
+                      }
 
                   </PopoverContent>
                 </Popover>

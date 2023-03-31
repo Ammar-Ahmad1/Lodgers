@@ -24,24 +24,24 @@ export default function All() {
    
 
 
-    useEffect(() => {
-        const FtchData = async () => {
-            try {
-                let res = await axios({
-                    method: 'get',
-                    url: `http://localhost:5000/get-bookings-by-users/${id}`,
-                })
-                setBookings(res.data.booking)
-                setCheckBooking(res.data.booking)          
-                console.log(res.data.booking)
-                console.log(bookings)
-            } 
-            catch (error) {
-                console.error(error)
-            }
-        }
-        FtchData()
-    }, [search])
+    // useEffect(() => {
+    //     const FtchData = async () => {
+    //         try {
+    //             let res = await axios({
+    //                 method: 'get',
+    //                 url: `http://localhost:5000/get-bookings-by-users/${id}`,
+    //             })
+    //             setBookings(res.data.booking)
+    //             setCheckBooking(res.data.booking)          
+    //             console.log(res.data.booking)
+    //             console.log(bookings)
+    //         } 
+    //         catch (error) {
+    //             console.error(error)
+    //         }
+    //     }
+    //     FtchData()
+    // }, [search])
 
     useEffect(() => {
         const FtchData = async () => {
@@ -54,6 +54,11 @@ export default function All() {
                 setCheckBooking(res.data.booking)          
                 console.log(res.data.booking)
                 console.log(bookings)
+                //filter out the booking where status is true
+                let filteredBookings=res.data.booking.filter((booking)=>booking.status===true)
+                console.log(filteredBookings)
+                setBookings(filteredBookings)
+
             } 
             catch (error) {
                 console.error(error)
