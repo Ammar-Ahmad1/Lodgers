@@ -1,7 +1,7 @@
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook } from 'react-icons/fa';
 import { SiLinkedin, SiMessenger } from 'react-icons/si';
-import { VStack ,HStack,Box, Button, Center, Stack, Text,Card,Image,CardBody,Heading,CardFooter } from '@chakra-ui/react';
+import { VStack ,HStack,Box, Button, Center, Stack,Card,Image,CardBody,Heading,CardFooterTable, TableCaption,Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import axios from 'axios'
 import { useContext, useEffect } from "react";
 import { useState } from "react";
@@ -68,7 +68,7 @@ export default function All() {
     }, [search])
 
 return (
-    <div style={{margin: '100px'}}>
+    <div style={{margin: '60px'}}>
     <Heading 
             fontWeight={600}
             fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
@@ -78,6 +78,23 @@ return (
             <Text as={'span'} color={'black'} fontWeight='bold' opacity='0.7'>
               Your Bookings
             </Text>
+
+            <TableContainer marginLeft='200px'>
+      <Table variant='striped'  >
+        <Thead>
+          <Tr> 
+            <Th fontSize='20px'>Hostel</Th>
+            <Th fontSize='20px'>Room Type</Th>
+            <Th fontSize='20px'>Checkin</Th>
+            <Th fontSize='20px'>Price</Th>
+            <Th fontSize='20px'>Status</Th>
+            
+          </Tr>
+        </Thead>
+        
+      </Table>
+    </TableContainer>
+
     </Heading>
     {bookings?bookings.map((booking,i)=>(
         <Card 
@@ -90,30 +107,26 @@ return (
         objectFit='cover'
         maxW={{ base: '100%', sm: '200px' }}
         src={booking.roomImage}
+        width={'160px'}
         alt='Caffe Latte'
     />
-        <VStack ml='135px'>
-            <Heading size='md' textAlign='left' mb='25px' >Hostel</Heading>
+        <VStack ml='50px' width='110px' >
             <Text size='md' textAlign='left'>{booking.hostelName}</Text>
         </VStack>
 
-        <VStack ml='135px'>
-            <Heading size='md' textAlign='left' mb='25px'>Room Type</Heading>
+        <VStack ml='140px'  width='100px'>
             <Text size='md' textAlign='left'>{booking.roomType}</Text>
         </VStack>
 
-        <VStack ml='135px'>
-            <Heading size='md' textAlign='left' mb='25px'>Check-in</Heading>
+        <VStack ml='210px'  width='100px'>
             <Text size='md' textAlign='left' >{booking.checkIn}</Text>
         </VStack>
 
-        <VStack ml='135px'>
-            <Heading size='md' textAlign='left' mb='25px'>Price</Heading>
+        <VStack ml='110px'  width='100px'>
             <Text size='md' textAlign='left' >{booking.price}</Text>
         </VStack>
 
-        <VStack ml='135px'>
-            <Heading size='md' textAlign='left' mb='25px'>Status</Heading> 
+        <VStack ml='110px'  width='100px'>
             <Box bgColor='red.400' width='100px' textAlign='center' border='2px' borderRadius='md'>
                 <Text size='md' textAlign='center' >Status</Text>
             </Box>
