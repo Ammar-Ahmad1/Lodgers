@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import Axios from 'axios'
+import { Link } from "react-router-dom";
 
 import { SearchContext } from "../Contexts/SearchContextProvider";
 import { useNavigate } from 'react-router-dom';
@@ -19,9 +20,35 @@ export default function All() {
 
     let user=JSON.parse(localStorage.getItem("user"))
     const id = user._id
-    console.log(id);
+    console.log("hiiiiiii",user.role);
     
    
+
+    
+useEffect(() => {
+    const FtchData = async () => {
+        try {
+            let res;
+            if (user.role === "user") {
+                res = await axios.get(`http://localhost:5000/get-bookings-by-users/${id}`);
+            } else {
+                res = await axios.get(`http://localhost:5000/get-bookings-by-owner/${id}`);
+            }
+            setBookings(res.data.booking);
+            setCheckBooking(res.data.booking);          
+            console.log(res.data.booking);
+            console.log(bookings);
+            //filter out the booking where status is true
+            const filteredBookings = res.data.booking.filter((booking) => booking.status === true);
+            console.log(filteredBookings);
+            setBookings(filteredBookings);
+        } 
+        catch (error) {
+            console.error(error);
+        }
+    };
+    FtchData();
+}, [search]);
 
 
     // useEffect(() => {
@@ -43,29 +70,29 @@ export default function All() {
     //     FtchData()
     // }, [search])
 
-    useEffect(() => {
-        const FtchData = async () => {
-            try {
-                let res = await axios({
-                    method: 'get',
-                    url: `http://localhost:5000/get-bookings-by-owner/${id}`,
-                })
-                setBookings(res.data.booking)
-                setCheckBooking(res.data.booking)          
-                console.log(res.data.booking)
-                console.log(bookings)
-                //filter out the booking where status is true
-                let filteredBookings=res.data.booking.filter((booking)=>booking.status===true)
-                console.log(filteredBookings)
-                setBookings(filteredBookings)
+    // useEffect(() => {
+    //     const FtchData = async () => {
+    //         try {
+    //             let res = await axios({
+    //                 method: 'get',
+    //                 url: `http://localhost:5000/get-bookings-by-owner/${id}`,
+    //             })
+    //             setBookings(res.data.booking)
+    //             setCheckBooking(res.data.booking)          
+    //             console.log(res.data.booking)
+    //             console.log(bookings)
+    //             //filter out the booking where status is true
+    //             let filteredBookings=res.data.booking.filter((booking)=>booking.status===true)
+    //             console.log(filteredBookings)
+    //             setBookings(filteredBookings)
 
-            } 
-            catch (error) {
-                console.error(error)
-            }
-        }
-        FtchData()
-    }, [search])
+    //         } 
+    //         catch (error) {
+    //             console.error(error)
+    //         }
+    //     }
+    //     FtchData()
+    // }, [search])
 
 return (
     <div style={{margin: '60px'}}>
@@ -128,8 +155,13 @@ return (
 
         <VStack ml='110px'  width='100px'>
             <Box bgColor='red.400' width='100px' textAlign='center' border='2px' borderRadius='md'>
-                <Text size='md' textAlign='center' >Status</Text>
+                <Text size='md' textAlign='center' >{booking.paid ? "paid" : "unpaid"}</Text>
             </Box>
+            {!booking.paid && (
+        <Link to='/payment' ><Button colorScheme="blue" size="sm" width='100px' border='2px' borderRadius='md'>
+          Pay
+        </Button></Link>
+      )}
         </VStack>
          
     </Card>

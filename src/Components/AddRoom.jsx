@@ -60,6 +60,20 @@ import {
         let user=JSON.parse(localStorage.getItem("user"))
         const formData = new FormData();
         //    console.log(featuress.wifi)
+
+        
+        if(price<=0){
+          toast({
+            title: "Error",
+            description: "price should be greater than zero",
+            status: "error",
+            duration: 1000,
+            isClosable: true,
+          })
+          
+          console.log("error")
+          return
+        }
             
             formData.append('roomDescription', description);
             formData.append('roomPrice', price);      
@@ -175,8 +189,11 @@ return (<>
                 <FormLabel>Price</FormLabel>
                 <InputGroup>
                 <InputRightElement mr='20px' opacity='0.6'>-/month</InputRightElement>
-                <Input type="text" name='price'
-                        onChange={(e)=>{setPrice(e.target.value)}}
+                <Input type="text" name='price' min='0'
+                        onChange={(e)=>{
+                          const newPrice = Math.max(0, parseInt(e.target.value));
+                          setPrice(newPrice.toString());
+                        }}
                 />
                 </InputGroup>
             </FormControl>
