@@ -129,6 +129,20 @@ import {
     {
         let user=JSON.parse(localStorage.getItem("user"))
         const formData = new FormData();
+
+        if(price<=0){
+          toast({
+            title: "Error",
+            description: "price should be greater than zero",
+            status: "error",
+            duration: 1000,
+            isClosable: true,
+          })
+          
+          console.log("error")
+          return
+        }
+            
         //    console.log(featuress.wifi)
             formData.append('name', name);
             formData.append('price', price);
