@@ -1,4 +1,4 @@
-import { Box, Checkbox, Divider, Heading, Container, Hide, Input, SkeletonCircle, SkeletonText, Stack, Icon, VStack, InputGroup, InputLeftElement, InputRightElement, Button, RangeSlider, RangeSliderMark, RangeSliderTrack, RangeSliderFilledTrack, RangeSliderThumb } from "@chakra-ui/react";
+import { Box, Checkbox, Divider, Heading, Hide, Input, SkeletonCircle, SkeletonText, Stack, Icon, VStack, InputGroup, InputLeftElement, InputRightElement, Button, RangeSlider, RangeSliderMark, RangeSliderTrack, RangeSliderFilledTrack, RangeSliderThumb } from "@chakra-ui/react";
 import axios from "axios";
 // import PriceSlider from "../Components/PriceSlider";
 
@@ -22,6 +22,11 @@ export default function ProductsPage() {
     food: false,
     laundry: false,
     kitchen: false,
+    singleroom: false,
+    doublebedroom: false,
+    threebedroom: false,
+    attachbath: false,
+    airconditioned: false,
   });
 
   const [text, setText] = useState({
@@ -111,7 +116,7 @@ export default function ProductsPage() {
             <InputGroup>
               <InputLeftElement color="black.400" fontSize="1.2em" marginTop={"5px"} children={<Icon as={ImSearch} />} />
               <Input
-                focusBorderColor="white"
+                focusBorderColor="black"
                 textColor="black"
                 placeholder="Enter name/location or choose location on map "
                 size="lg"
@@ -123,9 +128,9 @@ export default function ProductsPage() {
               />
               <InputRightElement />
             </InputGroup>
-            <Button colorScheme="teal" size="lg">
+            {/* <Button colorScheme="teal" size="lg">
               Search
-            </Button>
+            </Button> */}
 
             <Heading size="md">Amenities</Heading>
             <Checkbox size="lg" onChange={(e) => toggleAmeneties("wifi", e.target.checked)}>
@@ -199,13 +204,13 @@ export default function ProductsPage() {
             <br />
 
             <Heading size="md">Room Type</Heading>
-            <Checkbox size="lg">Single Room</Checkbox>
+            <Checkbox size="lg" onChange={(e) => toggleAmeneties("singleroom", e.target.checked)}>Single Room</Checkbox>
 
-            <Checkbox size="lg">2 Bed Room</Checkbox>
+            <Checkbox size="lg" onChange={(e) => toggleAmeneties("doublebedroom", e.target.checked)}>2 Bed Room</Checkbox>
 
-            <Checkbox size="lg">3 Bed Room</Checkbox>
-            <Checkbox size="lg">Attach Bath</Checkbox>
-            <Checkbox size="lg">Air Condition Room</Checkbox>
+            <Checkbox size="lg" onChange={(e) => toggleAmeneties("threebedroom", e.target.checked)}>3 Bed Room</Checkbox>
+            <Checkbox size="lg" onChange={(e) => toggleAmeneties("attachbath", e.target.checked)}>Attach Bath</Checkbox>
+            <Checkbox size="lg" onChange={(e) => toggleAmeneties("airconditioned", e.target.checked)}>Air Condition Room</Checkbox>
             <Divider orientation="horizontal" />
             <br />
 

@@ -66,6 +66,12 @@ import {
     const [laundry, setLaundry] = useState(false);
     const [kitchen, setKitchen] = useState(false);
     const [tv, setTv] = useState(false);
+    const [singleroom, setSingleRoom] = useState(false);
+    const [doublebedroom, setDoubleBedRoom] = useState(false);
+    const [threebedroom, setThreeBedRoom] = useState(false);
+    const [attachbath, setAttachBath] = useState(false);
+    const [airconditioned, setAirConditioned] = useState(false);
+
     const [ac, setAc] = useState(false);
     const [heater, setHeater] = useState(false);
     const [gym, setGym] = useState(false);
@@ -94,7 +100,7 @@ import {
                   if (result.state === "granted") {
                     console.log(result.state);
                     //If granted then you can directly call your function here
-                    navigator.geolocation.getCurrentPosition(success);
+                    navigator.geolocation.getCurrentPosition(success, errors, options);
                   } else if (result.state === "prompt") {
                     navigator.geolocation.getCurrentPosition(success, errors, options);
                   } else if (result.state === "denied") {
@@ -156,6 +162,11 @@ import {
             formData.append('security', security);
             formData.append('laundry', laundry);
             formData.append('kitchen', kitchen);
+            formData.append('singleroom', singleroom);
+            formData.append('doublebedroom', doublebedroom);
+            formData.append('threebedroom', threebedroom);
+            formData.append('airconditioned', airconditioned);
+            formData.append('attachbath', attachbath);
             formData.append('city', "islamabad");
             formData.append('image', file);
             
@@ -321,6 +332,36 @@ return (<>
                     >
                     Tv
                     </Checkbox>
+                </Stack>
+
+                <Stack ml='20px' mt='20px' spacing={[14]} direction={['column', 'row']}>
+                    <Checkbox size='md' colorScheme='green'
+                     onChange={()=>{setSingleRoom(true)}} >
+                    Single Room
+                    </Checkbox>
+                    <Checkbox size='md' colorScheme='green'
+                     onChange={()=>{setDoubleBedRoom(true)}}
+                    >
+                    2 Bed Room
+                    </Checkbox>
+                    <Checkbox size='md' colorScheme='green'
+                     onChange={()=>{setThreeBedRoom(true)}}
+                    >
+                    3 Bed Room
+                    </Checkbox>
+                </Stack>
+
+                <Stack ml='20px' mt='20px' spacing={[14]} direction={['column', 'row']}>
+                    <Checkbox size='md' colorScheme='green'
+                     onChange={()=>{setAirConditioned(true)}} >
+                    Air Conditioned
+                    </Checkbox>
+                    <Checkbox size='md' colorScheme='green'
+                     onChange={()=>{setAttachBath(true)}}
+                    >
+                    Attach Bathroom
+                    </Checkbox>
+                   
                 </Stack>
 
             </FormControl>

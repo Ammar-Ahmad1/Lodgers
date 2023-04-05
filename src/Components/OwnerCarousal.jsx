@@ -16,13 +16,14 @@ import {
     Badge,
     Button,
     Stack,
+    useToast,
     CardBody} from "@chakra-ui/react"
 
 import { StarIcon, DeleteIcon } from "@chakra-ui/icons";
 import { MdAddCircleOutline } from "react-icons/md";
 
 function Carousel({product,id}){
-
+  const toast = useToast()
     const { search } = useContext(SearchContext)
     const [products, setproducts] = useState([])
     let navigate=useNavigate();
@@ -35,6 +36,9 @@ function Carousel({product,id}){
             console.error(error)
         }
     }
+
+   
+
     
     useEffect(() => {
         const FtchData = async () => {
@@ -45,7 +49,7 @@ function Carousel({product,id}){
                     method: 'get',
                     url: `http://localhost:5000/get-hostels/${user._id}`,
                 })
-                console.log(res.data.hostels)
+                console.log("hostels data",res.data.hostels)
                 setproducts(res.data.hostels)
             } catch (error) {
                 console.error(error)
@@ -58,6 +62,27 @@ function Carousel({product,id}){
         FtchData()
     }, [search])
 
+    const deleteHostel = async (id) => {
+     
+      try {
+        let res = await axios({
+          method: 'delete',
+          url: `http://localhost:5000/delete-hostel/${id}`,
+      })
+        // const response = await axios.delete(`http://localhost:3000/delete-hostel/${product._id}`);
+        console.log('Hostel deleted successfully');
+        toast({
+          title: "Success",
+          description: "Hostel deleted successfully",
+          status: "success",
+          duration: 1000,
+          isClosable: true,
+        }) 
+        window.location.reload(false);
+      } catch (error) {
+        console.error('Error deleting hostel:', error);
+      }
+    }
     const property = {
         imageUrl: "https://bit.ly/2Z4KKcF",
         imageAlt: "Rear view of modern home with pool",
@@ -195,15 +220,16 @@ function Carousel({product,id}){
                   <Link to={'/addroom'}state={{hostel: product._id}}> Add Room</Link>
                 </Button>
 
-                <Button 
+               <Button 
                
                 size="md"
                 mt='11px'
                 ml='110px'
                 bg={'red.400'}
+                onClick={() => deleteHostel(product._id)}
                 
                 >
-                <DeleteIcon/>
+                  <DeleteIcon />
                 </Button>
                 
           </Box>
