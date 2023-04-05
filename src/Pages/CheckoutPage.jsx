@@ -204,6 +204,7 @@ export default function CheckoutPage(){
                <Text>Room Category: <b>{hostel.roomType}</b></Text>
                </HStack>
                <Divider />
+               
                <Box>
                     <HStack justifyContent='space-around'>
                         <Text>Total Amount</Text>

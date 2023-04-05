@@ -260,7 +260,7 @@ return (
                 <HStack justifyContent="center">
 
                   <Text fontSize="3xl" color="gray.500">
-                    Hsstel Q's
+                    Hostel Q's
                   </Text>
                 </HStack>
               </Box>

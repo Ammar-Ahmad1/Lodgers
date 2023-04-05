@@ -89,16 +89,13 @@ export default function HomePage() {
               })}
             </div>
           </div>
-        )}
+        )}  
       </PlacesAutocomplete>
     </div>
 
         <Container maxW="container.lg" mt='50px'>
-                
             <Heading size='lg' fontSize='50px' textAlign='left'  opacity='0.8'>Top cities to explore !</Heading>
-            
             <Text mb='20px' fontSize='xl' textAlign='left'>These are some popular destinations that offer a large variety of hostels to match your requirements</Text>
-            
             <Grid templateColumns="repeat(2, 1fr)" gap={6} >  
                     <Image
                         w="100%"
@@ -134,15 +131,7 @@ export default function HomePage() {
                     />
             </Grid>
         </Container>
-     
-           
-
-
-
-        
         <Testimonials/>
-        
-
         </>
     )
 
