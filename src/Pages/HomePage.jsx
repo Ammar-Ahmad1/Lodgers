@@ -20,10 +20,26 @@ import Discount from '../Assets/discount.jpg'
 import {Link} from "react-router-dom"
 import MapContainer from "../Components/MapContainer"
 import Carousel from "../Components/Carousel"
+import PlacesAutocomplete, {
+    geocodeByAddress,
+    getLatLng
+} from 'react-places-autocomplete'
 
 
 export default function HomePage() {
     
+    const [address, setAddress] = React.useState("");
+    const [coordinates, setCoordinates] = React.useState({
+      lat: null,
+      lng: null
+    });
+  
+    const handleSelect = async value => {
+      const results = await geocodeByAddress(value);
+      const latLng = await getLatLng(results[0]);
+      setAddress(value);
+      setCoordinates(latLng);
+    };
 
     const colors = useColorModeValue(
         ['teal.50', 'red.50', 'blue.50'],
@@ -38,11 +54,44 @@ export default function HomePage() {
         </Box> 
     </Stack>    
 
-
+    
 
     <Heading size='lg' mt='50px' marginLeft='270px' fontSize='50px' textAlign='left'  opacity='0.8'>Explore some new hostels !</Heading>
     <Text mb='20px' fontSize='xl' textAlign='left' marginLeft='270px'>Wanna checout some recent uploads from Lodgers? Here are some of the top picks...... </Text>
     <Carousel />
+
+    <div>
+      <PlacesAutocomplete
+        value={address}
+        onChange={setAddress}
+        onSelect={handleSelect}
+      >
+        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+          <div>
+            <p>Latitude: {coordinates.lat}</p>
+            <p>Longitude: {coordinates.lng}</p>
+
+            <input {...getInputProps({ placeholder: "Type address" })} />
+
+            <div>
+              {loading ? <div>...loading</div> : null}
+
+              {suggestions.map(suggestion => {
+                const style = {
+                  backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                };
+
+                return (
+                  <div {...getSuggestionItemProps(suggestion, { style })}>
+                    {suggestion.description}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </PlacesAutocomplete>
+    </div>
 
         <Container maxW="container.lg" mt='50px'>
                 
