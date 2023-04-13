@@ -104,7 +104,7 @@ export default function ProductsPage() {
     } else {
       filteredByAmenities = filterByFeatures(products, amenities);
     }
-    let filteredByPrice = filteredByAmenities.filter((hostel) => hostel.price >= priceMin && hostel.price <= priceMax);
+    let filteredByPrice = filteredByAmenities.filter((hostel) => (hostel.price == undefined) || hostel.price >= priceMin && hostel.price <= priceMax);
     setHostels(filteredByPrice);
   }
 

@@ -8,6 +8,11 @@ import { Image,
     IconButton,
     Button,
     VStack,
+    Toast,
+  ToastBody,
+  ToastCloseButton,
+  ToastContent,
+  ToastHeader,
     HStack,
     ListItem,
     List,
@@ -21,13 +26,16 @@ import { Image,
     Input,
     InputGroup,
     InputLeftElement,
+    useToast,
     Accordion,
     AccordionItem,
     AccordionButton,
     AccordionPanel,
     AccordionIcon,
     Textarea, } from '@chakra-ui/react';
-    import { MinusIcon, AddIcon } from '@chakra-ui/icons'
+    import  { useState } from "react";
+    import { Navigate, useNavigate } from 'react-router-dom';
+
     import {
         MdPhone,
         MdEmail,
@@ -40,6 +48,9 @@ import { Image,
 import Help from '../Assets/help.png'
 
 import { FaCheckCircle } from 'react-icons/fa';
+
+
+  
 
 function PriceWrapper({ children }: { children: ReactNode }) {
   return (
@@ -57,6 +68,47 @@ function PriceWrapper({ children }: { children: ReactNode }) {
 
 export default function All() {
 
+
+
+    const toast = useToast();
+    const navigate = useNavigate();
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
+   
+  
+    const handleSubmit = (event) => {
+      event.preventDefault();
+  
+      if (!name || !email || !message) {
+        toast({
+          title: "Error",
+          description: "Please Provide all the information",
+          status: "error",
+          duration: 1000,
+          isClosable: true,
+        })
+      }
+
+      else{
+          
+        toast({
+          title: "Success",
+          description: "Your Query has been submitted",
+          status: "success",
+          duration: 1000,
+          isClosable: true,
+
+        })
+        
+        navigate('/')
+      }
+  
+      // TODO: handle form submission
+    };
+
+  
 
 return (
 
@@ -566,22 +618,23 @@ return (
                             pointerEvents="none"
                             children={<BsPerson color="gray.800" />}
                           />
-                          <Input type="text" size="md" />
+                          <Input type="text" size="md" name='name'  value={name} onChange={(event) => setName(event.target.value)} />
                         </InputGroup>
                       </FormControl>
-                      <FormControl id="name">
+                      <FormControl id="mail">
                         <FormLabel>Mail</FormLabel>
                         <InputGroup borderColor="#E0E1E7">
                           <InputLeftElement
                             pointerEvents="none"
                             children={<MdOutlineEmail color="gray.800" />}
                           />
-                          <Input type="text" size="md" />
+                          <Input type="text" size="md" name='email' value={email} onChange={(event) => setEmail(event.target.value)} />
                         </InputGroup>
                       </FormControl>
-                      <FormControl id="name">
+                      <FormControl id="message">
                         <FormLabel>Message</FormLabel>
                         <Textarea
+                          name='message' value={message} onChange={(event) => setMessage(event.target.value)}
                           borderColor="gray.300"
                           _hover={{
                             borderRadius: 'gray.300',
@@ -589,8 +642,9 @@ return (
                           placeholder="message"
                         />
                       </FormControl>
-                      <FormControl id="name" float="right">
+                      <FormControl id="submit" float="right">
                         <Button
+                           type='submit' onClick={handleSubmit}
                           variant="solid"
                           bg="#0D74FF"
                           color="white"
