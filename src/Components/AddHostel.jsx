@@ -1,6 +1,3 @@
-
-
-
 import OwnerCarousel from '../Components/OwnerCarousal';
 
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -399,7 +396,3 @@ return (<>
 
 
   ///////////////////////////
-
-
-
-

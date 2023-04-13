@@ -12,10 +12,15 @@ Image,
 Icon,
 Stack,
 Text,
+Box,
 useColorModeValue,
 } from '@chakra-ui/react';
 import { Link, useParams } from 'react-router-dom';
-import { ImSearch,ImLocation} from 'react-icons/im';
+import { ImSearch,GoLocation} from 'react-icons/go';
+
+
+const MAX_LENGTH = 150;
+
 
 export default function ProductCard({ product, id }) {
 //const {id}=useParams();
@@ -39,8 +44,13 @@ return (
       <Stack w='100%'>
         <CardBody textAlign='start'>
           <Heading size='md'>{product.name}</Heading>
-          <Text>⭐⭐⭐⭐</Text>
-          <Text py='1' children={<Icon as={ImLocation} />}>{product.city}</Text>
+       
+            
+         <Text fontSize='15px' color='green'> <Icon as={GoLocation} mt="2" boxSize={3} />{product.city}</Text>
+
+          
+          <Text>{product.description.length > MAX_LENGTH ? `${product.description.slice(0, MAX_LENGTH)}...` : product.description}</Text>
+          
         </CardBody>
         
 
