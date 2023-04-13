@@ -66,7 +66,7 @@ return (
       </Stack> */}
 
           <CardFooter justifyContent='space-between'>
-            <Text fontSize='xl'>Price: <b>{product.price}</b>/individual</Text>
+            <Text fontSize='xl'>Price: {product.price ? <><b>{product.price}</b>/individual</> : <b>11000</b>}</Text>
             <Link to={`/singleproduct` } state={{hostel: product}} >
               <Button variant='solid' colorScheme='blue'>
                 Show Details

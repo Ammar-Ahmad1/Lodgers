@@ -1,6 +1,3 @@
-
-
-
 import OwnerCarousel from '../Components/OwnerCarousal';
 
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -213,7 +210,7 @@ import {
 
           })
           
-          navigate('/owner')
+          navigate('/addroom')
         }
 
       
@@ -281,7 +278,7 @@ return (<>
                 <FormLabel>Price</FormLabel>
                 <InputGroup>
                 <InputRightElement mr='20px' opacity='0.6'>-/month</InputRightElement>
-                <Input type="text" name='price'
+                <Input type="number" name='price'
                         onChange={(e)=>{setPrice(e.target.value)}}
                 />
                 </InputGroup>
@@ -300,7 +297,7 @@ return (<>
                 <FormLabel> Select Features</FormLabel>
 
                 <Stack ml='20px' spacing={[20]} direction={['column', 'row']}>
-                    <Checkbox size='md' colorScheme='green'  
+                    <Checkbox size='md' colorScheme='green' 
                     onChange={()=>{setWifi(true)}}
                     >
                     Wifi
@@ -311,30 +308,47 @@ return (<>
                     Parking
                     </Checkbox>
                     <Checkbox size='md' colorScheme='green' 
-                     onChange={()=>{setSecurity(true)}}
+                     onChange={()=>{setAttachBath(true)}}
                     >
-                    Security
-                    </Checkbox>
-                </Stack>
-
-                <Stack  mt='20px' spacing={[14]} direction={['column', 'row']}>
-                    <Checkbox size='md' colorScheme='green'
-                     onChange={()=>{setLaundry(true)}} >
-                    Laundry
-                    </Checkbox>
-                    <Checkbox size='md' colorScheme='green' 
-                     onChange={()=>{setKitchen(true)}}
-                    >
-                    Kicthen
-                    </Checkbox>
-                    <Checkbox size='md' colorScheme='green' 
-                     onChange={()=>{setTv(true)}}
-                    >
-                    Tv
+                    Attach Bath
                     </Checkbox>
                 </Stack>
 
                 <Stack ml='20px' mt='20px' spacing={[14]} direction={['column', 'row']}>
+                    <Checkbox size='md' colorScheme='green'
+                     onChange={()=>{setLaundry(true)}} >
+                    Laundry
+                    </Checkbox>
+                    <Checkbox size='md' width='95px' colorScheme='green'
+                     onChange={()=>{setKitchen(true)}}
+                    >
+                    Kicthen
+                    </Checkbox>
+
+                    <Checkbox size='md' colorScheme='green' width='140px'
+                     onChange={()=>{setAirConditioned(true)}} >
+                    Air Conditioned
+                    </Checkbox>
+                </Stack>
+
+                <Stack ml='20px' mt='20px' spacing={[14]} direction={['column', 'row']}>
+
+                    <Checkbox size='md' colorScheme='green'
+                     onChange={()=>{setSecurity(true)}}
+                    >
+                    Security
+                    </Checkbox>
+
+                    <Checkbox size='md' colorScheme='green'
+                     onChange={()=>{setTv(true)}}
+                    >
+                    Tv
+                    </Checkbox>
+                   
+                </Stack>
+
+                <FormLabel mt='20px'> Select Room Type</FormLabel>
+                <Stack ml='20px'  spacing={[14]} direction={['column', 'row']}>
                     <Checkbox size='md' colorScheme='green'
                      onChange={()=>{setSingleRoom(true)}} >
                     Single Room
@@ -351,18 +365,7 @@ return (<>
                     </Checkbox>
                 </Stack>
 
-                <Stack ml='20px' mt='20px' spacing={[14]} direction={['column', 'row']}>
-                    <Checkbox size='md' colorScheme='green'
-                     onChange={()=>{setAirConditioned(true)}} >
-                    Air Conditioned
-                    </Checkbox>
-                    <Checkbox size='md' colorScheme='green'
-                     onChange={()=>{setAttachBath(true)}}
-                    >
-                    Attach Bathroom
-                    </Checkbox>
-                   
-                </Stack>
+
 
             </FormControl>
 
@@ -393,7 +396,3 @@ return (<>
 
 
   ///////////////////////////
-
-
-
-
