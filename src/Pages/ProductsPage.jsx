@@ -82,6 +82,7 @@ export default function ProductsPage() {
   };
 
   function filterByFeatures(arr, features) {
+    console.log("filter se filter");
     return arr.filter((item) => {
       for (let feature in features) {
         if (features[feature] == true && item.features[feature] != features[feature]) {

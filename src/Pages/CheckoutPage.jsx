@@ -128,7 +128,7 @@ export default function CheckoutPage(){
                 else{
                     toast(Alert({
                         title: 'Booking Successful',
-                        description: "Your booking is confirmed",
+                        description: " is confirmed",
                         status: 'success',
                       }))
                     navigate('/payment')

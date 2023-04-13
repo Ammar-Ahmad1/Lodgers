@@ -1,23 +1,26 @@
-import React, { Component } from "react";
-class KommunicateChat extends Component {
-   constructor(props){
-       super(props);
-   } 
-componentDidMount(){
-    (function(d, m){
-        var kommunicateSettings = {"appId":"38d3b5210c03b64da69094f6b25ba2100","popupWidget":true,"automaticChatOpenOnNavigation":true};
-        var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
-        s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
-        var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
-        window.kommunicate = m; m._globals = kommunicateSettings;
-      })(document, window.kommunicate || {});
-}
-render(){
-   return(
-        <div>
-        </div>
-   )
-}
+import React, {Component} from "react";
+
+export class Chat extends Component{
+    componentDidMount(){
+        (function(d, m){
+                var kommunicateSettings =
+                    {"appId":"10e6e144f5aa3b3d48b1bf18d7a318cdd","popupWidget":true,"automaticChatOpenOnNavigation":true};
+                var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+                s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+                var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+                window.kommunicate = m; m._globals = kommunicateSettings;
+            })(document, window.kommunicate || {});
+        /* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
+
+
+    }
+    render(){
+        return(
+            <div>
+                <h1>This is chatbot</h1>
+            </div>
+        )
+    }
 }
 
-export default KommunicateChat;
+export default Chat

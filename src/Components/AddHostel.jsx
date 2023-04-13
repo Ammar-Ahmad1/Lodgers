@@ -300,7 +300,7 @@ return (<>
                 <FormLabel> Select Features</FormLabel>
 
                 <Stack ml='20px' spacing={[20]} direction={['column', 'row']}>
-                    <Checkbox size='md' colorScheme='green' 
+                    <Checkbox size='md' colorScheme='green'  
                     onChange={()=>{setWifi(true)}}
                     >
                     Wifi
@@ -317,17 +317,17 @@ return (<>
                     </Checkbox>
                 </Stack>
 
-                <Stack ml='20px' mt='20px' spacing={[14]} direction={['column', 'row']}>
+                <Stack  mt='20px' spacing={[14]} direction={['column', 'row']}>
                     <Checkbox size='md' colorScheme='green'
                      onChange={()=>{setLaundry(true)}} >
                     Laundry
                     </Checkbox>
-                    <Checkbox size='md' colorScheme='green'
+                    <Checkbox size='md' colorScheme='green' 
                      onChange={()=>{setKitchen(true)}}
                     >
                     Kicthen
                     </Checkbox>
-                    <Checkbox size='md' colorScheme='green'
+                    <Checkbox size='md' colorScheme='green' 
                      onChange={()=>{setTv(true)}}
                     >
                     Tv
