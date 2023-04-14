@@ -60,7 +60,7 @@ export default function HomePage() {
     <Text mb='20px' fontSize='xl' textAlign='left' marginLeft='270px'>Wanna checout some recent uploads from Lodgers? Here are some of the top picks...... </Text>
     <Carousel />
 
-    <div>
+    {/* <div>
       <PlacesAutocomplete
         value={address}
         onChange={setAddress}
@@ -91,7 +91,7 @@ export default function HomePage() {
           </div>
         )}  
       </PlacesAutocomplete>
-    </div>
+    </div> */}
 
         <Container maxW="container.lg" mt='50px'>
             <Heading size='lg' fontSize='50px' textAlign='left'  opacity='0.8'>Top cities to explore !</Heading>

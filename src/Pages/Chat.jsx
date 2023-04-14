@@ -17,7 +17,7 @@ export class Chat extends Component{
     render(){
         return(
             <div>
-                <h1>This is chatbot</h1>
+                {/* <h1>This is chatbot</h1> */}
             </div>
         )
     }
