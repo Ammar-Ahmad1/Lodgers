@@ -125,7 +125,7 @@ import {
 
           })
           
-          // navigate('/owner')
+          navigate('/owner')
         }
 
 

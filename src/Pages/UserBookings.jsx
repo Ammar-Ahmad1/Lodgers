@@ -134,7 +134,8 @@ return (
         objectFit='cover'
         maxW={{ base: '100%', sm: '200px' }}
         src={booking.roomImage}
-        width={'160px'}
+        width='160px'
+        height='120px'
         alt='Caffe Latte'
     />
         <VStack ml='50px' width='110px' >

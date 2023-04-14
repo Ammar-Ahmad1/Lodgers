@@ -210,7 +210,7 @@ import {
 
           })
           
-          navigate('/addroom')
+          navigate('/owner')
         }
 
       

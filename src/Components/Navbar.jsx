@@ -148,6 +148,18 @@ const handleAccept=(id)=>{
   })
 }
 
+const handleReject=(id)=>{
+  console.log(id)
+  axios.put(`http://localhost:5000/change-booking-status/${id}`)
+  .then(res=>{
+    console.log(res.data)
+    window.location.reload()
+  })
+  .catch(err=>{
+    console.log(err)
+  })
+}
+
 
   return (
     <div style={{ position: 'sticky', top: '0px', zIndex:'1' }}>
@@ -206,7 +218,7 @@ const handleAccept=(id)=>{
                               onClick={()=>{handleAccept(booking._id)}}
                               >Accept</Button>
                               <Button colorScheme='red' 
-                              // onClick={()=>{handleReject(booking._id)}}
+                              onClick={()=>{handleReject(booking._id)}}
                               >Reject</Button>
                             </ButtonGroup>
                           </GridItem>

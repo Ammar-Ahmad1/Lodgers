@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom'
 import { useContext,useEffect } from 'react';
 import { SearchContext } from "../Contexts/SearchContextProvider";
 import { AuthContext } from '../Contexts/AuthContextProvider';
-
+import { Link } from 'react-router-dom';
 export default function CheckoutPage(){
 
     const [name,setName] = useState('')
@@ -128,10 +128,10 @@ export default function CheckoutPage(){
                 else{
                     toast(Alert({
                         title: 'Booking Successful',
-                        description: " is confirmed",
+                        // description: " is confirmed",
                         status: 'success',
                       }))
-                    navigate('/payment')
+                    navigate('/')
                 }
             }).catch(err=>{
                 console.log(err)
@@ -195,7 +195,7 @@ export default function CheckoutPage(){
 
                 </Box>
 
-                <Button bg='teal.400'onClick={handlebooking} marginTop='30px'>Proceed to Payment</Button>
+                <Link to={`/` }><Button bg='teal.400'onClick={handlebooking} marginTop='30px'>Proceed to Payment</Button></Link>
             </VStack>
     
             <Box border='1px solid grey' w={{base:'100%',md:'40%'}} p={3}>
