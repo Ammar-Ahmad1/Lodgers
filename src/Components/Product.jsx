@@ -16,9 +16,10 @@ import {
   Divider,
   CardHeader,
   Grid,
-
+  Textarea,
+  
 } from '@chakra-ui/react';
-import {CheckCircleIcon} from '@chakra-ui/icons'
+import {CheckCircleIcon, EditIcon,ArrowForwardIcon} from '@chakra-ui/icons'
 import Alert from '../Components/Alert'
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
@@ -35,10 +36,26 @@ import { AiFillCloseCircle} from 'react-icons/ai';
 
 import RoomCarousal from '../Components/RoomCarousal'
 
+
 export default function Product({products}){
   let {isAuth, page}=useContext(AuthContext)
 const navigate = useNavigate();
+const toast = useToast()
+const handlesubmit=()=>{
 
+  toast({
+    title: "Success",
+    description: "Your review has been submitted",
+    status: "success",
+    duration: 1000,
+    isClosable: true,
+  })
+  window.location.reload()
+  
+}
+
+
+const [resize, setResize] = React.useState('horizontal')
 //let isAuth = true;
 
 let alertdata={};  
@@ -52,7 +69,7 @@ alertdata={
 const { id } = useParams()
 
 
-const toast = useToast()
+
 let bookingdata=JSON.parse(localStorage.getItem('booking'))
 
 const free_amenities = ["Wifi", "Parking", "Food", "TV", "Kitchen", "Laundry"];
@@ -157,7 +174,28 @@ const nearby = ["Margalla Hill view Park", "Shalimar North Housing Society", "Mo
             Available Rooms</Heading>
             <RoomCarousal id={products._id} />
            
+            <Heading size='md' textTransform='uppercase' mt='20px' opacity='0.8'>
+              <Icon as={EditIcon}  mr='7px'/>
+                  Add a review
+            </Heading>
+
+            <Stack>
+              <Textarea
+                placeholder='Share details of you experience at this place'
+                size='sm'
+                mb='10px'
+                resize={resize}
+              />
+              <Button onClick={handlesubmit} width='100px' rightIcon={<ArrowForwardIcon />} colorScheme='teal' variant='solid'>
+                Submit
+                
+              </Button>
+            </Stack>
+
+            
           </Stack>
+
+
         </CardBody>
 
         {/* <Stack>
