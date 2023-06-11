@@ -9,7 +9,26 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { Doughnut, Bar, Line } from "react-chartjs-2";
+import {
+  Chart,
+  ArcElement,
+  Title,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  PointElement,
+  LineElement,
+} from "chart.js";
 import Axios from "axios";
+Chart.register(
+  ArcElement,
+  Title,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  PointElement,
+  LineElement
+);
 const AdminDashboard = () => {
   const [data, setData] = React.useState([]);
   const [users1, setUsers1] = React.useState([]);
