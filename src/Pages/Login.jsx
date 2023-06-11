@@ -91,6 +91,10 @@ export default function Login() {
                 if (data.userInfo.role=='owner'){
                   navigate('/owner')
                 }
+                else if (data.userInfo.role=='admin'){
+                  navigate('/adminDash')
+                }
+
                 else{
                   navigate('/')
                 } 

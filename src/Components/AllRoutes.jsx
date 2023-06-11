@@ -20,6 +20,11 @@ import AddHostel from "../Components/AddHostel"
 import Addroom from "../Components/AddRoom"
 import Help from '../Pages/Help'
 import About from '../Pages/About'
+import Admin from "../Pages/Admin"
+import UserTable from "../Pages/Admin/UserTable"
+import OwnerTable from "../Pages/Admin/OwnerTable"
+import HostelTable from "../Pages/Admin/HostelTable"
+import BookingTable from "../Pages/Admin/BookingTable"
 export default function Allroutes(){
     return(
         <Routes>
@@ -43,6 +48,12 @@ export default function Allroutes(){
             {/* <Route path='/propertylist' element={<PropertyListing/>}/> */}
             <Route path='/loader' element={<LoaderPage/>}/>
             <Route path='/paymentdone' element={<SuccessPayment/>   }/>
+            <Route path='/adminDash' element={<Admin/>}/>
+            <Route path='/userList' element={<UserTable/>}/>
+            <Route path='/ownerlist' element={<OwnerTable/>}/>
+            <Route path='/hostellist' element= {<HostelTable />}/>
+            <Route path='/bookinglist' element={<BookingTable/>}/>
+
         </Routes>
     )
 }
