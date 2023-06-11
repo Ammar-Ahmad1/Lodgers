@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 import { Doughnut, Bar, Line } from "react-chartjs-2";
 import Axios from "axios";
-
 const AdminDashboard = () => {
   const [data, setData] = React.useState([]);
   const [users1, setUsers1] = React.useState([]);
@@ -18,6 +17,7 @@ const AdminDashboard = () => {
   const [bookingsCount, setBookingsCount] = React.useState(0);
   const [ownersCount, setOwnersCount] = React.useState(0);
   const [usersCount, setUsersCount] = React.useState(0);
+
 
   const doughnutData = {
     labels: ["Bookings", "Owners", "Users"],
