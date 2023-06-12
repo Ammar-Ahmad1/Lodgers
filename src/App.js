@@ -9,6 +9,10 @@ import EmailContactForm from './Components/Mail';
 import KommunicateChat from './Pages/Chat';
 
 function App() {
+
+  //clear local storage
+  // localStorage.clear();
+
   return (
     <div className="App" >
       <Navbar/>

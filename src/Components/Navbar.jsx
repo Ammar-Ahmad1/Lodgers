@@ -87,7 +87,12 @@ export default function Navbar() {
   const [bookings, setBookings] = useState([])
   const [checkBooking, setCheckBooking] = useState([])
   const { isOpen, onToggle, onClose } = useDisclosure()
+
   const toast = useToast();
+
+  const [admin, setAdmin] = useState(false)
+  const bgColor = useColorModeValue('gray.100', 'gray.900');
+
   const handleClick1 = () => {
     if (loginbuttonColor === '') {
       setLoginButtonColor('black');
@@ -106,6 +111,13 @@ export default function Navbar() {
  const {isAuth,Logout}=useContext(AuthContext)
  let userdata=JSON.parse(localStorage.getItem('booking'))
 let user=JSON.parse(localStorage.getItem("user"))
+// if(user.role==="admin"){
+//   setAdmin(true)
+// }else
+// {
+//   setAdmin(false)
+// }
+  
  const handleLogout=()=>{
   setLoginButtonColor('');
   // setSignupButtonColor('');
@@ -113,7 +125,19 @@ let user=JSON.parse(localStorage.getItem("user"))
   localStorage.clear()
   navigate(`/`)
 }
+
 useEffect(() => {
+  const isAdmin=()=>{
+    if(user)
+    if(user.role==="admin"){
+      setAdmin(true)
+    }else
+    {
+      setAdmin(false)
+    }
+  }
+  isAdmin()
+
   const FtchData = async () => {
       try {
           let res = await axios({
@@ -183,7 +207,108 @@ const handleReject=(id)=>{
 
   return (
     <div style={{ position: 'sticky', top: '0px', zIndex:'1' }}>
-      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+    {admin?
+      (
+      
+      <Box bg={bgColor} px={4}>
+        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+          <Link to='/adminDash'><Box><Image src={Logo} width='8em' alt='logo' /></Box></Link>
+
+          <Flex alignItems={'center'}>
+            <Stack direction={'row'} spacing={4}>
+
+              <Link to='/bookinglist'>
+                <Button colorScheme='teal' variant='ghost'>
+                  <Icon as={RepeatClockIcon}  paddingRight='4px'/>All Bookings
+                </Button>
+              </Link> 
+
+              <Link to='/userList'>
+                <Button colorScheme='teal' variant='ghost'>
+                  <Icon as={InfoIcon}  paddingRight='4px'/>Users
+                </Button>
+              </Link>       
+                
+              <Link to='/hostellist'>
+                <Button colorScheme='teal' variant='ghost'>
+                  <Icon as={QuestionIcon}  paddingRight='4px'/>All Hostels
+                </Button>
+              </Link> 
+              <Link to='/ownerList'>
+                <Button colorScheme='teal' variant='ghost'>
+                  <Icon as={BellIcon}  paddingRight='4px'/>Owners
+                </Button>
+              </Link>      
+              
+
+              <Button onClick={toggleColorMode}>
+                {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+              </Button>
+{!user?
+              <Link to='/login'>
+                <Button
+                disabled={isAuth?true:false}
+                  variant={'outline'}
+                  colorScheme={'teal'}
+                  size={'md'}
+                  mr={4}
+                  style={{ color: loginbuttonColor }} onClick={handleClick1}>
+                  Login
+                </Button>
+
+              </Link>
+              :null}
+              {!user?
+              <Link to='/signup'>
+                <Button
+                disabled={isAuth?true:false}
+                  variant={'outline'}
+                  colorScheme={'teal'}
+                  size={'md'}
+                  mr={4}
+                  style={{ color: signupButtonColor }} onClick={handleClick2}>
+                  Signup
+                </Button>
+              </Link>
+:null}
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rounded={'full'}
+                  variant={'link'}
+                  cursor={'pointer'}
+                  minW={0}>
+                  <Avatar
+                    size={'sm'}
+                    src={'https://wallpaperaccess.com/full/226302.jpg'}
+                  />
+                </MenuButton>
+                <MenuList alignItems={'center'}>
+                  <br />
+                  <Center>
+                    <Avatar
+                      size={'2xl'}
+                      src={'https://wallpaperaccess.com/full/226302.jpg'}
+                    />
+                  </Center>
+                  <br />
+                  <Center>
+                    <p>{userdata?.mobile}</p>
+                  </Center>
+                  <br />
+                  <MenuDivider />
+                  <Link to='/admin'><MenuItem>Admin User</MenuItem></Link>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </MenuList>
+              </Menu>
+            </Stack>
+          </Flex>
+        </Flex>
+      </Box>
+    
+    ):(
+      
+      <Box bg={bgColor} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Link to='/'><Box><Image src={Logo} width='8em' alt='logo' /></Box></Link>
 
@@ -267,17 +392,6 @@ const handleReject=(id)=>{
               <Button onClick={toggleColorMode}>
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
-
-              <Link to='/owner'>
-                <Button
-                disabled={isAuth?true:false}
-                  variant={'outline'}
-                  colorScheme={'teal'}
-                  size={'md'}
-                  mr={4}>
-                  List your property
-                </Button>
-              </Link>
 {!user?
               <Link to='/login'>
                 <Button
@@ -339,6 +453,10 @@ const handleReject=(id)=>{
           </Flex>
         </Flex>
       </Box>
-    </div>
+    
+    )
+  }
+  </div>
+    
   );
 }
