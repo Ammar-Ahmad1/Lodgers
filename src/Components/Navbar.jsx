@@ -368,17 +368,6 @@ const handleReject=(id)=>{
               <Button onClick={toggleColorMode}>
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
-
-              <Link to='/owner'>
-                <Button
-                disabled={isAuth?true:false}
-                  variant={'outline'}
-                  colorScheme={'teal'}
-                  size={'md'}
-                  mr={4}>
-                  List your property
-                </Button>
-              </Link>
 {!user?
               <Link to='/login'>
                 <Button

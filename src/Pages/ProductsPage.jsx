@@ -191,18 +191,6 @@ export default function ProductsPage() {
             </RangeSlider>
 
             <Divider orientation="horizontal" pt="8px" />
-            <br />
-
-            <Heading size="md">Rating</Heading>
-            <Checkbox size="lg">⭐</Checkbox>
-
-            <Checkbox size="lg">⭐⭐</Checkbox>
-
-            <Checkbox size="lg">⭐⭐⭐</Checkbox>
-            <Checkbox size="lg">⭐⭐⭐⭐</Checkbox>
-            <Checkbox size="lg">⭐⭐⭐⭐⭐</Checkbox>
-            <Divider orientation="horizontal" />
-            <br />
 
             <Heading size="md">Room Type</Heading>
             <Checkbox size="lg" onChange={(e) => toggleAmeneties("singleroom", e.target.checked)}>Single Room</Checkbox>
