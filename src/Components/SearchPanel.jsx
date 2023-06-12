@@ -15,6 +15,7 @@ export default function SearchPanel() {
     const { setsearch } = useContext(SearchContext)
     const [location, setlocation] = useState(null)
     const toast = useToast()
+    const [inputValue, setInputValue] = useState('');
     // let alertdata={
     //     title: ' Invalid Input',
     //     description: "Please check the input again",
@@ -37,6 +38,34 @@ export default function SearchPanel() {
     }
 
     const handleSearch = () => {
+
+        
+
+
+    if (inputValue.toLowerCase() === 'islamabad' || inputValue.toLowerCase() === 'rawalpindi') {
+        toast({
+            title: "Success",
+            description: "Proceeding to the next step...",
+            status: "success",
+            duration: 1000,
+            isClosable: true,
+
+          })
+
+          navigate('/products')
+    } else {
+        toast({
+            title: "Invalid INPUT",
+            description: "Invalid Location, Please enter Islamabad/Rawalpindi",
+            status: "warning",
+            duration: 1000,
+            isClosable: false,
+
+          })
+    }
+ 
+
+
         let flag=true
         for(let key in traveldata)
         {
@@ -47,11 +76,7 @@ export default function SearchPanel() {
                 break;
             }
         }
-        if (traveldata.travellers < traveldata.rooms || traveldata.travellers/traveldata.rooms>3)
-        { 
-           // toast(Alert(alertdata))
-            flag=false;
-        }
+        
 
         if(flag==true) 
         {
@@ -61,6 +86,11 @@ export default function SearchPanel() {
             localStorage.setItem('booking',JSON.stringify({...bookingdata,...traveldata}))
         }
     }
+
+    
+    const handleInputChange = (e) => {
+        setInputValue(e.target.value);
+      };
 
     return <div style={{ 'marginBottom': '2%','border':'0px solid' }}>
         <Stack direction={{ base: 'column', lg: 'row' }} spacing={2} border='0px solid' justifyContent='space-evenly' >
@@ -75,13 +105,15 @@ export default function SearchPanel() {
                 size='lg'
                 variant='filled'
                 opacity={'0.8'}
+                value={inputValue}
+                onChange={handleInputChange}
                 />
                 <InputRightElement  
                     />
                 </InputGroup> }
-                <Link to='/products'><Button colorScheme='teal' size='lg' onClick={handleSearch}>
+                <Button colorScheme='teal' size='lg' onClick={handleSearch}>
                     Search
-                </Button></Link>
+                </Button>
 
 
         </Stack>
