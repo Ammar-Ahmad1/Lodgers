@@ -270,9 +270,9 @@ return (
                       </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                    If you have previously booked with Hostelworld.com, a Hostelworld account was automatically created for you so there is no need to sign up again! All you need to do is enter your username/email address and password here.
+                    If you have previously booked with Lodgers.com, a Lodgers account was automatically created for you so there is no need to sign up again! All you need to do is enter your username/email address and password here.
 
-                    If you have not previously booked with us and would like to set up an account, please click here. Also, creating an account with Hostelworld is completely free!                    
+                    If you have not previously booked with us and would like to set up an account, please click here. Also, creating an account with Lodgers is completely free!                    
                     </AccordionPanel>
                   </AccordionItem>
 

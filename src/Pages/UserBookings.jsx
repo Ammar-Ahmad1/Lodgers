@@ -155,8 +155,8 @@ return (
         </VStack>
 
         <VStack ml='110px'  width='100px'>
-            <Box bgColor='red.400' width='100px' textAlign='center' border='2px' borderRadius='md'>
-                <Text size='md' textAlign='center' >{booking.paid ? "paid" : "unpaid"}</Text>
+            <Box bgColor='white.500' width='100px' textAlign='center' border='2px' borderRadius='md'>
+                <Text size='md' textAlign='center'  >{booking.paid ? "paid" : "unpaid"}</Text>
             </Box>
             {user.role === "user" && !booking.paid && (
         <Link to='/payment' ><Button colorScheme="blue" size="sm" width='100px' border='2px' borderRadius='md'>

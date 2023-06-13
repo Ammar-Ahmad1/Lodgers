@@ -67,7 +67,7 @@ alertdata={
 }
 }
 const { id } = useParams()
-
+const roomsAvailable = true; 
 
 
 let bookingdata=JSON.parse(localStorage.getItem('booking'))
@@ -169,10 +169,24 @@ const nearby = ["Margalla Hill view Park", "Shalimar North Housing Society", "Mo
               </Grid>
             </Box>
 
-            <Heading size='md' textTransform='uppercase' mt='20px' opacity='0.8'>
+            {/* <Heading size='md' textTransform='uppercase' mt='20px' opacity='0.8'>
+            <Icon as={FaBed} mr='7px' />
+            Available Rooms
+          </Heading>
+            {roomsAvailable ? (
+        <>
+          
+          <RoomCarousal id={products._id} />
+        </>
+      ) : (
+        
+        <p>Sorry, no rooms are currently available.</p>
+      )} */}
+
+             <Heading size='md' textTransform='uppercase' mt='20px' opacity='0.8'>
             <Icon as={FaBed}  mr='7px'/>
             Available Rooms</Heading>
-            <RoomCarousal id={products._id} />
+            <RoomCarousal id={products._id} /> 
            
             <Heading size='md' textTransform='uppercase' mt='20px' opacity='0.8'>
               <Icon as={EditIcon}  mr='7px'/>

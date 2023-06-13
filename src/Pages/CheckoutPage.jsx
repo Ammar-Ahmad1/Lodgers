@@ -99,6 +99,14 @@ export default function CheckoutPage(){
     //console.log(detail)
 
     const handlebooking=()=>{
+        toast({
+            title: "Booking Success",
+            description: "The booking request has been sent to hostel owner",
+            status: "success",
+            duration: 1000,
+            isClosable: true,
+          })
+        navigate('/')
         if(!contact||!checkin) toast(Alert(alertdata))
         else{
             fetch('http://localhost:5000/add-booking',{
@@ -122,30 +130,21 @@ export default function CheckoutPage(){
                 })
             }).then(res=>res.json())
             .then(data=>{
-                if(data.error){
-                    toast(Alert(alertdata))
-                }
-                else{
-                    toast(Alert({
-                        title: 'Booking Successful',
-                        // description: " is confirmed",
-                        status: 'success',
-                      }))
-                    navigate('/')
-                }
+               
+                
+                    
+                
             }).catch(err=>{
                 console.log(err)
             }
             )
 
         } 
+
+        
         // navigate('/payment')
     }
 
-    const handleChange=(el)=>{
-        //console.log(el.target.name,el.target.value)
-        setdetail({...detail,[el.target.name]:el.target.value})
-    }
 
   let bookdata=JSON.parse(localStorage.getItem('booking'))
   let discount=0;
@@ -195,7 +194,7 @@ export default function CheckoutPage(){
 
                 </Box>
 
-                <Link to={`/` }><Button bg='teal.400'onClick={handlebooking} marginTop='30px'>Proceed to Payment</Button></Link>
+                <Button bg='teal.400'onClick={handlebooking} marginTop='30px'>Proceed to Payment</Button>
             </VStack>
     
             <Box border='1px solid grey' w={{base:'100%',md:'40%'}} p={3}>

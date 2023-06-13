@@ -10,6 +10,7 @@ import {
   Menu,
   Text,
   MenuButton,
+  useToast,
   MenuList,
   MenuItem,
   MenuDivider,
@@ -86,8 +87,12 @@ export default function Navbar() {
   const [bookings, setBookings] = useState([])
   const [checkBooking, setCheckBooking] = useState([])
   const { isOpen, onToggle, onClose } = useDisclosure()
+
+  const toast = useToast();
+
   const [admin, setAdmin] = useState(false)
   const bgColor = useColorModeValue('gray.100', 'gray.900');
+
   const handleClick1 = () => {
     if (loginbuttonColor === '') {
       setLoginButtonColor('black');
@@ -162,6 +167,14 @@ const handleAccept=(id)=>{
   .then(res=>{
     console.log(res.data)
     window.location.reload()
+    toast({
+      title: "Success",
+      description: "The booking is accepted sucessfully",
+      status: "success",
+      duration: 1000,
+      isClosable: true,
+    
+    })
   })
   .catch(err=>{
     console.log(err)
@@ -173,11 +186,22 @@ const handleReject=(id)=>{
   axios.put(`http://localhost:5000/change-booking-status/${id}`)
   .then(res=>{
     console.log(res.data)
+    
     window.location.reload()
+    toast({
+      title: "Success",
+      description: "The booking is rejected sucessfully",
+      status: "success",
+      duration: 1000,
+      isClosable: true,
+    
+    })
   })
+ 
   .catch(err=>{
     console.log(err)
   })
+  
 }
 
 

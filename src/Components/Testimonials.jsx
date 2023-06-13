@@ -19,7 +19,7 @@ import {
         'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
     },
     {
-      name: 'Saqib',
+      name: 'Meshal Cheema',
       role: 'Student',
       content:
         "Lodgers in general is a great website for finding hostels, their new feature for meeting people prior and during the trip with messages is also super. The website is friendly, easy to understand and navigate, and booking is easy. I do recommend using it.",
@@ -27,7 +27,7 @@ import {
         'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
     },
     {
-      name: 'Taimoor Khan',
+      name: 'Fatima Nawaz',
       role: 'Job Professional',
       content:
         "Booking reservations went well. I called 2 hostels for information and each person I talked to was pleasant and helpful. I'm staying at 3 different hostels during my planned trip. I'll review again after my stays.",
